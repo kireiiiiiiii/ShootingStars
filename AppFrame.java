@@ -1,7 +1,7 @@
 /**
  * Author: Matěj Šťastný
  * Date created: 4/23/2024
- * Github: TODO
+ * Github link: https://github.com/kireiiiiiiii/TargetGame
  * 
  * TODO: Class header
  */
@@ -19,7 +19,7 @@ public class AppFrame extends JFrame {
         setVisible(true);
     }
 
-    // private int calculateWindowSize() {
-    //     return 0;
-    // }
+    private int calculateWindowSize(int screenX, int screenY) {
+        return 0;
+    }
 }
