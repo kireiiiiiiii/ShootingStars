@@ -7,6 +7,7 @@
  */
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
@@ -14,9 +15,13 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 class CircleClickerPanel extends JPanel {
-    private Position circlePosition;
     private final int CIRCLE_RADIUS = 20;
     private final Color CIRCLE_COLOR = Color.MAGENTA;
+    private final Color LEADERBOARD_BACKROUND = Color.BLUE;
+    private final Color LEADERBOARD_TEXT = Color.WHITE;
+    
+    private Position circlePosition;
+    private int score;
 
     /**
      * Constructor for this JPanel, adds a new MouseListener and begins the game
@@ -30,6 +35,7 @@ class CircleClickerPanel extends JPanel {
         // Generates a random init circle position
         circlePosition = new Position();
         circlePosition.randomize(dimension.x - CIRCLE_RADIUS, dimension.y - CIRCLE_RADIUS);
+        score = 0;
 
         // Mouse listener to handle clicks
         addMouseListener(new MouseAdapter() {
@@ -52,6 +58,16 @@ class CircleClickerPanel extends JPanel {
         g2d.setColor(CIRCLE_COLOR);
         g2d.fillOval(circlePosition.getIntX() - CIRCLE_RADIUS, circlePosition.getIntY() - CIRCLE_RADIUS,
                 CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2);
+
+        paintLeaderBoard(g2d, new Position(20, 20), 100);
+    }
+
+    private void paintLeaderBoard(Graphics2D g, Position position, int score) {
+        g.setColor(LEADERBOARD_BACKROUND);
+        g.fillRect(position.getIntX(), position.getIntY(), 200, 50);
+        g.setColor(LEADERBOARD_TEXT);
+        g.setFont(new Font("Arial", Font.BOLD, 24));
+        g.drawString("" + score, position.getIntX() + 5, position.getIntY() + 24 + 5);
     }
 
     /**
