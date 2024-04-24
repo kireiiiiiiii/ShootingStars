@@ -6,6 +6,9 @@
  * TODO: Class header
  */
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
@@ -13,6 +16,7 @@ import javax.swing.JPanel;
 class CircleClickerPanel extends JPanel {
     private Position circlePosition;
     private final int CIRCLE_RADIUS = 50;
+    private final Color CIRCLE_COLOR = Color.MAGENTA;
 
     /**
      * Constructor for this JPanel, adds a new MouseListener and begins the game
@@ -24,6 +28,7 @@ class CircleClickerPanel extends JPanel {
         setPreferredSize(dimension.toDimension());
 
         // TODO set the init circlePosition
+        circlePosition = new Position(100, 100);
 
         // Mouse listener to handle clicks
         addMouseListener(new MouseAdapter() {
@@ -32,6 +37,15 @@ class CircleClickerPanel extends JPanel {
 
             }
         });
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setColor(CIRCLE_COLOR);
+        g2d.fillOval(circlePosition.getIntX() - CIRCLE_RADIUS, circlePosition.getIntY() - CIRCLE_RADIUS, CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2);
     }
 
     /**

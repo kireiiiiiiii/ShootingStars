@@ -11,7 +11,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 public class AppFrame extends JFrame {
-
+    private CircleClickerPanel panel;
     /**
      * Contructor to be called by {@code SwingUtilities}
      */
@@ -21,6 +21,10 @@ public class AppFrame extends JFrame {
         int windowSizeY = windowSize.getIntY();
         setSize(windowSizeX, windowSizeY);
 
+        panel = new CircleClickerPanel(windowSize);
+        add(panel);
+
+        setTitle("Target Game");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
