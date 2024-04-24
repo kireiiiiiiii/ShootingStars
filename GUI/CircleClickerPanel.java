@@ -26,7 +26,7 @@ class CircleClickerPanel extends JPanel {
     private final Color CIRCLE_COLOR = Color.MAGENTA;
     private final Color LEADERBOARD_BACKROUND = Color.BLUE;
     private final Color LEADERBOARD_TEXT = Color.WHITE;
-    
+
     private Position circlePosition;
     private int score;
     private WindowMode mode;
@@ -69,8 +69,7 @@ class CircleClickerPanel extends JPanel {
                         // Generates a new random circle position and refreshes the panel
                         circlePosition.randomize(dimension.x - CIRCLE_RADIUS, dimension.y - CIRCLE_RADIUS);
                         score += 10;
-                    }
-                    else {
+                    } else {
                         score -= 10;
                     }
                     repaint();
@@ -82,13 +81,21 @@ class CircleClickerPanel extends JPanel {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                // 'ESC' KEY
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     if (mode == WindowMode.GAME) {
                         mode = WindowMode.PAUSE;
                         repaint();
-                    }
-                    else if (mode == WindowMode.PAUSE) {
+                    } else if (mode == WindowMode.PAUSE) {
                         mode = WindowMode.GAME;
+                        repaint();
+                    }
+                }
+
+                // 'R' KEY
+                else if (e.getKeyCode() == KeyEvent.VK_R) {
+                    if (mode == WindowMode.GAME) {
+                        restart();
                         repaint();
                     }
                 }
@@ -117,11 +124,11 @@ class CircleClickerPanel extends JPanel {
     }
 
     /**
-     * Paints the score widget on the {@code JPanel}. 
+     * Paints the score widget on the {@code JPanel}.
      * 
-     * @param g - {@code Graphics2D} of the {@code JPanel}. 
-     * @param position - {@code Position} of the widget. 
-     * @param score - Score to be displayed. 
+     * @param g        - {@code Graphics2D} of the {@code JPanel}.
+     * @param position - {@code Position} of the widget.
+     * @param score    - Score to be displayed.
      */
     private void paintLeaderBoard(Graphics2D g, Position position, int score) {
         g.setColor(LEADERBOARD_BACKROUND);
@@ -132,9 +139,9 @@ class CircleClickerPanel extends JPanel {
     }
 
     /**
-     * Paints the pause screen on the {@code JPanel}. 
+     * Paints the pause screen on the {@code JPanel}.
      * 
-     * @param g - {@code Graphics2D} of the {@code JPanel}. 
+     * @param g - {@code Graphics2D} of the {@code JPanel}.
      */
     private void paintPause(Graphics2D g) {
         String text = "PAUSE";
@@ -157,5 +164,13 @@ class CircleClickerPanel extends JPanel {
         int y = e.getY();
         return Math.abs(this.circlePosition.getIntX() - x) <= CIRCLE_RADIUS
                 && Math.abs(this.circlePosition.getIntY() - y) <= CIRCLE_RADIUS;
+    }
+
+    /**
+     * Restarts the game
+     */
+    private void restart() {
+        this.score = 0;
+        this.circlePosition.randomize(getWidth(), getHeight());    
     }
 }

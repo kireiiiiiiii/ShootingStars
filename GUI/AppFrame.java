@@ -16,6 +16,7 @@ import Helpers.*;
 
 public class AppFrame extends JFrame {
     private CircleClickerPanel panel;
+
     /**
      * Contructor to be called by {@code SwingUtilities}
      */
@@ -35,9 +36,10 @@ public class AppFrame extends JFrame {
     }
 
     /**
-     * Calculates the desired size of the window depening on the dimensions of the user screen. 
+     * Calculates the desired size of the window depening on the dimensions of the
+     * user screen.
      * 
-     * @param screenDimentions - user's screen dimensions. 
+     * @param screenDimentions - user's screen dimensions.
      * @return new {@code Position} object
      */
     private Position calculateWindowSize(Position screenDimentions) {
