@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 class CircleClickerPanel extends JPanel {
     private Position circlePosition;
-    private final int CIRCLE_RADIUS = 50;
+    private final int CIRCLE_RADIUS = 20;
     private final Color CIRCLE_COLOR = Color.MAGENTA;
 
     /**
@@ -27,16 +27,17 @@ class CircleClickerPanel extends JPanel {
     public CircleClickerPanel(Position dimension) {
         setPreferredSize(dimension.toDimension());
 
-        // TODO set the init circlePosition
-        circlePosition = new Position(100, 100);
+        // Generates a random init circle position
+        circlePosition = new Position();
+        circlePosition.randomize(dimension.x - CIRCLE_RADIUS, dimension.y - CIRCLE_RADIUS);
 
         // Mouse listener to handle clicks
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (isCirleClicked(e)) {
-                    // TODO generate new circle position
-                    circlePosition.add(50);
+                    // Generates a new random circle position and refreshes the panel
+                    circlePosition.randomize(dimension.x - CIRCLE_RADIUS, dimension.y - CIRCLE_RADIUS);
                     repaint();
                 }
             }

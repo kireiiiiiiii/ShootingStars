@@ -7,6 +7,7 @@
  */
 
 import java.awt.Dimension;
+import java.util.Random;
 
 public class Position {
 
@@ -14,7 +15,8 @@ public class Position {
     public double y;
 
     /**
-     * Constructor for creating a new {@code Position} instance.
+     * Constructor for creating a new {@code Position} instance with initial
+     * {@code x} and {@code y} values.
      * 
      * @param x - x value of the position object.
      * @param y - y value of the position object.
@@ -22,6 +24,14 @@ public class Position {
     public Position(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    /**
+     * Empty constructor, sets both {@code x} and {@code y} values to zero
+     */
+    public Position() {
+        this.x = 0;
+        this.y = 0;
     }
 
     /**
@@ -44,6 +54,31 @@ public class Position {
     public void add(double value) {
         this.x += value;
         this.y += value;
+    }
+
+    /**
+     * Modifies the object variables {@code x} and {@code y} by subtracting the
+     * param
+     * value to them.
+     * 
+     * @param value - value that's being added.
+     */
+    public void subtract(double value) {
+        this.x -= value;
+        this.y -= value;
+    }
+
+    /**
+     * Sets the {@code x} and {@code y} values to random values between 0 and
+     * maximums given
+     * 
+     * @param maxX - maximum {@code x} value
+     * @param maxY - maximum {@code y} value
+     */
+    public void randomize(double maxX, double maxY) {
+        Random r = new Random();
+        this.x = r.nextDouble() * maxX;
+        this.y = r.nextDouble() * maxY;
     }
 
     /**
