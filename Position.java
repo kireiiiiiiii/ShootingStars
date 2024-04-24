@@ -6,6 +6,8 @@
  * TODO: Class header
  */
 
+import java.awt.Dimension;
+
 public class Position {
 
     public double x;
@@ -33,13 +35,33 @@ public class Position {
         return new Position(this.x * value, this.y * value);
     }
 
+    /**
+     * Converts the {@code x} variable into an {@code int}
+     * 
+     * @return rounded {@code x} value
+     */
     public int getIntX() {
         int x = (int) Math.round(this.x);
         return x;
     }
 
+    /**
+     * Converts the {@code y} variable into an {@code int}
+     * 
+     * @return rounded {@code y} value
+     */
     public int getIntY() {
         int y = (int) Math.round(this.y);
         return y;
+    }
+
+    /**
+     * Rounds the {@code x} and {@code y} values and converts them into a new
+     * {@code Dimension} object
+     * 
+     * @return new {@code Dimension} object
+     */
+    public Dimension toDimension() {
+        return new Dimension(getIntX(), getIntY());
     }
 }
