@@ -44,8 +44,12 @@ class CircleClickerPanel extends JPanel {
                 if (isCirleClicked(e)) {
                     // Generates a new random circle position and refreshes the panel
                     circlePosition.randomize(dimension.x - CIRCLE_RADIUS, dimension.y - CIRCLE_RADIUS);
-                    repaint();
+                    score += 10;
                 }
+                else {
+                    score -= 10;
+                }
+                repaint();
             }
         });
     }
@@ -59,7 +63,7 @@ class CircleClickerPanel extends JPanel {
         g2d.fillOval(circlePosition.getIntX() - CIRCLE_RADIUS, circlePosition.getIntY() - CIRCLE_RADIUS,
                 CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2);
 
-        paintLeaderBoard(g2d, new Position(20, 20), 100);
+        paintLeaderBoard(g2d, new Position(20, 20), score);
     }
 
     private void paintLeaderBoard(Graphics2D g, Position position, int score) {
