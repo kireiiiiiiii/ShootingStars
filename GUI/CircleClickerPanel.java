@@ -6,6 +6,8 @@
  * TODO: Class header
  */
 
+package GUI;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -16,6 +18,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
+
+import Helpers.*;
 
 class CircleClickerPanel extends JPanel {
     private final int CIRCLE_RADIUS = 20;

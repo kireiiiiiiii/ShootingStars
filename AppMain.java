@@ -8,6 +8,8 @@
 
 import javax.swing.SwingUtilities;
 
+import GUI.*;
+
 public class AppMain {
     public static void main(String[] args) {
         Runnable myApp = () -> new AppFrame(); // Instance of my JFrame App

@@ -6,9 +6,13 @@
  * TODO: Class header
  */
 
+package GUI;
+
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
+import Helpers.*;
 
 public class AppFrame extends JFrame {
     private CircleClickerPanel panel;

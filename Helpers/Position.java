@@ -6,6 +6,8 @@
  * TODO: Class header
  */
 
+package Helpers;
+
 import java.awt.Dimension;
 import java.util.Random;
 
