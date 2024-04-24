@@ -34,7 +34,11 @@ class CircleClickerPanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                if (isCirleClicked(e)) {
+                    // TODO generate new circle position
+                    circlePosition.add(50);
+                    repaint();
+                }
             }
         });
     }
@@ -45,7 +49,8 @@ class CircleClickerPanel extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
 
         g2d.setColor(CIRCLE_COLOR);
-        g2d.fillOval(circlePosition.getIntX() - CIRCLE_RADIUS, circlePosition.getIntY() - CIRCLE_RADIUS, CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2);
+        g2d.fillOval(circlePosition.getIntX() - CIRCLE_RADIUS, circlePosition.getIntY() - CIRCLE_RADIUS,
+                CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2);
     }
 
     /**
@@ -54,7 +59,7 @@ class CircleClickerPanel extends JPanel {
      * @param e - {@code MouseEvent} of the click
      * @return was clicked?
      */
-    private boolean isClicked(MouseEvent e) {
+    private boolean isCirleClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
         return Math.abs(this.circlePosition.getIntX() - x) <= CIRCLE_RADIUS

@@ -36,9 +36,20 @@ public class Position {
     }
 
     /**
-     * Converts the {@code x} variable into an {@code int}
+     * Modifies the object variables {@code x} and {@code y} by adding the param
+     * value to them.
      * 
-     * @return rounded {@code x} value
+     * @param value - value that's being added.
+     */
+    public void add(double value) {
+        this.x += value;
+        this.y += value;
+    }
+
+    /**
+     * Converts the {@code x} variable into an {@code int}.
+     * 
+     * @return rounded {@code x} value.
      */
     public int getIntX() {
         int x = (int) Math.round(this.x);
@@ -46,9 +57,9 @@ public class Position {
     }
 
     /**
-     * Converts the {@code y} variable into an {@code int}
+     * Converts the {@code y} variable into an {@code int}.
      * 
-     * @return rounded {@code y} value
+     * @return rounded {@code y} value.
      */
     public int getIntY() {
         int y = (int) Math.round(this.y);
