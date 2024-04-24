@@ -34,7 +34,7 @@ class CircleClickerPanel extends JPanel {
         // Mouse listener to handle clicks
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
                 if (isCirleClicked(e)) {
                     // Generates a new random circle position and refreshes the panel
                     circlePosition.randomize(dimension.x - CIRCLE_RADIUS, dimension.y - CIRCLE_RADIUS);
