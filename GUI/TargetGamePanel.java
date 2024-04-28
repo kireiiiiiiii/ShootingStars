@@ -22,11 +22,14 @@ import javax.swing.JPanel;
 import Helpers.*;
 
 class TargetGamePanel extends JPanel {
+    // JPANEL CONSTATNS
+    private final int WINDOW_PADDING = 10;
+
     // TARGET APPEARANCE CONSTANTS
     private final int CIRCLE_RADIUS = 20;
     private final Color CIRCLE_COLOR = Color.MAGENTA;
 
-    //LEADERBOARD CONSTANTS
+    // LEADERBOARD CONSTANTS
     private final Color LEADERBOARD_BACKROUND = Color.BLUE;
     private final Color LEADERBOARD_TEXT = Color.WHITE;
 
@@ -78,12 +81,26 @@ class TargetGamePanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+
+                // MOUSE IS RELEASED IN GAME
                 if (mode == WindowMode.GAME) {
                     if (isCirleClicked(e)) {
-                        // Generates a new random circle position and refreshes the panel
-                        circlePosition.randomize(dimension.x - CIRCLE_RADIUS, dimension.y - CIRCLE_RADIUS);
+                        /**
+                         * Generates a new random circle position and refreshes the panel
+                         * X - Width of the panel minus the size of the circle & the padding (the times
+                         * two is because it's later added to pad the left side too)
+                         * Y - Height of the panel minus the size of the circle & the padding (the times
+                         * two is because it's later added to pad the upper side too)
+                         */
+                        circlePosition.randomize(getWidth() - CIRCLE_RADIUS * 2 - WINDOW_PADDING * 2,
+                                getHeight() - CIRCLE_RADIUS * 2 - WINDOW_PADDING + 2);
+                        circlePosition.x += WINDOW_PADDING;
+                        circlePosition.y += WINDOW_PADDING;
+
+                        // Incremets the score
                         score += 10;
                     } else {
+                        // Subtracts the score
                         score -= 10;
                     }
                     repaint();
@@ -114,12 +131,11 @@ class TargetGamePanel extends JPanel {
                     }
                 }
 
-                //! DEBUG KEY 
+                // ! DEBUG KEY
                 else if (e.getKeyCode() == DEBUGG_KEY) {
                     if (mode != WindowMode.GAME_OVER) {
                         mode = WindowMode.GAME_OVER;
-                    }
-                    else {
+                    } else {
                         mode = WindowMode.GAME;
                     }
                     repaint();
@@ -135,7 +151,7 @@ class TargetGamePanel extends JPanel {
      */
     private void restart() {
         this.score = 0;
-        this.circlePosition.randomize(getWidth(), getHeight());    
+        this.circlePosition.randomize(getWidth(), getHeight());
     }
 
     /**
@@ -216,9 +232,9 @@ class TargetGamePanel extends JPanel {
     }
 
     /**
-     * Paints the Game over screen on the {@code JPanel}. 
+     * Paints the Game over screen on the {@code JPanel}.
      * 
-     * @param g - {@code Graphics2D} of the {@code JPanel}. 
+     * @param g - {@code Graphics2D} of the {@code JPanel}.
      */
     private void paintGameOver(Graphics2D g) {
         String mainMessg = "GAME OVER";
@@ -239,7 +255,7 @@ class TargetGamePanel extends JPanel {
         y = origin.getIntY();
         sideTextOffset = fm.getHeight();
         g.drawString(mainMessg, x, y);
-        
+
         // Paints the smaller bottom message
         g.setColor(GAME_OVER_BOTTOMTEXT);
         g.setFont(new Font("Arial", Font.BOLD, 40));
@@ -253,11 +269,12 @@ class TargetGamePanel extends JPanel {
     /* FONT & TEXT HANDELING METHODS */
 
     /**
-     * Returns the origin point of a {@code drawString()} method for a text. 
+     * Returns the origin point of a {@code drawString()} method for a text.
      * 
-     * @param fm - {@code FontMetrics} of the font that you want the message to be painted with. 
-     * @param text - {@code String} of the text you want to paint.  
-     * @return {@code Position} object of the origin point. 
+     * @param fm   - {@code FontMetrics} of the font that you want the message to be
+     *             painted with.
+     * @param text - {@code String} of the text you want to paint.
+     * @return {@code Position} object of the origin point.
      */
     private Position getCenteredTextPosition(FontMetrics fm, String text) {
         int x = (getWidth() - fm.stringWidth(text)) / 2;

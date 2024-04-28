@@ -25,6 +25,7 @@ public class AppFrame extends JFrame {
         int windowSizeX = windowSize.getIntX();
         int windowSizeY = windowSize.getIntY();
         setSize(windowSizeX, windowSizeY);
+        setResizable(false);
 
         panel = new TargetGamePanel(windowSize);
         add(panel);
