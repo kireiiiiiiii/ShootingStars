@@ -15,7 +15,7 @@ import java.awt.Toolkit;
 import Helpers.*;
 
 public class AppFrame extends JFrame {
-    private CircleClickerPanel panel;
+    private TargetGamePanel panel;
 
     /**
      * Contructor to be called by {@code SwingUtilities}
@@ -26,7 +26,7 @@ public class AppFrame extends JFrame {
         int windowSizeY = windowSize.getIntY();
         setSize(windowSizeX, windowSizeY);
 
-        panel = new CircleClickerPanel(windowSize);
+        panel = new TargetGamePanel(windowSize);
         add(panel);
 
         setTitle("Target Game");

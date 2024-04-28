@@ -3,7 +3,7 @@
  * Date created: 4/23/2024
  * Github link: https://github.com/kireiiiiiiii/TargetGame
  * 
- * TODO: Class header
+ * JPanel class meant to be constructed in a JFrame for the TargetGame to work
  */
 
 package GUI;
@@ -21,12 +21,25 @@ import javax.swing.JPanel;
 
 import Helpers.*;
 
-class CircleClickerPanel extends JPanel {
+class TargetGamePanel extends JPanel {
+    // TARGET APPEARANCE CONSTANTS
     private final int CIRCLE_RADIUS = 20;
     private final Color CIRCLE_COLOR = Color.MAGENTA;
+
+    //LEADERBOARD CONSTANTS
     private final Color LEADERBOARD_BACKROUND = Color.BLUE;
     private final Color LEADERBOARD_TEXT = Color.WHITE;
 
+    // GAME OVER SCREEN CONSTANTS
+    private final Color GAME_OVER_MAINTEXT = Color.BLACK;
+    private final Color GAME_OVER_BOTTOMTEXT = Color.RED;
+
+    // KEYBIND CONSTANTS
+    private final int PAUSE_KEY = KeyEvent.VK_ESCAPE;
+    private final int RESTART_KEY = KeyEvent.VK_R;
+    private final int DEBUGG_KEY = KeyEvent.VK_X;
+
+    // CLASS VARIABLES
     private Position circlePosition;
     private int score;
     private WindowMode mode;
@@ -36,7 +49,8 @@ class CircleClickerPanel extends JPanel {
      */
     private enum WindowMode {
         GAME,
-        PAUSE
+        PAUSE,
+        GAME_OVER
     }
 
     /**
@@ -45,7 +59,7 @@ class CircleClickerPanel extends JPanel {
      * @param dimension - {@code Position} object of the dimensions of the
      *                  {@code JPanel}
      */
-    public CircleClickerPanel(Position dimension) {
+    public TargetGamePanel(Position dimension) {
         setPreferredSize(dimension.toDimension());
 
         // Allow keyboard input in the window
@@ -81,8 +95,8 @@ class CircleClickerPanel extends JPanel {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                // 'ESC' KEY
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                // PAUSE KEY
+                if (e.getKeyCode() == PAUSE_KEY) {
                     if (mode == WindowMode.GAME) {
                         mode = WindowMode.PAUSE;
                         repaint();
@@ -92,23 +106,59 @@ class CircleClickerPanel extends JPanel {
                     }
                 }
 
-                // 'R' KEY
-                else if (e.getKeyCode() == KeyEvent.VK_R) {
+                // RESTART KEY
+                else if (e.getKeyCode() == RESTART_KEY) {
                     if (mode == WindowMode.GAME) {
                         restart();
                         repaint();
                     }
                 }
+
+                //! DEBUG KEY 
+                else if (e.getKeyCode() == DEBUGG_KEY) {
+                    if (mode != WindowMode.GAME_OVER) {
+                        mode = WindowMode.GAME_OVER;
+                    }
+                    else {
+                        mode = WindowMode.GAME;
+                    }
+                    repaint();
+                }
             }
         });
     }
+
+    /* GAME CONTROL METHODS */
+
+    /**
+     * Restarts the game
+     */
+    private void restart() {
+        this.score = 0;
+        this.circlePosition.randomize(getWidth(), getHeight());    
+    }
+
+    /**
+     * Checks if the {@code MouseEvent} was a click on the circle
+     * 
+     * @param e - {@code MouseEvent} of the click
+     * @return was clicked?
+     */
+    private boolean isCirleClicked(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        return Math.abs(this.circlePosition.getIntX() - x) <= CIRCLE_RADIUS
+                && Math.abs(this.circlePosition.getIntY() - y) <= CIRCLE_RADIUS;
+    }
+
+    /* PAINT METHODS */
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        // GAME MODE
+        // GAME SCREEN
         if (this.mode == WindowMode.GAME) {
             g2d.setColor(CIRCLE_COLOR);
             g2d.fillOval(circlePosition.getIntX() - CIRCLE_RADIUS, circlePosition.getIntY() - CIRCLE_RADIUS,
@@ -117,9 +167,14 @@ class CircleClickerPanel extends JPanel {
             paintLeaderBoard(g2d, new Position(20, 20), score);
         }
 
-        // PAUSE MODE
+        // PAUSE SCREEN
         else if (this.mode == WindowMode.PAUSE) {
             paintPause(g2d);
+        }
+
+        // GAME OVER SCREEN
+        else if (this.mode == WindowMode.GAME_OVER) {
+            paintGameOver(g2d);
         }
     }
 
@@ -145,32 +200,68 @@ class CircleClickerPanel extends JPanel {
      */
     private void paintPause(Graphics2D g) {
         String text = "PAUSE";
+
+        FontMetrics fm;
+        Position origin;
+        int x;
+        int y;
+
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 80));
-        FontMetrics fm = g.getFontMetrics();
-        int x = (getWidth() - fm.stringWidth(text)) / 2;
-        int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
+        fm = g.getFontMetrics();
+        origin = getCenteredTextPosition(fm, text);
+        x = origin.getIntX();
+        y = origin.getIntY();
         g.drawString(text, x, y);
     }
 
     /**
-     * Checks if the {@code MouseEvent} was a click on the circle
+     * Paints the Game over screen on the {@code JPanel}. 
      * 
-     * @param e - {@code MouseEvent} of the click
-     * @return was clicked?
+     * @param g - {@code Graphics2D} of the {@code JPanel}. 
      */
-    private boolean isCirleClicked(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-        return Math.abs(this.circlePosition.getIntX() - x) <= CIRCLE_RADIUS
-                && Math.abs(this.circlePosition.getIntY() - y) <= CIRCLE_RADIUS;
+    private void paintGameOver(Graphics2D g) {
+        String mainMessg = "GAME OVER";
+        String sideMessg = "Press 'R' to restart";
+
+        FontMetrics fm;
+        Position origin;
+        int x;
+        int y;
+        int sideTextOffset;
+
+        // Paints the main message
+        g.setColor(GAME_OVER_MAINTEXT);
+        g.setFont(new Font("Arial", Font.BOLD, 80));
+        fm = g.getFontMetrics();
+        origin = getCenteredTextPosition(fm, mainMessg);
+        x = origin.getIntX();
+        y = origin.getIntY();
+        sideTextOffset = fm.getHeight();
+        g.drawString(mainMessg, x, y);
+        
+        // Paints the smaller bottom message
+        g.setColor(GAME_OVER_BOTTOMTEXT);
+        g.setFont(new Font("Arial", Font.BOLD, 40));
+        fm = g.getFontMetrics();
+        origin = getCenteredTextPosition(fm, sideMessg);
+        x = origin.getIntX();
+        y = origin.getIntY();
+        g.drawString(sideMessg, x, y + sideTextOffset);
     }
 
+    /* FONT & TEXT HANDELING METHODS */
+
     /**
-     * Restarts the game
+     * Returns the origin point of a {@code drawString()} method for a text. 
+     * 
+     * @param fm - {@code FontMetrics} of the font that you want the message to be painted with. 
+     * @param text - {@code String} of the text you want to paint.  
+     * @return {@code Position} object of the origin point. 
      */
-    private void restart() {
-        this.score = 0;
-        this.circlePosition.randomize(getWidth(), getHeight());    
+    private Position getCenteredTextPosition(FontMetrics fm, String text) {
+        int x = (getWidth() - fm.stringWidth(text)) / 2;
+        int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
+        return new Position(x, y);
     }
 }
