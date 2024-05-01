@@ -58,3 +58,9 @@ Desktop.ini
 
 # Linux
 *.swp
+
+# Build classes
+/bin
+
+# Manifest file
+/MANIFEST.MF
