@@ -9,7 +9,7 @@ Welcome to my Java Target Game! This simple yet entertaining game allows you to 
 
 3. **Gameplay**: Once the game starts, you'll see a target (a magenta circle) on your screen. Use your mouse to click them. Every time that you click the target, it will respawn at a new location.
 
-4. **Scoring**: Each successful click on a target earns you +10 points. Your score is displayed at the top left of the screen. Try to achieve the highest score possible! For every miss (click outside the circle) 10 points will be subtracted from your score. Be careful! The score can go negative!
+4. **Scoring**: Each successful click on a target earns you +10 points. Your score is displayed at the top left of the screen, and time remaining is displayed under it. Try to achieve the highest score possible, before the time runs out. For every miss (click outside the circle) 10 points will be subtracted from your score. Be careful! The score can go negative!
 
 6. **Restart**: You can restart the game at any time by pressing the "R" key on your keyboard.
 
