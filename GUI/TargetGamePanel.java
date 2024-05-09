@@ -22,6 +22,12 @@ import javax.swing.JPanel;
 import Helpers.*;
 
 class TargetGamePanel extends JPanel {
+
+    // TIMER CONSTANTS
+    private final int DEFUALT_DELAY = 10;
+    private final Color TIMER_BACKROUND = Color.RED;
+    private final Color TIMER_TEXT = Color.WHITE;
+
     // JPANEL CONSTATNS
     private final int WINDOW_PADDING = 10;
 
@@ -46,6 +52,8 @@ class TargetGamePanel extends JPanel {
     private Position circlePosition;
     private int score;
     private WindowMode mode;
+    private PausableTimer timer;
+    private int timeRemaining;
 
     /**
      * Enum class to handle window type to be painted on the JPanel
@@ -76,6 +84,7 @@ class TargetGamePanel extends JPanel {
         // Set deafult variable values
         this.score = 0;
         this.mode = WindowMode.GAME;
+        initializeTimer();
 
         // Mouse listener to handle mouse input
         addMouseListener(new MouseAdapter() {
@@ -125,7 +134,7 @@ class TargetGamePanel extends JPanel {
 
                 // RESTART KEY
                 else if (e.getKeyCode() == RESTART_KEY) {
-                    if (mode == WindowMode.GAME) {
+                    if (mode == WindowMode.GAME || mode == WindowMode.GAME_OVER) {
                         restart();
                         repaint();
                     }
@@ -150,8 +159,11 @@ class TargetGamePanel extends JPanel {
      * Restarts the game
      */
     private void restart() {
+        this.mode = WindowMode.GAME;
+        repaint();
         this.score = 0;
         this.circlePosition.randomize(getWidth(), getHeight());
+        initializeTimer();
     }
 
     /**
@@ -167,6 +179,27 @@ class TargetGamePanel extends JPanel {
                 && Math.abs(this.circlePosition.getIntY() - y) <= CIRCLE_RADIUS;
     }
 
+    /* TIMER METHODS */
+
+    private void initializeTimer() {
+        if (this.timer != null) {
+            timer.forceStop();
+        }
+        Runnable onFinished = () -> {onTimerFinished();};
+        Runnable everyRun = () -> {
+            this.timeRemaining = (int) this.timer.getTimeRemaining() / 1000;
+            repaint();
+        };
+        this.timer = new PausableTimer(1000, DEFUALT_DELAY + 1, onFinished, everyRun);
+        timer.start();
+    }
+
+    private void onTimerFinished() {
+        System.out.println("TIMER DONE");
+        this.mode = WindowMode.GAME_OVER;
+        repaint();
+    }
+
     /* PAINT METHODS */
 
     @Override
@@ -176,15 +209,18 @@ class TargetGamePanel extends JPanel {
 
         // GAME SCREEN
         if (this.mode == WindowMode.GAME) {
+            this.timer.resume();
             g2d.setColor(CIRCLE_COLOR);
             g2d.fillOval(circlePosition.getIntX() - CIRCLE_RADIUS, circlePosition.getIntY() - CIRCLE_RADIUS,
                     CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2);
 
-            paintLeaderBoard(g2d, new Position(20, 20), score);
+            paintLeaderBoard(g2d, new Position(20, 20), this.score);
+            paintTimer(g2d, new Position(20, 20), this.timeRemaining);
         }
 
         // PAUSE SCREEN
         else if (this.mode == WindowMode.PAUSE) {
+            this.timer.pause();
             paintPause(g2d);
         }
 
@@ -207,6 +243,21 @@ class TargetGamePanel extends JPanel {
         g.setColor(LEADERBOARD_TEXT);
         g.setFont(new Font("Arial", Font.BOLD, 24));
         g.drawString("" + score, position.getIntX() + 5, position.getIntY() + 24 + 5);
+    }
+
+    /**
+     * Paints the score widget on the {@code JPanel}.
+     * 
+     * @param g        - {@code Graphics2D} of the {@code JPanel}.
+     * @param position - {@code Position} of the widget.
+     * @param score    - Score to be displayed.
+     */
+    private void paintTimer(Graphics2D g, Position position, int score) {
+        g.setColor(TIMER_BACKROUND);
+        g.fillRect(position.getIntX(), position.getIntY() + 60, 200, 50);
+        g.setColor(TIMER_TEXT);
+        g.setFont(new Font("Arial", Font.BOLD, 24));
+        g.drawString("" + score, position.getIntX() + 5, position.getIntY() + 24 + 5 + 60);
     }
 
     /**
