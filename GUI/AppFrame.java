@@ -15,7 +15,7 @@ import java.awt.Toolkit;
 import Helpers.*;
 
 public class AppFrame extends JFrame {
-    private TargetGamePanel panel;
+    private GamePanel panel;
 
     /**
      * Contructor to be called by {@code SwingUtilities}
@@ -27,7 +27,7 @@ public class AppFrame extends JFrame {
         setSize(windowSizeX, windowSizeY);
         setResizable(false);
 
-        panel = new TargetGamePanel(windowSize);
+        panel = new GamePanel(this);
         add(panel);
 
         setTitle("Target Game");
