@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     ////////////////
 
     // Timer
-    private final int DEFUALT_DELAY = 10;
+    private final int DEFUALT_DELAY = 20;
     private final Color TIMER_BACKROUND = Color.RED;
     private final Color TIMER_TEXT = Color.WHITE;
     // Padding
@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private JFrame owner;
 
     /////////////////
-    // Enums
+    // Enum classes
     ////////////////
 
     /**
@@ -86,7 +86,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     /////////////////
-    // Constructor
+    // Constructors
     ////////////////
 
     /**
@@ -132,20 +132,59 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     }
 
+    /*
+     * Size methods return the measurments of the owning {@JFrame} object.
+     * Methods return zero, if owner wasn't initialized (is {@code null}).
+     */
+
+    @Override
+    public int getWidth() {
+        return this.owner == null ? 0 : this.owner.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return this.owner == null ? 0 : this.owner.getHeight();
+    }
+
+    @Override
+    public Dimension getSize() {
+        return new Dimension(getWidth(), getHeight());
+    }
+
+    /////////////////
+    // Paint methods
+    ////////////////
+
+    /**
+     * Default paint method for the game environtment. 
+     * 
+     * @param g - a {@code Graphic2D} object of the target paint panel. 
+     */
     private void paintGame(Graphics2D g) {
+        // Just in case a previous mode paused the timer
         this.timer.resume();
+
+        // Paint the target
         g.setColor(CIRCLE_COLOR);
         g.fillOval(circlePosition.getIntX() - CIRCLE_RADIUS, circlePosition.getIntY() - CIRCLE_RADIUS,
                 CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2);
 
+        // Paint the widgets
         paintLeaderBoard(g, new Position(20, 20), this.score);
         paintTimer(g, new Position(20, 20), this.timeRemaining);
     }
 
+    /**
+     * Paint method for the pause mode. 
+     * 
+     * @param g- a {@code Graphic2D} object of the target paint panel. 
+     */
     private void paintPause(Graphics2D g) {
+        // Stop the timer when swiched into
         this.timer.pause();
-        String text = "PAUSE";
 
+        String text = "PAUSE";
         FontMetrics fm;
         Position origin;
         int x;
@@ -160,10 +199,14 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         g.drawString(text, x, y);
     }
 
+    /**
+     * Paint the 'Game Over' screen. 
+     * 
+     * @param g - a {@code Graphic2D} object of the target paint panel. 
+     */
     private void paintGameOver(Graphics2D g) {
         String mainMessg = "GAME OVER";
         String sideMessg = "Press 'R' to restart";
-
         FontMetrics fm;
         Position origin;
         int x;
@@ -189,30 +232,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         y = origin.getIntY();
         g.drawString(sideMessg, x, y + sideTextOffset);
     }
-
-    /*
-     * Size methods return the measurments of the owning {@JFrame} object.
-     * Methods return zero, if owner wasn't initialized (is {@code null}).
-     */
-
-    @Override
-    public int getWidth() {
-        return this.owner == null ? 0 : this.owner.getWidth();
-    }
-
-    @Override
-    public int getHeight() {
-        return this.owner == null ? 0 : this.owner.getHeight();
-    }
-
-    @Override
-    public Dimension getSize() {
-        return new Dimension(getWidth(), getHeight());
-    }
-
-    /////////////////
-    // Paint methods
-    ////////////////
 
     /////////////////
     // Mouse events override methods
@@ -276,7 +295,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     /////////////////
-    // Accessor methods
+    // Key events override methods
     ////////////////
 
     @Override
