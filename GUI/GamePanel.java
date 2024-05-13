@@ -60,6 +60,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private final int PAUSE_KEY = KeyEvent.VK_ESCAPE;
     private final int RESTART_KEY = KeyEvent.VK_R;
     private final int DEBUGG_KEY = KeyEvent.VK_X;
+    // Fonts
+    private final Font DEFAULT_FONT;
+    private final Font HEADING_FONT;
 
     /////////////////
     // Class variables
@@ -101,6 +104,22 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         addKeyListener(this);
         setFocusable(true);
         requestFocusInWindow();
+
+        /* SET FONTS */
+
+        // Default
+        String fontDirPath = getResourcesPath() + "/Fonts";
+        Font loadedDefault = FontUtil.loadFontFromFile(fontDirPath + "/Default.TTF");
+        if (loadedDefault == null) {
+            loadedDefault = new Font("Arial", Font.BOLD, 80);
+        }
+        this.DEFAULT_FONT = loadedDefault;
+        // Headings
+        loadedDefault = FontUtil.loadFontFromFile(fontDirPath + "/Heading.TTF");
+        if (loadedDefault == null) {
+            loadedDefault = new Font("Arial", Font.BOLD, 80);
+        }
+        this.HEADING_FONT = loadedDefault;
 
         // Generates a random init circle position
         this.circlePosition = new Position();
@@ -157,9 +176,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     ////////////////
 
     /**
-     * Default paint method for the game environtment. 
+     * Default paint method for the game environtment.
      * 
-     * @param g - a {@code Graphic2D} object of the target paint panel. 
+     * @param g - a {@code Graphic2D} object of the target paint panel.
      */
     private void paintGame(Graphics2D g) {
         // Just in case a previous mode paused the timer
@@ -176,9 +195,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     /**
-     * Paint method for the pause mode. 
+     * Paint method for the pause mode.
      * 
-     * @param g- a {@code Graphic2D} object of the target paint panel. 
+     * @param g- a {@code Graphic2D} object of the target paint panel.
      */
     private void paintPause(Graphics2D g) {
         // Stop the timer when swiched into
@@ -187,37 +206,41 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         String text = "PAUSE";
         FontMetrics fm;
         Position origin;
+        int[] originArr;
         int x;
         int y;
 
         g.setColor(Color.BLACK);
-        g.setFont(new Font("Arial", Font.BOLD, 80));
+        g.setFont(this.HEADING_FONT.deriveFont(Font.BOLD, 80));
         fm = g.getFontMetrics();
-        origin = getCenteredTextPosition(fm, text);
+        originArr = FontUtil.getCenteredPos(this.getWidth(), this.getHeight(), fm, text);
+        origin = new Position(originArr[0], originArr[1]);
         x = origin.getIntX();
         y = origin.getIntY();
         g.drawString(text, x, y);
     }
 
     /**
-     * Paint the 'Game Over' screen. 
+     * Paint the 'Game Over' screen.
      * 
-     * @param g - a {@code Graphic2D} object of the target paint panel. 
+     * @param g - a {@code Graphic2D} object of the target paint panel.
      */
     private void paintGameOver(Graphics2D g) {
         String mainMessg = "GAME OVER";
-        String sideMessg = "Press 'R' to restart";
+        String sideMessg = "Press R to restart";
         FontMetrics fm;
         Position origin;
+        int[] originArr;
         int x;
         int y;
         int sideTextOffset;
 
         // Paints the main message
-        g.setColor(GAME_OVER_MAINTEXT);
-        g.setFont(new Font("Arial", Font.BOLD, 80));
+        g.setColor(this.GAME_OVER_MAINTEXT);
+        g.setFont(this.HEADING_FONT.deriveFont(Font.BOLD, 80));
         fm = g.getFontMetrics();
-        origin = getCenteredTextPosition(fm, mainMessg);
+        originArr = FontUtil.getCenteredPos(this.getWidth(), this.getHeight(), fm, mainMessg);
+        origin = new Position(originArr[0], originArr[1]);
         x = origin.getIntX();
         y = origin.getIntY();
         sideTextOffset = fm.getHeight();
@@ -225,9 +248,10 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
         // Paints the smaller bottom message
         g.setColor(GAME_OVER_BOTTOMTEXT);
-        g.setFont(new Font("Arial", Font.BOLD, 40));
+        g.setFont(this.HEADING_FONT.deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
-        origin = getCenteredTextPosition(fm, sideMessg);
+        originArr = FontUtil.getCenteredPos(this.getWidth(), this.getHeight(), fm, sideMessg);
+        origin = new Position(originArr[0], originArr[1]);
         x = origin.getIntX();
         y = origin.getIntY();
         g.drawString(sideMessg, x, y + sideTextOffset);
@@ -454,19 +478,14 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         g.drawString("" + score, position.getIntX() + 5, position.getIntY() + 24 + 5 + 60);
     }
 
-    /* FONT & TEXT HANDELING METHODS */
+    /* PATH METHODS */
 
     /**
-     * Returns the origin point of a {@code drawString()} method for a text.
+     * Gets the path of the {@code Resources} folder of this project.
      * 
-     * @param fm   - {@code FontMetrics} of the font that you want the message to be
-     *             painted with.
-     * @param text - {@code String} of the text you want to paint.
-     * @return {@code Position} object of the origin point.
+     * @return path of the directory.
      */
-    private Position getCenteredTextPosition(FontMetrics fm, String text) {
-        int x = (getWidth() - fm.stringWidth(text)) / 2;
-        int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
-        return new Position(x, y);
+    private String getResourcesPath() {
+        return PathUtil.getProjectFolderPath() + "/Resources";
     }
 }

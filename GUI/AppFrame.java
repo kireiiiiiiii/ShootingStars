@@ -84,7 +84,7 @@ public class AppFrame extends JFrame {
     ////////////////
 
     /**
-     * Returns the title of the {@code JFrame} window. 
+     * Returns the title of the {@code JFrame} window.
      * 
      */
     public String getTitle() {
@@ -96,9 +96,9 @@ public class AppFrame extends JFrame {
     ////////////////
 
     /**
-     * Changes the title of the {@code JFrame} window. 
+     * Changes the title of the {@code JFrame} window.
      * 
-     * @param title - new title of the window. 
+     * @param title - new title of the window.
      */
     public void changeTitle(String title) {
         this.title = title;
