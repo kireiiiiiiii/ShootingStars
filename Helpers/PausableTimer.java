@@ -73,10 +73,4 @@ public class PausableTimer {
         long nextExecutionTime = currentTime + (executions - currentExecution - 1) * delay;
         return nextExecutionTime - currentTime;
     }
-
-    // public static void main(String[] args) {
-    //     Runnable onFinishTask = () -> System.out.println("Timer finished.");
-    //     PausableTimer pausableTimer = new PausableTimer(1000, 5, onFinishTask); // Timer with 1 second delay, 5 executions
-    //     pausableTimer.start();
-    // }
 }
