@@ -24,7 +24,7 @@
  *
  */
 
-package Helpers;
+package Tools;
 
 import java.awt.Font;
 import java.awt.FontMetrics;

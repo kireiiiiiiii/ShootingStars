@@ -24,7 +24,7 @@
  *
  */
 
-package Helpers;
+package Common;
 
 import java.awt.Dimension;
 import java.util.Random;

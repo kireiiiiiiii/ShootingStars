@@ -28,9 +28,13 @@ package Interface;
 
 import java.awt.event.*;
 import javax.swing.*;
+
+import Common.PausableTimer;
+import Common.Vec2D;
 import Constants.*;
+import Tools.*;
+
 import java.awt.*;
-import Helpers.*;
 
 /**
  * TODO: Make class header

@@ -27,7 +27,8 @@
 package Constants;
 
 import java.awt.Font;
-import Helpers.*;
+
+import Tools.*;
 
 public class Fonts {
 
