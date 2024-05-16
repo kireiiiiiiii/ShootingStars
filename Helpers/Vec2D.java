@@ -1,9 +1,27 @@
-/**
+/*
  * Author: Matěj Šťastný
  * Date created: 4/23/2024
  * Github link: https://github.com/kireiiiiiiii/TargetGame
- * 
- * TODO: Class header
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
 
 package Helpers;
@@ -11,10 +29,22 @@ package Helpers;
 import java.awt.Dimension;
 import java.util.Random;
 
-public class Position {
+/**
+ * Class to handle point data, has a {@code X} variable and {@code Y} variable. 
+ * 
+ */
+public class Vec2D {
+
+    /////////////////
+    // Variables
+    ////////////////
 
     public double x;
     public double y;
+
+    /////////////////
+    // Contructors
+    ////////////////
 
     /**
      * Constructor for creating a new {@code Position} instance with initial
@@ -23,7 +53,7 @@ public class Position {
      * @param x - x value of the position object.
      * @param y - y value of the position object.
      */
-    public Position(double x, double y) {
+    public Vec2D(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -31,10 +61,14 @@ public class Position {
     /**
      * Empty constructor, sets both {@code x} and {@code y} values to zero
      */
-    public Position() {
+    public Vec2D() {
         this.x = 0;
         this.y = 0;
     }
+
+    /////////////////
+    // Get new vector
+    ////////////////
 
     /**
      * Creates a new {@code Position} object with multiplied {@code x} and {@code y}
@@ -43,9 +77,13 @@ public class Position {
      * @param value - value that the Position is multiplied by.
      * @return new {@code Position} object.
      */
-    public Position getMultiplied(double value) {
-        return new Position(this.x * value, this.y * value);
+    public Vec2D getMultiplied(double value) {
+        return new Vec2D(this.x * value, this.y * value);
     }
+
+    /////////////////
+    // Modifiers
+    ////////////////
 
     /**
      * Modifies the object variables {@code x} and {@code y} by adding the param
@@ -82,6 +120,10 @@ public class Position {
         this.x = r.nextDouble() * maxX;
         this.y = r.nextDouble() * maxY;
     }
+
+    /////////////////
+    // Accesors
+    ////////////////
 
     /**
      * Converts the {@code x} variable into an {@code int}.

@@ -24,7 +24,7 @@
  *
  */
 
-package GUI;
+package Interface;
 
 import javax.swing.*;
 

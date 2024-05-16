@@ -24,12 +24,12 @@
  *
  */
 
-package GUI;
+package Interface;
 
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import Constants.*;
+import java.awt.*;
 import Helpers.*;
 
 /**
@@ -57,16 +57,12 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     // Game over screen
     private final Color GAME_OVER_MAINTEXT = Color.BLACK;
     private final Color GAME_OVER_BOTTOMTEXT = Color.RED;
-    // Keybinds
-    private final int PAUSE_KEY = KeyEvent.VK_ESCAPE;
-    private final int RESTART_KEY = KeyEvent.VK_R;
-    private final int DEBUGG_KEY = KeyEvent.VK_X;
 
     /////////////////
     // Class variables
     ////////////////
 
-    private Position circlePosition;
+    private Vec2D circlePosition;
     private int score;
     private WindowMode mode;
     private PausableTimer timer;
@@ -104,7 +100,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         requestFocusInWindow();
 
         // Generates a random init circle position
-        this.circlePosition = new Position();
+        this.circlePosition = new Vec2D();
         this.circlePosition.randomize(getWidth() - CIRCLE_RADIUS, getHeight() - CIRCLE_RADIUS);
 
         // Set deafult variable values
@@ -172,8 +168,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
                 CIRCLE_RADIUS * 2, CIRCLE_RADIUS * 2);
 
         // Paint the widgets
-        paintLeaderBoard(g, new Position(20, 20), this.score);
-        paintTimer(g, new Position(20, 20), this.timeRemaining);
+        paintLeaderBoard(g, new Vec2D(20, 20), this.score);
+        paintTimer(g, new Vec2D(20, 20), this.timeRemaining);
     }
 
     /**
@@ -187,7 +183,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
         String text = "PAUSE";
         FontMetrics fm;
-        Position origin;
+        Vec2D origin;
         int[] originArr;
         int x;
         int y;
@@ -196,7 +192,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         g.setFont(Fonts.HEADING.deriveFont(Font.BOLD, 80));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(this.getWidth(), this.getHeight(), fm, text);
-        origin = new Position(originArr[0], originArr[1]);
+        origin = new Vec2D(originArr[0], originArr[1]);
         x = origin.getIntX();
         y = origin.getIntY();
         g.drawString(text, x, y);
@@ -211,7 +207,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         String mainMessg = "GAME OVER";
         String sideMessg = "Press R to restart";
         FontMetrics fm;
-        Position origin;
+        Vec2D origin;
         int[] originArr;
         int x;
         int y;
@@ -222,7 +218,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         g.setFont(Fonts.HEADING.deriveFont(Font.BOLD, 80));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(this.getWidth(), this.getHeight(), fm, mainMessg);
-        origin = new Position(originArr[0], originArr[1]);
+        origin = new Vec2D(originArr[0], originArr[1]);
         x = origin.getIntX();
         y = origin.getIntY();
         sideTextOffset = fm.getHeight();
@@ -233,7 +229,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         g.setFont(Fonts.HEADING.deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(this.getWidth(), this.getHeight(), fm, sideMessg);
-        origin = new Position(originArr[0], originArr[1]);
+        origin = new Vec2D(originArr[0], originArr[1]);
         x = origin.getIntX();
         y = origin.getIntY();
         g.drawString(sideMessg, x, y + sideTextOffset);
@@ -307,7 +303,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     public void keyPressed(KeyEvent e) {
         // PAUSE KEY
-        if (e.getKeyCode() == PAUSE_KEY) {
+        if (e.getKeyCode() == Keybinds.PAUSE_KEY) {
             if (mode == WindowMode.GAME) {
                 mode = WindowMode.PAUSE;
                 repaint();
@@ -318,7 +314,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         }
 
         // RESTART KEY
-        else if (e.getKeyCode() == RESTART_KEY) {
+        else if (e.getKeyCode() == Keybinds.RESTART_KEY) {
             if (mode == WindowMode.GAME || mode == WindowMode.GAME_OVER) {
                 restart();
                 repaint();
@@ -326,7 +322,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         }
 
         // ! DEBUG KEY
-        else if (e.getKeyCode() == DEBUGG_KEY) {
+        else if (e.getKeyCode() == Keybinds.DEBUGG_KEY) {
             if (mode != WindowMode.GAME_OVER) {
                 mode = WindowMode.GAME_OVER;
             } else {
@@ -437,7 +433,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      * @param position - {@code Position} of the widget.
      * @param score    - Score to be displayed.
      */
-    private void paintLeaderBoard(Graphics2D g, Position position, int score) {
+    private void paintLeaderBoard(Graphics2D g, Vec2D position, int score) {
         g.setColor(LEADERBOARD_BACKROUND);
         g.fillRect(position.getIntX(), position.getIntY(), 200, 50);
         g.setColor(LEADERBOARD_TEXT);
@@ -452,7 +448,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      * @param position - {@code Position} of the widget.
      * @param score    - Score to be displayed.
      */
-    private void paintTimer(Graphics2D g, Position position, int score) {
+    private void paintTimer(Graphics2D g, Vec2D position, int score) {
         g.setColor(TIMER_BACKROUND);
         g.fillRect(position.getIntX(), position.getIntY() + 60, 200, 50);
         g.setColor(TIMER_TEXT);

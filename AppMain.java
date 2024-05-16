@@ -28,7 +28,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.SwingUtilities;
-import GUI.*;
+
+import Interface.*;
 
 /**
  * TODO: Class header.
@@ -40,12 +41,13 @@ public class AppMain {
     // Constatns
     ////////////////
 
-    private static final String windowTitle = "Target Game :3";
+    private static final String WINDOW_TITLE = "Target Game :3";
 
     /////////////////
     // Variables
     ////////////////
 
+    @SuppressWarnings("unused")
     private static AppFrame appFrame;
 
     /////////////////
@@ -57,7 +59,7 @@ public class AppMain {
             double[] windowSize = getAppWindowSize(getScreenDimensions());
             int width = (int) windowSize[0];
             int height = (int) windowSize[1];
-            appFrame = new AppFrame(width, height, windowTitle);
+            appFrame = new AppFrame(width, height, WINDOW_TITLE);
         };
         SwingUtilities.invokeLater(myApp);
     }

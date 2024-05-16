@@ -1,9 +1,44 @@
+/*
+ * Author: Matěj Šťastný
+ * Date created: 5/9/2024
+ * Github link: https://github.com/kireiiiiiiii/TargetGame
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
 package Helpers;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * An timer object with the ability to pause, resume and completely stop.
+ * 
+ */
 public class PausableTimer {
+
+    /////////////////
+    // Variables
+    ////////////////
+
     private Timer timer;
     private long delay;
     private boolean isPaused;
@@ -13,6 +48,20 @@ public class PausableTimer {
     private Runnable onFinishTask;
     private Runnable onExecution;
 
+    /////////////////
+    // Constructors
+    ////////////////
+
+    /**
+     * Default contructor. Sets the given parameters. 
+     * </p>
+     * DOESN'T AUTOMATICALLY START THE TIMER!
+     * 
+     * @param delay
+     * @param executions
+     * @param onFinishTask
+     * @param onExecution
+     */
     public PausableTimer(long delay, int executions, Runnable onFinishTask, Runnable onExecution) {
         this.delay = delay;
         this.timer = new Timer();
@@ -24,6 +73,14 @@ public class PausableTimer {
         this.onExecution = onExecution;
     }
 
+    /////////////////
+    // Timer controlls
+    ////////////////
+
+    /**
+     * Starts excecuing the timer. 
+     * 
+     */
     public void start() {
         if (!isRunning) {
             isRunning = true;
@@ -44,6 +101,10 @@ public class PausableTimer {
         }
     }
 
+    /**
+     * Pauses the timer. 
+     * 
+     */
     public void pause() {
         isPaused = true;
     }
@@ -64,6 +125,10 @@ public class PausableTimer {
         timer.cancel();
         isRunning = false;
     }
+
+    /////////////////
+    // Accesors
+    ////////////////
 
     public long getTimeRemaining() {
         if (!isRunning) {
