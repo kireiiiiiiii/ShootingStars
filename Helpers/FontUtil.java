@@ -45,7 +45,7 @@ public class FontUtil {
      * path given.
      * 
      * @param path - path of the font file.
-     * @return A {@code Font} object reference.
+     * @return A {@code Font} object reference, or {@code null} if Exception.
      */
     public static Font loadFontFromFile(String path) {
         try {

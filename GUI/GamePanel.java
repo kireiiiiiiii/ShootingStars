@@ -29,6 +29,7 @@ package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import Constants.*;
 import Helpers.*;
 
 /**
@@ -60,9 +61,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private final int PAUSE_KEY = KeyEvent.VK_ESCAPE;
     private final int RESTART_KEY = KeyEvent.VK_R;
     private final int DEBUGG_KEY = KeyEvent.VK_X;
-    // Fonts
-    private final Font DEFAULT_FONT;
-    private final Font HEADING_FONT;
 
     /////////////////
     // Class variables
@@ -104,22 +102,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         addKeyListener(this);
         setFocusable(true);
         requestFocusInWindow();
-
-        /* SET FONTS */
-
-        // Default
-        String fontDirPath = getResourcesPath() + "/Fonts";
-        Font loadedDefault = FontUtil.loadFontFromFile(fontDirPath + "/Default.TTF");
-        if (loadedDefault == null) {
-            loadedDefault = new Font("Arial", Font.BOLD, 80);
-        }
-        this.DEFAULT_FONT = loadedDefault;
-        // Headings
-        loadedDefault = FontUtil.loadFontFromFile(fontDirPath + "/Heading.TTF");
-        if (loadedDefault == null) {
-            loadedDefault = new Font("Arial", Font.BOLD, 80);
-        }
-        this.HEADING_FONT = loadedDefault;
 
         // Generates a random init circle position
         this.circlePosition = new Position();
@@ -211,7 +193,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         int y;
 
         g.setColor(Color.BLACK);
-        g.setFont(this.HEADING_FONT.deriveFont(Font.BOLD, 80));
+        g.setFont(Fonts.HEADING.deriveFont(Font.BOLD, 80));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(this.getWidth(), this.getHeight(), fm, text);
         origin = new Position(originArr[0], originArr[1]);
@@ -237,7 +219,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
         // Paints the main message
         g.setColor(this.GAME_OVER_MAINTEXT);
-        g.setFont(this.HEADING_FONT.deriveFont(Font.BOLD, 80));
+        g.setFont(Fonts.HEADING.deriveFont(Font.BOLD, 80));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(this.getWidth(), this.getHeight(), fm, mainMessg);
         origin = new Position(originArr[0], originArr[1]);
@@ -248,7 +230,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
         // Paints the smaller bottom message
         g.setColor(GAME_OVER_BOTTOMTEXT);
-        g.setFont(this.HEADING_FONT.deriveFont(Font.PLAIN, 40));
+        g.setFont(Fonts.HEADING.deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(this.getWidth(), this.getHeight(), fm, sideMessg);
         origin = new Position(originArr[0], originArr[1]);
@@ -476,16 +458,5 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         g.setColor(TIMER_TEXT);
         g.setFont(new Font("Arial", Font.BOLD, 24));
         g.drawString("" + score, position.getIntX() + 5, position.getIntY() + 24 + 5 + 60);
-    }
-
-    /* PATH METHODS */
-
-    /**
-     * Gets the path of the {@code Resources} folder of this project.
-     * 
-     * @return path of the directory.
-     */
-    private String getResourcesPath() {
-        return PathUtil.getProjectFolderPath() + "/Resources";
     }
 }
