@@ -9,3 +9,19 @@
 plugins {
     java
 } 
+
+tasks.jar {
+    // Customize the JAR file name
+    archiveFileName.set("TargetGame.jar")
+
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    archiveFileName.set("$buildDir/libs/TargetGame.jar")
+
+    // Add the Resources folder to the build
+    from("src/main/Resources")
+
+    // Set manifest attributes
+    manifest {
+        attributes["Main-Class"] = "com.example.AppMain"
+    }
+}

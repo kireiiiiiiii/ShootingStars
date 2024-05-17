@@ -29,11 +29,11 @@ package com.example.Constants;
 import java.io.File;
 
 /**
- * Contstants for file paths. 
+ * Contstants for file paths.
  * 
  */
 public class Paths {
-    
+
     /////////////////
     // Directory constants
     ////////////////
@@ -79,7 +79,7 @@ public class Paths {
     }
 
     /**
-     * Gets the resources directory path. 
+     * Gets the resources directory path.
      * 
      * @return
      */
@@ -88,13 +88,12 @@ public class Paths {
     }
 
     /**
-     * Gets the fonts directory path. 
+     * Gets the fonts directory path.
      * 
      * @return
      */
     private static String getFontsDir() {
         return getResourcesDir() + File.separator + "Fonts";
     }
-
 
 }
