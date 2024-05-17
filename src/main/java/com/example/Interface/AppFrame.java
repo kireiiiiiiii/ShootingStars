@@ -24,7 +24,7 @@
  *
  */
 
-package Interface;
+package com.example.Interface;
 
 import javax.swing.*;
 

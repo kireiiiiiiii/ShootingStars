@@ -24,7 +24,7 @@
  *
  */
 
-package Common;
+package com.example.Common;
 
 import java.util.Timer;
 import java.util.TimerTask;

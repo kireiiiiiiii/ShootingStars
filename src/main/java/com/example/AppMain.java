@@ -24,12 +24,15 @@
  *
  */
 
+package com.example;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.SwingUtilities;
 
-import Interface.*;
+import com.example.Constants.Paths;
+import com.example.Interface.*;
 
 /**
  * TODO: Class header.
@@ -62,6 +65,8 @@ public class AppMain {
             appFrame = new AppFrame(width, height, WINDOW_TITLE);
         };
         SwingUtilities.invokeLater(myApp);
+        System.out.println(Paths.FONT_DIR);
+        System.out.println("/Users/matejstastny/devel/TargetGame/src/main/Resources/Fonts");
     }
 
     /////////////////

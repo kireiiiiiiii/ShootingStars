@@ -24,11 +24,11 @@
  *
  */
 
-package Constants;
+package com.example.Constants;
 
 import java.awt.Font;
-
-import Tools.*;
+import java.io.File;
+import com.example.Tools.*;
 
 public class Fonts {
 
@@ -45,7 +45,7 @@ public class Fonts {
 
     private static Font setFont(String fontType) {
         fontType = fontType.substring(0, 1).toUpperCase() + fontType.substring(1).toLowerCase();
-        Font font = FontUtil.loadFontFromFile(Paths.FONT_DIR + "\\" + fontType + ".TTF");
+        Font font = FontUtil.loadFontFromFile(Paths.FONT_DIR + File.separator + fontType + ".TTF");
         if (font == null) {
             return DEFAULT;
         }

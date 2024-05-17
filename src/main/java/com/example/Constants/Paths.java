@@ -24,7 +24,7 @@
  *
  */
 
-package Constants;
+package com.example.Constants;
 
 import java.io.File;
 
@@ -84,7 +84,7 @@ public class Paths {
      * @return
      */
     private static String getResourcesDir() {
-        return getProjectFolderPath() + "\\Resources";
+        return getProjectFolderPath() + File.separator + "src" + File.separator + "main" + File.separator + "Resources";
     }
 
     /**
@@ -93,7 +93,7 @@ public class Paths {
      * @return
      */
     private static String getFontsDir() {
-        return getResourcesDir() + "\\Fonts";
+        return getResourcesDir() + File.separator + "Fonts";
     }
 
 

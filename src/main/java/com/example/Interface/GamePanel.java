@@ -24,15 +24,13 @@
  *
  */
 
-package Interface;
+package com.example.Interface;
 
 import java.awt.event.*;
 import javax.swing.*;
-
-import Common.PausableTimer;
-import Common.Vec2D;
-import Constants.*;
-import Tools.*;
+import com.example.Common.*;
+import com.example.Constants.*;
+import com.example.Tools.*;
 
 import java.awt.*;
 

@@ -24,7 +24,7 @@
  *
  */
 
-package Constants;
+package com.example.Constants;
 
 import java.awt.event.*;
 
