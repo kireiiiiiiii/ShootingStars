@@ -10,6 +10,14 @@ plugins {
     java
 } 
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
+}
+
 tasks.jar {
     // Customize the JAR file name
     archiveFileName.set("TargetGame.jar")
