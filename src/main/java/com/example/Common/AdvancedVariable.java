@@ -31,8 +31,14 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 
 /**
  * JsonVariableManager - A utility class for managing variables and persisting them to JSON files.
@@ -59,6 +65,8 @@ import java.io.IOException;
  *  </pre></blockquote><p>
  * 
  * @param <T> The type of the variable to be stored and managed.
+ * 
+ * </p>
  * 
  * Dependencies:
  * - com.fasterxml.jackson.databind.ObjectMapper
@@ -88,7 +96,7 @@ public class AdvancedVariable<T> {
      * this file).
      * 
      */
-    public AdvancedVariable() {
+    private AdvancedVariable() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         this.objectWriter = this.objectMapper.writer(
@@ -231,6 +239,42 @@ public class AdvancedVariable<T> {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Reads the content of a resource file as a String.
+     * 
+     * @param resourceName The name of the resource.
+     * @return The content of the resource as a String.
+     * @throws IOException if an I/O error occurs.
+     */
+    public String readResource(String resourceName) throws IOException {
+        StringBuilder content = new StringBuilder();
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(resourceName);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            if (inputStream == null) {
+                throw new IOException("Resource not found: " + resourceName);
+            }
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append(System.lineSeparator());
+            }
+        }
+        return content.toString();
+    }
+
+    /**
+     * Writes an object to a file.
+     * 
+     * @param filePath the path of the file to write to
+     * @param contents - the {@code String} object of the contents
+     * @throws IOException if an I/O error occurs
+     */
+    public void writeObject(String filePath, String contents) throws IOException {
+        try (FileOutputStream fileOut = new FileOutputStream(filePath);
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(contents);
+        }
     }
 
     /////////////////

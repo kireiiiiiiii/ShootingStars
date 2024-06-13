@@ -28,10 +28,7 @@ package com.example;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
 import javax.swing.SwingUtilities;
-
-import com.example.Constants.Paths;
 import com.example.Interface.*;
 
 /**
@@ -44,6 +41,7 @@ public class AppMain {
     // Constatns
     ////////////////
 
+    public static final String APP_NAME = "TargetGame";
     private static final String WINDOW_TITLE = "Target Game :3";
 
     /////////////////
@@ -65,8 +63,6 @@ public class AppMain {
             appFrame = new AppFrame(width, height, WINDOW_TITLE);
         };
         SwingUtilities.invokeLater(myApp);
-        System.out.println(Paths.FONT_DIR);
-        System.out.println("/Users/matejstastny/devel/TargetGame/src/main/Resources/Fonts");
     }
 
     /////////////////
