@@ -7,7 +7,8 @@
  */
 
 plugins {
-    java
+    id ("java")
+    id ("com.github.johnrengelman.shadow") version "7.0.0"
 } 
 
 repositories {
@@ -16,6 +17,9 @@ repositories {
 
 dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
+    implementation ("com.fasterxml.jackson.core:jackson-databind:2.12.3")
+    implementation ("com.fasterxml.jackson.core:jackson-core:2.12.3")
+    implementation ("com.fasterxml.jackson.core:jackson-annotations:2.12.3")
 }
 
 tasks.jar {
@@ -32,4 +36,9 @@ tasks.jar {
     manifest {
         attributes["Main-Class"] = "com.example.AppMain"
     }
+}
+
+tasks.shadowJar {
+    mergeServiceFiles()
+    archiveClassifier.set("")
 }
