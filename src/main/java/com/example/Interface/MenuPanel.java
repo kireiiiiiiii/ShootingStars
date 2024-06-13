@@ -26,7 +26,7 @@
 
 package com.example.Interface;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import com.example.Game;
 import java.awt.event.*;
 import java.awt.*;
@@ -42,13 +42,13 @@ public class MenuPanel extends JPanel implements KeyListener {
     ////////////////
 
     private Game game;
-    private JPanel owner;
+    private JFrame owner;
 
     /////////////////
     // Constructors
     ////////////////
 
-    public MenuPanel(Game g, JPanel owner) {
+    public MenuPanel(Game g, JFrame owner) {
         this.game = g;
         this.owner = owner;
         addKeyListener(this);

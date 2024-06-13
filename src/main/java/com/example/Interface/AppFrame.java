@@ -40,7 +40,6 @@ public class AppFrame extends JFrame {
     ////////////////
 
     private String title;
-    private GamePanel gamePanel;
 
     /////////////////
     // Constructors
@@ -73,10 +72,6 @@ public class AppFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-
-        this.gamePanel = new GamePanel(this);
-        add(this.gamePanel);
-
     }
 
     /////////////////
@@ -104,12 +99,4 @@ public class AppFrame extends JFrame {
         this.title = title;
         setTitle(this.title);
     }
-
-    /////////////////
-    // Other public methods
-    ////////////////
-
-    /////////////////
-    // Private methods
-    ////////////////
 }

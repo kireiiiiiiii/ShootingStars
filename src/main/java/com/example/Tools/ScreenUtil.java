@@ -42,7 +42,8 @@ public class ScreenUtil {
      * @param dimentions - user's screen dimensions.
      * @return {@code double} position array.
      */
-    public static double[] getAppWindowSize(int[] screenDimentions) {
+    public static double[] getAppWindowSize() {
+        int [] screenDimentions = getScreenDimensions();
         double x = screenDimentions[0] * 0.9;
         double y = screenDimentions[1] * 0.9;
         double[] dimensions = { x, y };
