@@ -39,7 +39,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
-import java.nio.file.Path;
 
 /**
  * JsonVariableManager - A utility class for managing variables and persisting them to JSON files.
@@ -97,7 +96,7 @@ public class AdvancedVariable<T> {
      * this file).
      * 
      */
-    public AdvancedVariable() {
+    private AdvancedVariable() {
         this.objectMapper = new ObjectMapper();
         this.objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         this.objectWriter = this.objectMapper.writer(
@@ -240,25 +239,6 @@ public class AdvancedVariable<T> {
             return false;
         }
         return true;
-    }
-
-    public boolean saveToFileUseStream() {
-        ResourceHelper resourceHelper = new ResourceHelper();
-        String resourceName = "your/resource/file.txt";
-
-        try {
-            // Get the path to a temporary file
-            Path tempFile = resourceHelper.getResourceAsTemporaryFile(resourceName);
-            String tempFilePath = tempFile.toAbsolutePath().toString();
-
-            // Write an object to the temporary file
-            String dataToWrite = "Hello, this is a test string!";
-            writeObject(tempFilePath, dataToWrite);
-
-            System.out.println("Object written to temporary file at: " + tempFilePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

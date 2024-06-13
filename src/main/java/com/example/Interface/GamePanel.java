@@ -27,6 +27,8 @@
 package com.example.Interface;
 
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.*;
 import com.example.Common.*;
 import com.example.Constants.*;
@@ -64,6 +66,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     // Class variables
     ////////////////
 
+    private AdvancedVariable<Integer> topScore;
     private Vec2D circlePosition;
     private int score;
     private WindowMode mode;
@@ -104,6 +107,19 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         // Generates a random init circle position
         this.circlePosition = new Vec2D();
         this.circlePosition.randomize(getWidth() - CIRCLE_RADIUS, getHeight() - CIRCLE_RADIUS);
+
+        // Set up the scores variable
+        this.topScore = new AdvancedVariable<Integer>(Paths.TOP_SCORE_FILE);
+        try {
+            this.topScore.loadFromFile(Integer.class);
+        } catch (IOException e) {
+            this.topScore.set(0);
+        }
+        // The JSON file is empty = first time playing
+        if (this.topScore.get() == null) {
+            this.topScore.set(0);
+        }
+        System.out.println("Top score: " + this.topScore.get());
 
         // Set deafult variable values
         this.score = 0;
@@ -380,6 +396,19 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     ////////////////
 
     /**
+     * Method called when the round ends (the timer ran out)
+     * 
+     */
+    private void onGameEnd() {
+        this.topScore.set(Math.max(this.topScore.get(), this.score));
+        try {
+            this.topScore.save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Restarts the game
      */
     private void restart() {
@@ -424,6 +453,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         System.out.println("TIMER DONE");
         this.mode = WindowMode.GAME_OVER;
         repaint();
+        onGameEnd();
     }
 
     /* PAINT METHODS */
