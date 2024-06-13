@@ -48,7 +48,7 @@ public class Paths {
     ////////////////
 
     public static final String DATA_DIR = getAppDataDirectory(AppMain.APP_NAME).getAbsolutePath();
-    public static final String USER_DATA_DIR = DATA_DIR + File.pathSeparator + USER_DATA_DIR_NAME;
+    public static final String USER_DATA_DIR = DATA_DIR + File.separator + USER_DATA_DIR_NAME;
     public static final String RESOURCE_DIR = getResourcesDir();
     public static final String FONT_DIR = getFontsDir();
 
