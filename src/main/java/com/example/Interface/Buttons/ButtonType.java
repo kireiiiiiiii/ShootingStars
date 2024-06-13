@@ -24,7 +24,7 @@
  *
  */
 
-package com.example.Interface.Button;
+package com.example.Interface.Buttons;
 
 /**
  * Enum class determining a type of a {@code CustomButton} object. 

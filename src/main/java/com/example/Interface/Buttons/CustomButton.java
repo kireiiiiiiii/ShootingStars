@@ -24,7 +24,7 @@
  *
  */
 
-package com.example.Interface.Button;
+package com.example.Interface.Buttons;
 
 import java.awt.*;
 import javax.sound.sampled.*;

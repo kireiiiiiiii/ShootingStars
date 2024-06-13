@@ -24,7 +24,7 @@
  *
  */
 
-package com.example.Interface.Button;
+package com.example.Interface.Buttons;
 
 /**
  * An enum class determining the position of a label in a {@code CustomButton} object. 
