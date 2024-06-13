@@ -28,7 +28,6 @@ package com.example.Interface;
 
 import java.awt.event.*;
 import java.io.IOException;
-
 import javax.swing.*;
 import com.example.Common.*;
 import com.example.Constants.*;
@@ -69,23 +68,10 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private AdvancedVariable<Integer> topScore;
     private Vec2D circlePosition;
     private int score;
-    private WindowMode mode;
+    private ScreenMode mode;
     private PausableTimer timer;
     private int timeRemaining;
     private JFrame owner;
-
-    /////////////////
-    // Enum classes
-    ////////////////
-
-    /**
-     * Enum class to handle window type to be painted on the JPanel
-     */
-    private enum WindowMode {
-        GAME,
-        PAUSE,
-        GAME_OVER
-    }
 
     /////////////////
     // Constructors
@@ -123,7 +109,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
         // Set deafult variable values
         this.score = 0;
-        this.mode = WindowMode.GAME;
+        this.mode = ScreenMode.GAME;
         initializeTimer();
     }
 
@@ -136,12 +122,12 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         super.paintComponent(graphics);
         Graphics2D g = (Graphics2D) graphics;
 
-        if (mode == WindowMode.GAME) {
+        if (mode == ScreenMode.GAME) {
             paintGame(g);
-        } else if (mode == WindowMode.PAUSE) {
+        } else if (mode == ScreenMode.PAUSE) {
             paintPause(g);
             ;
-        } else if (mode == WindowMode.GAME_OVER) {
+        } else if (mode == ScreenMode.GAME_OVER) {
             paintGameOver(g);
         }
 
@@ -280,7 +266,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     public void mouseReleased(MouseEvent e) {
         // MOUSE IS RELEASED IN GAME
-        if (mode == WindowMode.GAME) {
+        if (mode == ScreenMode.GAME) {
             if (isCirleClicked(e)) {
                 /**
                  * Generates a new random circle position and refreshes the panel
@@ -322,18 +308,18 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     public void keyPressed(KeyEvent e) {
         // PAUSE KEY
         if (e.getKeyCode() == Keybinds.PAUSE_KEY) {
-            if (mode == WindowMode.GAME) {
-                mode = WindowMode.PAUSE;
+            if (mode == ScreenMode.GAME) {
+                mode = ScreenMode.PAUSE;
                 repaint();
-            } else if (mode == WindowMode.PAUSE) {
-                mode = WindowMode.GAME;
+            } else if (mode == ScreenMode.PAUSE) {
+                mode = ScreenMode.GAME;
                 repaint();
             }
         }
 
         // RESTART KEY
         else if (e.getKeyCode() == Keybinds.RESTART_KEY) {
-            if (mode == WindowMode.GAME || mode == WindowMode.GAME_OVER) {
+            if (mode == ScreenMode.GAME || mode == ScreenMode.GAME_OVER) {
                 restart();
                 repaint();
             }
@@ -341,10 +327,10 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
         // ! DEBUG KEY
         else if (e.getKeyCode() == Keybinds.DEBUGG_KEY) {
-            if (mode != WindowMode.GAME_OVER) {
-                mode = WindowMode.GAME_OVER;
+            if (mode != ScreenMode.GAME_OVER) {
+                mode = ScreenMode.GAME_OVER;
             } else {
-                mode = WindowMode.GAME;
+                mode = ScreenMode.GAME;
             }
             repaint();
         }
@@ -412,7 +398,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      * Restarts the game
      */
     private void restart() {
-        this.mode = WindowMode.GAME;
+        this.mode = ScreenMode.GAME;
         repaint();
         this.score = 0;
         this.circlePosition.randomize(getWidth(), getHeight());
@@ -451,7 +437,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     private void onTimerFinished() {
         System.out.println("TIMER DONE");
-        this.mode = WindowMode.GAME_OVER;
+        this.mode = ScreenMode.GAME_OVER;
         repaint();
         onGameEnd();
     }
