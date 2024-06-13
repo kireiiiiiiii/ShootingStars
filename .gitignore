@@ -71,5 +71,8 @@ Desktop.ini
 # Ignore Gradle build output directory
 build
 
-#Ignore the resources folder
+# Ignore the resources folder
 Resources
+
+# Ignore the backups folder
+Backups
