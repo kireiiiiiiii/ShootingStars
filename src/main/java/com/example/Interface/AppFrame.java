@@ -73,7 +73,7 @@ public class AppFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
-        this.add(new OldGamePanel(this));
+        // this.add(new OldGamePanel(this));
     }
 
     /////////////////
