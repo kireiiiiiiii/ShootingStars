@@ -72,6 +72,8 @@ public class AppFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+
+        this.add(new GamePanel(this));
     }
 
     /////////////////
