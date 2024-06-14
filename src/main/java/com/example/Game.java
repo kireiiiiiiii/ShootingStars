@@ -29,7 +29,7 @@ package com.example;
 import java.awt.event.*;
 
 import com.example.Interface.AppFrame;
-import com.example.Interface.GamePanel;
+import com.example.Interface.OldGamePanel;
 import com.example.Interface.MenuPanel;
 import com.example.Tools.ScreenUtil;
 import javax.swing.JPanel;
@@ -54,7 +54,7 @@ public class Game {
     private AppFrame appFrame;
     private JPanel currPanel;
     private MenuPanel menuPanel;
-    private GamePanel gamePanel;
+    private OldGamePanel gamePanel;
     private GameLoop gameLoop;
 
     /////////////////

@@ -39,7 +39,7 @@ import java.awt.*;
  * TODO: Make class header
  * 
  */
-public class GamePanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
+public class OldGamePanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 
     /////////////////
     // Constants
@@ -82,7 +82,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      * 
      * @param owner - {JFrame} object, that owns this {@code JPanel}.
      */
-    public GamePanel(JFrame owner) {
+    public OldGamePanel(JFrame owner) {
         this.owner = owner;
         addMouseListener(this);
         addMouseMotionListener(this);
