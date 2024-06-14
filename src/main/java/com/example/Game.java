@@ -27,8 +27,11 @@
 package com.example;
 
 import java.awt.event.*;
+import java.io.IOException;
 
+import com.example.Common.AdvancedVariable;
 import com.example.Common.PausableTimer;
+import com.example.Constants.Paths;
 import com.example.Interface.AppFrame;
 import com.example.Interface.GamePanel;
 import com.example.Interface.ScreenMode;
@@ -57,6 +60,7 @@ public class Game {
     private MenuPanel menuPanel;
     private GamePanel gamePanel;
     private GameLoop gameLoop;
+    private AdvancedVariable<Integer> topScore;
 
     /////////////////
     // Game variables
@@ -77,6 +81,20 @@ public class Game {
         int windowHeight = (int) windowSize[1];
         this.appFrame = new AppFrame(windowWidth, windowHeight, WINDOW_TITLE);
 
+        // Set up the scores variable
+        this.topScore = new AdvancedVariable<Integer>(Paths.TOP_SCORE_FILE);
+        try {
+            this.topScore.loadFromFile(Integer.class);
+        } catch (IOException e) {
+            this.topScore.set(0);
+        }
+        // The JSON file is empty = first time playing
+        if (this.topScore.get() == null) {
+            this.topScore.set(0);
+        }
+        System.out.println("Top score: " + this.topScore.get());
+
+
         // Initialize the Game loop
         this.gameLoop = new GameLoop();
         this.gameLoop.start();
@@ -86,7 +104,7 @@ public class Game {
         this.currPanel = PanelType.MENU;
         // this.appFrame.add(this.menuPanel);
 
-        this.gamePanel = new GamePanel(this.appFrame);
+        this.gamePanel = new GamePanel(this.appFrame, this);
         this.appFrame.add(this.gamePanel);
 
         onGameStart();
@@ -101,11 +119,16 @@ public class Game {
     public void onGameStart() {
         this.gamePanel.setScreenMode(ScreenMode.GAME);
         this.currPanel = PanelType.GAME;
+        this.gamePanel.setTopscoreWidget(this.topScore.get());
         initializeTimer();
     }
 
     // Called on restart
-    public void onGameRefresh() {
+    public void onGameRestart() {
+
+    }
+
+    public void onGamePause() {
 
     }
 
@@ -118,17 +141,52 @@ public class Game {
 
     }
 
-    public void onKeyClicked(KeyEvent e) {
+    /////////////////
+    // Mouse events override methods
+    ////////////////
 
-        // Menu panel mode active
-        if (this.currPanel == PanelType.MENU) {
-            onGameStart();
-        }
+    public void mouseDragged(MouseEvent e, PanelType p) {
 
-        // Game panel active
-        else if (this.currPanel == PanelType.GAME) {
+    }
 
-        }
+    public void mouseMoved(MouseEvent e, PanelType p) {
+
+    }
+
+    public void mouseClicked(MouseEvent e, PanelType p) {
+
+    }
+
+    public void mousePressed(MouseEvent e, PanelType p) {
+
+    }
+
+    public void mouseReleased(MouseEvent e, PanelType p) {
+
+    }
+
+    public void mouseEntered(MouseEvent e, PanelType p) {
+
+    }
+
+    public void mouseExited(MouseEvent e, PanelType p) {
+
+    }
+
+    /////////////////
+    // Key events override methods
+    ////////////////
+
+    public void keyPressed(KeyEvent e, PanelType p) {
+
+    }
+
+    public void keyReleased(KeyEvent e, PanelType p) {
+
+    }
+
+    public void keyTyped(KeyEvent e, PanelType p) {
+
     }
 
     /////////////////

@@ -29,8 +29,11 @@ package com.example.Interface;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import com.example.Game;
+import com.example.Game.PanelType;
 import com.example.Interface.GamePanelElements.ScoreWidget;
 import com.example.Interface.GamePanelElements.TimerWidget;
+import com.example.Interface.GamePanelElements.TopscoreWidget;
 
 import java.awt.*;
 
@@ -50,8 +53,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     // Class variables
     ////////////////
 
-    private ScreenMode mode;
+    public ScreenMode mode;
     private JFrame owner;
+    private Game game;
 
     /////////////////
     // Renderables
@@ -61,6 +65,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private ArrayList<Renderable> pauseElements;
     private ArrayList<Renderable> gameOverElements;
     private ScoreWidget scoreWidget;
+    private TopscoreWidget topscoreWidget;
     private TimerWidget timerWidget;
 
     /////////////////
@@ -72,8 +77,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      * 
      * @param owner - {JFrame} object, that owns this {@code JPanel}.
      */
-    public GamePanel(JFrame owner) {
+    public GamePanel(JFrame owner, Game game) {
         this.owner = owner;
+        this.game = game;
         addMouseListener(this);
         addMouseMotionListener(this);
         addKeyListener(this);
@@ -165,37 +171,37 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        this.game.mouseDragged(e, PanelType.GAME);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        this.game.mouseMoved(e, PanelType.GAME);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        this.game.mouseClicked(e, PanelType.GAME);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        this.game.mousePressed(e, PanelType.GAME);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        this.game.mouseReleased(e, PanelType.GAME);
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        this.game.mouseEntered(e, PanelType.GAME);
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        this.game.mouseExited(e, PanelType.GAME);
     }
 
     /////////////////
@@ -204,17 +210,17 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        this.game.keyPressed(e, PanelType.GAME);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        this.game.keyReleased(e, PanelType.GAME);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        this.game.keyTyped(e, PanelType.GAME);
     }
 
     /////////////////
@@ -223,14 +229,18 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     private void setGameWidgets() {
 
-        int[] pos = {20, 20};
+        int[] scorePos = {20, 20};
+        int[] timePos = {20, 80};
+        int[] topscorePos = {20, 140};
 
-        this.timerWidget = new TimerWidget(pos, 99);
-        this.scoreWidget = new ScoreWidget(pos);
+        this.timerWidget = new TimerWidget(timePos);
+        this.scoreWidget = new ScoreWidget(scorePos);
+        this.topscoreWidget = new TopscoreWidget(topscorePos);
 
         this.gameElements = new ArrayList<Renderable>();
         this.gameElements.add(this.timerWidget);
         this.gameElements.add(this.scoreWidget);
+        this.gameElements.add(this.topscoreWidget);
     }
 
     private void setPauseWidgets() {
@@ -297,6 +307,15 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      */
     public void setScreenMode(ScreenMode mode) {
         this.mode = mode;
+    }
+
+    /**
+     * Sets the topscore value for the widget.
+     * 
+     * @param value - new value.
+     */
+    public void setTopscoreWidget(int value) {
+        this.topscoreWidget.setTopscore(value);
     }
 
 }
