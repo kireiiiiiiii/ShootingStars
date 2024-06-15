@@ -69,7 +69,6 @@ public class Game {
 
     private PausableTimer timer;
     private int timeRemaining;
-    private boolean isPaused;
 
     /////////////////
     // Constructors
@@ -119,7 +118,6 @@ public class Game {
 
     // Called when switching from the menu panel
     public void onGameStart() {
-        this.isPaused = false;
         this.gamePanel.setScreenMode(ScreenMode.GAME);
         this.currPanel = PanelType.GAME;
         this.gamePanel.setTopscoreWidget(this.topScore.get());
@@ -134,13 +132,11 @@ public class Game {
     }
 
     public void onGamePause() {
-        this.isPaused = true;
         this.gamePanel.setScreenMode(ScreenMode.PAUSE);
         this.timer.pause();
     }
 
     public void onGameResumed() {
-        this.isPaused = false;
         this.gamePanel.setScreenMode(ScreenMode.GAME);
         this.timer.resume();
     }
@@ -150,13 +146,18 @@ public class Game {
         this.timer.forceStop();
     }
 
-    public void onMouseClicked(MouseEvent e) {
-
+    public void onTimerIteration() {
+        this.gamePanel.setTimeRemaining(timeRemaining);
+        this.timeRemaining--;
     }
 
     /////////////////
     // Mouse events override methods
     ////////////////
+
+    public void onMouseClicked(MouseEvent e) {
+
+    }
 
     public void mouseDragged(MouseEvent e, PanelType p) {
 
@@ -199,10 +200,10 @@ public class Game {
                         
                         break;
                     case Keybinds.PAUSE_KEY:
-                        if(isPaused && this.gamePanel.getScreenMode() == ScreenMode.GAME) {
+                        if(this.gamePanel.getScreenMode() == ScreenMode.PAUSE) {
                             onGameResumed();
                         }
-                        else if (!isPaused && this.gamePanel.getScreenMode() == ScreenMode.GAME) {
+                        else if (this.gamePanel.getScreenMode() == ScreenMode.GAME) {
                             onGamePause();
                         }
                         break;
@@ -254,15 +255,8 @@ public class Game {
 
         this.timeRemaining = GAME_LENGHT;
 
-        Runnable onFinished = () -> {
-            onGameEnd();
-        };
-
-        Runnable everyRun = () -> {
-            // this.timeRemaining = (int) this.timer.getTimeRemaining() / 1000;
-            this.gamePanel.setTimeRemaining(timeRemaining);
-            timeRemaining--;
-        };
+        Runnable onFinished = () -> {onGameEnd();};
+        Runnable everyRun = () -> {onTimerIteration();};
         this.timer = new PausableTimer(1000, GAME_LENGHT + 1, onFinished, everyRun);
         timer.start();
     }
