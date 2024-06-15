@@ -100,15 +100,13 @@ public class Game {
         this.gameLoop = new GameLoop();
         this.gameLoop.start();
 
+        // Construct the game panel
+        this.gamePanel = new GamePanel(this.appFrame, this);
+
         // Construct and display the menu panel
         this.menuPanel = new MenuPanel(this, appFrame);
         this.currPanel = PanelType.MENU;
-        // this.appFrame.add(this.menuPanel);
-
-        this.gamePanel = new GamePanel(this.appFrame, this);
-        this.appFrame.add(this.gamePanel);
-
-        onGameStart();
+        this.appFrame.add(this.menuPanel);
 
     }
 
@@ -118,9 +116,14 @@ public class Game {
 
     // Called when switching from the menu panel
     public void onGameStart() {
+        this.appFrame.remove(this.menuPanel);
+        this.appFrame.add(this.gamePanel);
+        this.appFrame.revalidate();
+        this.appFrame.repaint();
+        this.gamePanel.requestFocusInWindow();
+        this.gamePanel.setTopscoreWidget(this.topScore.get());
         this.gamePanel.setScreenMode(ScreenMode.GAME);
         this.currPanel = PanelType.GAME;
-        this.gamePanel.setTopscoreWidget(this.topScore.get());
         initializeTimer();
     }
 
