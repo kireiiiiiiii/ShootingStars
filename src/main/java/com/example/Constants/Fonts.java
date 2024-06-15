@@ -32,6 +32,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Constants class with fonts, also handeling their loading.
+ * 
+ */
 public class Fonts {
 
     /////////////////
@@ -40,6 +44,7 @@ public class Fonts {
 
     public static final Font DEFAULT = new Font("Arial", Font.PLAIN, 20);
     public static final Font HEADING = setFont("heading");
+    public static final Font TEXT = setFont("text");
 
     /////////////////
     // Setter
@@ -53,7 +58,7 @@ public class Fonts {
      * @return loaded {@code Font} object or the default font.
      */
     private static Font setFont(String fontType) {
-        fontType = fontType.substring(0, 1).toUpperCase() + fontType.substring(1).toLowerCase() + ".TTF";
+        fontType = fontType.substring(0, 1).toUpperCase() + fontType.substring(1).toLowerCase() + ".ttf";
         InputStream fontStream = getFontInputStream(fontType);
         try {
             return Font.createFont(Font.TRUETYPE_FONT, fontStream);

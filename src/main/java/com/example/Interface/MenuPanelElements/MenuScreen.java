@@ -31,6 +31,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import com.example.Common.Vec2D;
+import com.example.Constants.Colors;
 import com.example.Constants.Fonts;
 import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
@@ -46,8 +47,8 @@ public class MenuScreen implements Renderable {
     // Constants
     ////////////////
 
-    private final Color MAIN_TEXT_COLOR = Color.BLACK;
-    private final Color SUBTEXT_COLOR = Color.RED;
+    private final Color MAIN_TEXT_COLOR = Colors.MAIN_TEXT;
+    private final Color SUBTEXT_COLOR = Colors.SUB_TEXT;
     private final String MAIN_MESSAGE = "TARGET GAME";
     private final String SUB_MESSAGE = "Press any key to continue";
 

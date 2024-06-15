@@ -28,7 +28,7 @@ package com.example.Interface.Elements;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-
+import com.example.Constants.Colors;
 import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
 
@@ -49,8 +49,14 @@ public class Backround implements Renderable {
     // Constructors
     ////////////////
 
+    /**
+     * Default consctructor.
+     * 
+     * @param size - size of the screen, usually the dimensions of the owning
+     *             {@code JPanel} object.
+     */
     public Backround(int[] size) {
-        this.color = Color.YELLOW;
+        this.color = Colors.BACKROUND;
         this.size = size;
     }
 
@@ -77,5 +83,5 @@ public class Backround implements Renderable {
     public String toString() {
         return "Bakcround Widget";
     }
-    
+
 }

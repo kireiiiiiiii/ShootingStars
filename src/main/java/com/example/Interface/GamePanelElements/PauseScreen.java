@@ -31,6 +31,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import com.example.Common.Vec2D;
+import com.example.Constants.Colors;
 import com.example.Constants.Fonts;
 import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
@@ -47,6 +48,7 @@ public class PauseScreen implements Renderable {
     ////////////////
 
     private final String TEXT = "Pause";
+    private final Color TEXT_COLOR = Colors.MAIN_TEXT;
 
     /////////////////
     // Variables
@@ -81,7 +83,7 @@ public class PauseScreen implements Renderable {
         int x;
         int y;
 
-        g.setColor(Color.BLACK);
+        g.setColor(TEXT_COLOR);
         g.setFont(Fonts.HEADING.deriveFont(Font.BOLD, 80));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(size[0], size[1], fm, TEXT);

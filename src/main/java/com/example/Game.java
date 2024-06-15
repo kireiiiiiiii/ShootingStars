@@ -100,11 +100,6 @@ public class Game {
         }
         System.out.println("Top score: " + this.topScore.get());
 
-
-        // Initialize the Game loop
-        this.gameLoop = new GameLoop();
-        this.gameLoop.start();
-
         // Construct the game panel
         this.gamePanel = new GamePanel(this.appFrame, this);
 
@@ -112,6 +107,10 @@ public class Game {
         this.menuPanel = new MenuPanel(this, appFrame);
         this.currPanel = PanelType.MENU;
         this.appFrame.add(this.menuPanel);
+
+        // Initialize the Game loop
+        this.gameLoop = new GameLoop();
+        this.gameLoop.start();
 
     }
 
@@ -343,16 +342,18 @@ public class Game {
                 // Repaints the current panel
                 if (deltaTime % 16 == 0) {
 
-                    // Render current panel
-                    switch (currPanel) {
-                        case GAME:
-                            gamePanel.repaint();
-                            break;
-                        case MENU: 
-                            menuPanel.repaint();
-                            break;
-                        default:
-                            break;
+                    if (currPanel != null) {
+                        // Render current panel
+                        switch (currPanel) {
+                            case GAME:
+                                gamePanel.repaint();
+                                break;
+                            case MENU: 
+                                menuPanel.repaint();
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
 

@@ -28,6 +28,8 @@ package com.example.Interface.GamePanelElements;
 
 import java.awt.*;
 
+import com.example.Constants.Colors;
+import com.example.Constants.Fonts;
 import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
 
@@ -41,8 +43,9 @@ public class TimerWidget implements Renderable {
     // Constants
     ////////////////
     
-    private final Color TIMER_BACKROUND = Color.RED;
-    private final Color TIMER_TEXT = Color.WHITE;
+    private final Color TIMER_BACKROUND = Colors.SCORES_WIDGETS;
+    private final Color TIMER_TEXT = Colors.WIDGET_TEXT;
+    private final Font FONT = Fonts.TEXT;
 
     /////////////////
     // Variables
@@ -84,7 +87,7 @@ public class TimerWidget implements Renderable {
         g.setColor(TIMER_BACKROUND);
         g.fillRect(this.position[0], this.position[1], 200, 50);
         g.setColor(TIMER_TEXT);
-        g.setFont(new Font("Arial", Font.BOLD, 24));
+        g.setFont(FONT.deriveFont(Font.BOLD, 24));
         g.drawString("" + this.timeLeft, this.position[0] + 5, this.position[1] + 24 + 5);
     }
 

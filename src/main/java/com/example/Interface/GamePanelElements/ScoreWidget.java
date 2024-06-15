@@ -27,7 +27,8 @@
 package com.example.Interface.GamePanelElements;
 
 import java.awt.*;
-
+import com.example.Constants.Colors;
+import com.example.Constants.Fonts;
 import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
 
@@ -41,8 +42,9 @@ public class ScoreWidget implements Renderable {
     // Constants
     ////////////////
 
-    private final Color BACKROUND_COLOR = Color.BLUE;
-    private final Color TEXT_COLOR = Color.WHITE;
+    private final Color BACKROUND_COLOR = Colors.MAIN_GREEN;
+    private final Color TEXT_COLOR = Colors.WIDGET_TEXT;
+    private final Font FONT = Fonts.TEXT;
 
     /////////////////
     // Fields
@@ -69,7 +71,7 @@ public class ScoreWidget implements Renderable {
         g.setColor(BACKROUND_COLOR);
         g.fillRect(this.position[0], this.position[1], 200, 50);
         g.setColor(TEXT_COLOR);
-        g.setFont(new Font("Arial", Font.BOLD, 24));
+        g.setFont(FONT.deriveFont(Font.BOLD, 24));
         g.drawString("" + this.currScore, this.position[0] + 5, this.position[1] + 24 + 5);
     }
 
