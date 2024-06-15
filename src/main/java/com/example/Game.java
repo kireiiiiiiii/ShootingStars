@@ -51,7 +51,7 @@ public class Game {
     ////////////////
 
     private static final String WINDOW_TITLE = "Target Game :3";
-    private static final int GAME_LENGHT = 10;
+    private static final int GAME_LENGHT = 20;
     private static final int DEFAULT_TARGET_RADIUS = 20;
     private static final int TARGET_SCORE = 10;
 

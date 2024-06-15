@@ -31,7 +31,6 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
-import com.example.Common.Vec2D;
 import com.example.Constants.Colors;
 import com.example.Constants.Fonts;
 import com.example.Constants.ZOrders;
@@ -88,7 +87,6 @@ public class GameOverScreen implements Renderable {
     public void refresh(Graphics2D g) {
 
         FontMetrics fm;
-        Vec2D origin;
         int[] originArr;
         int x;
         int y;
@@ -99,9 +97,8 @@ public class GameOverScreen implements Renderable {
         g.setFont(HEADING_FONT.deriveFont(Font.BOLD, 80));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, MAIN_MESSAGE);
-        origin = new Vec2D(originArr[0], originArr[1]);
-        x = origin.getIntX();
-        y = origin.getIntY();
+        x = originArr[0];
+        y = originArr[1];
         sideTextOffset = fm.getHeight();
         g.drawString(MAIN_MESSAGE, x, y);
 
@@ -110,29 +107,27 @@ public class GameOverScreen implements Renderable {
         g.setFont(HEADING_FONT.deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, SUB_MESSAGE);
-        origin = new Vec2D(originArr[0], originArr[1]);
-        x = origin.getIntX();
-        y = origin.getIntY();
+        x = originArr[0];
+        y = originArr[1];
         g.drawString(SUB_MESSAGE, x, y + sideTextOffset);
 
         g.setColor(SUBTEXT_COLOR);
         g.setFont(SCORE_FONT.deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
-        int[] leftUpCorner = {0, 0};
+        int[] leftUpCorner = { 0, 0 };
         originArr = FontUtil.getSouthEastPos(fm, "Top score: " + this.topscore, leftUpCorner);
-        origin = new Vec2D(originArr[0], originArr[1]);
-        x = origin.getIntX();
-        y = origin.getIntY();
-        g.drawString("Top score: " + this.topscore, x, y + sideTextOffset);
+        x = originArr[0] + 20;
+        y = originArr[1];
+        g.drawString("Top score: " + this.topscore, x, y);
 
         g.setColor(SCORES_COLOR);
         g.setFont(SCORE_FONT.deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
-        originArr = FontUtil.getSouthEastPos(fm, "Current score: " + this.currScore, leftUpCorner);
-        origin = new Vec2D(originArr[0], originArr[1]);
-        x = size[0] - origin.getIntX() - 330;
-        y = origin.getIntY();
-        g.drawString("Current score: " + this.currScore, x, y + sideTextOffset);
+        int[] rightUpCorner = { size[0], 0 };
+        originArr = FontUtil.getSouthWestPos(fm, "Current score: " + this.currScore, rightUpCorner);
+        x = originArr[0] - 20;
+        y = originArr[1];
+        g.drawString("Current score: " + this.currScore, x, y);
 
     }
 
@@ -155,7 +150,7 @@ public class GameOverScreen implements Renderable {
     }
 
     /**
-     * Top score setter. 
+     * Top score setter.
      * 
      * @param topscore - new value
      */
