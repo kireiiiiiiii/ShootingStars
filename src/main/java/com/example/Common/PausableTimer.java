@@ -89,7 +89,6 @@ public class PausableTimer {
                 public void run() {
                     if (!isPaused) {
                         // Do whatever you want the timer to do
-                        System.out.println("Timer task executed.");
                         onExecution.run();
                         currentExecution++;
                         if (currentExecution == executions) {

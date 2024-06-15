@@ -27,9 +27,10 @@
 package com.example;
 
 import javax.swing.SwingUtilities;
+import com.example.Constants.Logs;
 
 /**
- * Main method for 
+ * Main method for
  * 
  */
 public class AppMain {
@@ -53,6 +54,7 @@ public class AppMain {
 
     public static void main(String[] args) {
         Runnable myApp = () -> {
+            Logs.log(Logs.APP_START);
             game = new Game();
         };
         SwingUtilities.invokeLater(myApp);

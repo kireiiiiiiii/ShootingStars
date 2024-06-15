@@ -102,19 +102,19 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         // // Set up the scores variable
         // this.topScore = new AdvancedVariable<Integer>(Paths.TOP_SCORE_FILE);
         // try {
-        //     this.topScore.loadFromFile(Integer.class);
+        // this.topScore.loadFromFile(Integer.class);
         // } catch (IOException e) {
-        //     this.topScore.set(0);
+        // this.topScore.set(0);
         // }
         // // The JSON file is empty = first time playing
         // if (this.topScore.get() == null) {
-        //     this.topScore.set(0);
+        // this.topScore.set(0);
         // }
         // System.out.println("Top score: " + this.topScore.get());
 
         // Set deafult variable values
         this.mode = ScreenMode.GAME;
-        
+
         // Set widgets
         setGameWidgets();
         setPauseWidgets();
@@ -247,9 +247,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     private void setGameWidgets() {
 
-        int[] scorePos = {20, 20};
-        int[] timePos = {20, 80};
-        int[] topscorePos = {20, 140};
+        int[] scorePos = { 20, 20 };
+        int[] timePos = { 20, 80 };
+        int[] topscorePos = { 20, 140 };
 
         this.timerWidget = new TimerWidget(timePos);
         this.scoreWidget = new ScoreWidget(scorePos);
@@ -265,7 +265,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     private void setPauseWidgets() {
 
-        int[] screenSize = {this.getWidth(), this.getHeight()};
+        int[] screenSize = { this.getWidth(), this.getHeight() };
 
         this.pauseElements = new ArrayList<Renderable>();
         this.pauseElements.add(new PauseScreen(screenSize));
@@ -273,7 +273,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     private void setGameOverWidgets() {
 
-        int[] screenSize = {this.getWidth(), this.getHeight()};
+        int[] screenSize = { this.getWidth(), this.getHeight() };
 
         this.gameOverElements = new ArrayList<Renderable>();
         this.gameOverScreen = new GameOverScreen(screenSize);
@@ -281,7 +281,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     private void setBackround() {
-        int[] size = {getWidth(), getHeight()};
+        int[] size = { getWidth(), getHeight() };
         Backround backround = new Backround(size);
 
         if (this.gameElements == null) {
@@ -397,7 +397,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     /**
      * Sets the position and radius of the target widget.
      * 
-     * @param pos - new position value.
+     * @param pos    - new position value.
      * @param radius - new radius value.
      */
     public void setTargetWidget(int[] pos, int radius) {
@@ -417,7 +417,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     /**
      * Sets the score values on the game over screen.
      * 
-     * @param topScore - top score value.
+     * @param topScore  - top score value.
      * @param currScore - current game score.
      */
     public void setGameOverScreen(int topScore, int currScore) {

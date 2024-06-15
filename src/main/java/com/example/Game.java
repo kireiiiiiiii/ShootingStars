@@ -39,6 +39,7 @@ import com.example.Interface.ScreenMode;
 import com.example.Interface.MenuPanel;
 import com.example.Tools.ScreenUtil;
 import com.example.Constants.Keybinds;
+import com.example.Constants.Logs;
 
 /**
  * Main game object.
@@ -88,17 +89,7 @@ public class Game {
         this.appFrame = new AppFrame(windowWidth, windowHeight, WINDOW_TITLE);
 
         // Set up the scores variable
-        this.topScore = new AdvancedVariable<Integer>(Paths.TOP_SCORE_FILE);
-        try {
-            this.topScore.loadFromFile(Integer.class);
-        } catch (IOException e) {
-            this.topScore.set(0);
-        }
-        // The JSON file is empty = first time playing
-        if (this.topScore.get() == null) {
-            this.topScore.set(0);
-        }
-        System.out.println("Top score: " + this.topScore.get());
+        onTopscoreFileLoad();
 
         // Construct the game panel
         this.gamePanel = new GamePanel(this.appFrame, this);
@@ -120,6 +111,7 @@ public class Game {
 
     // Called when switching from the menu panel
     public void onGameStart() {
+        Logs.log(Logs.GAME_START);
         this.appFrame.remove(this.menuPanel);
         this.appFrame.add(this.gamePanel);
         this.appFrame.revalidate();
@@ -130,50 +122,55 @@ public class Game {
         this.currPanel = PanelType.GAME;
         this.targetRadius = DEFAULT_TARGET_RADIUS;
         this.gamePanel.setTargetWidget(this.targetRadius);
-        this.score = -TARGET_SCORE;
+        this.score = 0;
         initializeTimer();
-        onTargetClicked();
+        onTargetClicked(true);
     }
 
     // Called on restart
     public void onGameRestart() {
+        Logs.log(Logs.GAME_RESTART);
         this.gamePanel.setTopscoreWidget(this.topScore.get());
         this.gamePanel.setScreenMode(ScreenMode.GAME);
         this.timer.forceStop();
+        this.score = 0;
+        this.gamePanel.setScore(this.score);
+        onTargetClicked(true);
         initializeTimer();
     }
 
     public void onGamePause() {
+        Logs.log(Logs.GAME_PAUSE);
         this.gamePanel.setScreenMode(ScreenMode.PAUSE);
         this.timer.pause();
     }
 
     public void onGameResumed() {
+        Logs.log(Logs.GAME_RESUMED);
         this.gamePanel.setScreenMode(ScreenMode.GAME);
         this.timer.resume();
     }
 
     public void onGameEnd() {
+        Logs.log(Logs.GAME_OVER);
         this.gamePanel.setScreenMode(ScreenMode.GAME_OVER);
         this.gamePanel.setGameOverScreen(this.topScore.get(), this.score);
         this.timer.forceStop();
-        
+        // New highscore
         if (this.score > this.topScore.get()) {
             this.topScore.set(this.score);
-            try {
-                this.topScore.save();
-            } catch (IOException e) {
-                System.out.println("Saving failed");
-            }
+            onTopscoreFileSave();
         }
+        onTopscoreFileLoad();
     }
 
     public void onTimerIteration() {
+        Logs.log(Logs.TIMER_INTEARION);
         this.gamePanel.setTimeRemaining(timeRemaining);
         this.timeRemaining--;
     }
 
-    public void onTargetClicked() {
+    public void onTargetClicked(boolean init) {
         int maxX = this.gamePanel.getWidth() - this.targetRadius * 2 - this.gamePanel.WINDOW_PADDING * 2;
         int maxY = this.gamePanel.getHeight() - this.targetRadius * 2 - this.gamePanel.WINDOW_PADDING * 2;
         Vec2D newPos = new Vec2D();
@@ -181,16 +178,45 @@ public class Game {
 
         int x = newPos.getIntX();
         int y = newPos.getIntY();
-        int[] pos = {x, y};
+        int[] pos = { x, y };
 
         this.gamePanel.setTargetWidget(pos);
-        this.score += TARGET_SCORE;
-        this.gamePanel.setScore(this.score);
+
+        // Update the score and log the click, if not ititial execution
+        if (!init) {
+            Logs.log(Logs.TAGRET_HIT);
+            this.score += TARGET_SCORE;
+            this.gamePanel.setScore(this.score);
+        }
     }
 
     public void onTargetMisclicked() {
+        Logs.log(Logs.TAGRET_NOT_HIT);
         this.score = Math.max(0, this.score - TARGET_SCORE);
         this.gamePanel.setScore(this.score);
+    }
+
+    public void onTopscoreFileLoad() {
+        Logs.log(Logs.TOPSCORE_FILE_LOAD);
+        this.topScore = new AdvancedVariable<Integer>(Paths.TOP_SCORE_FILE);
+        try {
+            this.topScore.loadFromFile(Integer.class);
+        } catch (IOException e) {
+            this.topScore.set(0);
+        }
+        // The JSON file is empty = first time playing
+        if (this.topScore.get() == null) {
+            this.topScore.set(0);
+        }
+    }
+
+    public void onTopscoreFileSave() {
+        Logs.log(Logs.TOPSCORE_FILE_SAVED);
+        try {
+            this.topScore.save();
+        } catch (IOException e) {
+            System.out.println("FATAL - Could not save Topscore file");
+        }
     }
 
     /////////////////
@@ -222,18 +248,17 @@ public class Game {
             case MENU:
                 onGameStart();
                 break;
-            
+
             case GAME:
                 if (this.gamePanel.getScreenMode() == ScreenMode.GAME) {
                     if (this.gamePanel.isTargetClicked(e)) {
-                        onTargetClicked();
-                    }
-                    else {
+                        onTargetClicked(false);
+                    } else {
                         onTargetMisclicked();
                     }
                 }
                 break;
-            
+
             default:
                 break;
         }
@@ -254,16 +279,15 @@ public class Game {
     public void keyPressed(KeyEvent e, PanelType p) {
         switch (p) {
             case GAME:
-                
+
                 switch (e.getKeyCode()) {
                     case Keybinds.DEBUGG_KEY:
-                        
+
                         break;
                     case Keybinds.PAUSE_KEY:
-                        if(this.gamePanel.getScreenMode() == ScreenMode.PAUSE) {
+                        if (this.gamePanel.getScreenMode() == ScreenMode.PAUSE) {
                             onGameResumed();
-                        }
-                        else if (this.gamePanel.getScreenMode() == ScreenMode.GAME) {
+                        } else if (this.gamePanel.getScreenMode() == ScreenMode.GAME) {
                             onGamePause();
                         }
                         break;
@@ -275,7 +299,7 @@ public class Game {
                 }
 
                 break;
-        
+
             case MENU:
                 onGameStart();
                 break;
@@ -315,8 +339,12 @@ public class Game {
 
         this.timeRemaining = GAME_LENGHT;
 
-        Runnable onFinished = () -> {onGameEnd();};
-        Runnable everyRun = () -> {onTimerIteration();};
+        Runnable onFinished = () -> {
+            onGameEnd();
+        };
+        Runnable everyRun = () -> {
+            onTimerIteration();
+        };
         this.timer = new PausableTimer(1000, GAME_LENGHT + 1, onFinished, everyRun);
         timer.start();
     }
@@ -348,7 +376,7 @@ public class Game {
                             case GAME:
                                 gamePanel.repaint();
                                 break;
-                            case MENU: 
+                            case MENU:
                                 menuPanel.repaint();
                                 break;
                             default:

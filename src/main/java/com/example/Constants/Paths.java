@@ -40,8 +40,10 @@ public class Paths {
     // File names
     ////////////////
 
-    private static final String TOP_SCORE_FILENAME = "TopScore.JSON";
+    public static final String TOP_SCORE_FILENAME = "TopScore.JSON";
+    private static final String LOG_FILENAME = "log.txt";
     private static final String USER_DATA_DIR_NAME = "UserData";
+    private static final String LOG_DIRECTORY_NAME = "Logs";
 
     /////////////////
     // Directory constants
@@ -49,6 +51,7 @@ public class Paths {
 
     public static final String DATA_DIR = getAppDataDirectory(AppMain.APP_NAME).getAbsolutePath();
     public static final String USER_DATA_DIR = DATA_DIR + File.separator + USER_DATA_DIR_NAME;
+    public static final String LOG_DIR = DATA_DIR + File.separator + LOG_DIRECTORY_NAME;
     public static final String RESOURCE_DIR = getResourcesDir();
     public static final String FONT_DIR = getFontsDir();
 
@@ -57,6 +60,7 @@ public class Paths {
     ////////////////
 
     public static final File TOP_SCORE_FILE = getScoreFile();
+    public static final File LOG_FILE = getLogFile();
 
     /////////////////
     // Private methods
@@ -178,6 +182,26 @@ public class Paths {
         }
 
         return scoreFile;
+    }
+
+    private static File getLogFile() {
+        File logDir = new File(LOG_DIR);
+
+        // Checks if the dir exists, and creates it if it doesn't
+        if (!logDir.exists()) {
+            logDir.mkdir();
+        }
+
+        File logFile = new File(LOG_DIR + File.separator + LOG_FILENAME);
+        try {
+            if (!logFile.exists()) {
+                logFile.createNewFile();
+            }
+        } catch (IOException e) {
+            assert false : "FATAL - Could not create a log file";
+        }
+
+        return logFile;
     }
 
 }
