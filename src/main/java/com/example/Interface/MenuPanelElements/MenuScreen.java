@@ -32,6 +32,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import com.example.Common.Vec2D;
 import com.example.Constants.Fonts;
+import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
 import com.example.Tools.FontUtil;
 
@@ -40,12 +41,25 @@ import com.example.Tools.FontUtil;
  * 
  */
 public class MenuScreen implements Renderable {
+
+    /////////////////
+    // Constants
+    ////////////////
+
     private final Color MAIN_TEXT_COLOR = Color.BLACK;
     private final Color SUBTEXT_COLOR = Color.RED;
     private final String MAIN_MESSAGE = "TARGET GAME";
     private final String SUB_MESSAGE = "Press any key to continue";
 
+    /////////////////
+    // Variables
+    ////////////////
+
     private int[] size;
+
+    /////////////////
+    // Constructor
+    ////////////////
 
     /**
      * Default constructor.
@@ -56,6 +70,10 @@ public class MenuScreen implements Renderable {
     public MenuScreen(int[] size) {
         this.size = size;
     }
+
+    /////////////////
+    // Render
+    ////////////////
 
     @Override
     public void refresh(Graphics2D g) {
@@ -87,6 +105,11 @@ public class MenuScreen implements Renderable {
         x = origin.getIntX();
         y = origin.getIntY();
         g.drawString(SUB_MESSAGE, x, y + sideTextOffset);
+    }
+
+    @Override
+    public int getZOrder() {
+        return ZOrders.SCREENS;
     }
 
 }

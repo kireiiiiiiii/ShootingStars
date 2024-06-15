@@ -28,9 +28,12 @@ package com.example.Interface;
 
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.*;
 import com.example.Game;
 import com.example.Game.PanelType;
+import com.example.Interface.Elements.Backround;
 import com.example.Interface.GamePanelElements.GameOverScreen;
 import com.example.Interface.GamePanelElements.PauseScreen;
 import com.example.Interface.GamePanelElements.ScoreWidget;
@@ -110,12 +113,12 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
         // Set deafult variable values
         this.mode = ScreenMode.GAME;
-
+        
         // Set widgets
         setGameWidgets();
         setPauseWidgets();
         setGameOverWidget();
-
+        setBackround();
     }
 
     /////////////////
@@ -143,7 +146,17 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
                 break;
         }
 
-        for (Renderable r : currRender) {
+        // Sort the list based on the ZLayer using a Comparator
+        Collections.sort(currRender, new Comparator<Renderable>() {
+            @Override
+            public int compare(Renderable r1, Renderable r2) {
+                return Integer.compare(r2.getZOrder(), r1.getZOrder());
+            }
+        });
+        ArrayList<Renderable> sorted = new ArrayList<>(currRender);
+
+        // Render the list onto the screen
+        for (Renderable r : sorted) {
             r.refresh(g);
         }
 
@@ -263,6 +276,25 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
         this.gameOverElements = new ArrayList<Renderable>();
         this.gameOverElements.add(new GameOverScreen(screenSize));
+    }
+
+    private void setBackround() {
+        int[] size = {getWidth(), getHeight()};
+        Backround backround = new Backround(size);
+
+        if (this.gameElements == null) {
+            this.gameElements = new ArrayList<Renderable>();
+        }
+        if (this.pauseElements == null) {
+            this.pauseElements = new ArrayList<Renderable>();
+        }
+        if (this.gameOverElements == null) {
+            this.gameOverElements = new ArrayList<Renderable>();
+        }
+
+        this.gameElements.add(backround);
+        this.pauseElements.add(backround);
+        this.gameOverElements.add(backround);
     }
 
     /////////////////

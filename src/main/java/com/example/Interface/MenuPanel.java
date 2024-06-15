@@ -29,6 +29,7 @@ package com.example.Interface;
 import javax.swing.*;
 import com.example.Game;
 import com.example.Game.PanelType;
+import com.example.Interface.Elements.Backround;
 import com.example.Interface.MenuPanelElements.MenuScreen;
 
 import java.awt.event.*;
@@ -177,6 +178,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         int[] size = {this.getWidth(), this.getHeight()};
 
         this.renderables = new ArrayList<Renderable>();
+        this.renderables.add(new Backround(size));
         this.renderables.add(new MenuScreen(size));
     }
     

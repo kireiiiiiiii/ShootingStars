@@ -29,6 +29,8 @@ package com.example.Interface.GamePanelElements;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+
+import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
 
 /**
@@ -74,6 +76,11 @@ public class TargetWidget implements Renderable {
         g.setColor(CIRCLE_COLOR);
         g.fillOval(this.location[0] - this.radius, this.location[1] - this.radius,
                 this.radius * 2, this.radius * 2);
+    }
+
+    @Override
+    public int getZOrder() {
+        return ZOrders.TARGET;
     }
 
     /////////////////

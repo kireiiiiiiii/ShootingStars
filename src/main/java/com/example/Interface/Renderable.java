@@ -42,4 +42,11 @@ public interface Renderable {
      */
     public void refresh(Graphics2D g2d);
 
+    /**
+     * Returns the Z layer value for the renderable.
+     * 
+     * @return a Z layer value.
+     */
+    public int getZOrder();
+
 }

@@ -27,6 +27,8 @@
 package com.example.Interface.GamePanelElements;
 
 import java.awt.*;
+
+import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
 
 /**
@@ -69,6 +71,11 @@ public class ScoreWidget implements Renderable {
         g.setColor(TEXT_COLOR);
         g.setFont(new Font("Arial", Font.BOLD, 24));
         g.drawString("" + this.currScore, this.position[0] + 5, this.position[1] + 24 + 5);
+    }
+
+    @Override
+    public int getZOrder() {
+        return ZOrders.GAME_WIDGETS;
     }
 
     /////////////////

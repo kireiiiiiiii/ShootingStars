@@ -32,6 +32,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import com.example.Common.Vec2D;
 import com.example.Constants.Fonts;
+import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
 import com.example.Tools.FontUtil;
 
@@ -88,6 +89,11 @@ public class PauseScreen implements Renderable {
         x = origin.getIntX();
         y = origin.getIntY();
         g.drawString(TEXT, x, y);
+    }
+
+    @Override
+    public int getZOrder() {
+        return ZOrders.SCREENS;
     }
 
 }
