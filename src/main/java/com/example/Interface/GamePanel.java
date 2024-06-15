@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import com.example.Game;
 import com.example.Game.PanelType;
+import com.example.Interface.GamePanelElements.GameOverScreen;
 import com.example.Interface.GamePanelElements.PauseScreen;
 import com.example.Interface.GamePanelElements.ScoreWidget;
 import com.example.Interface.GamePanelElements.TimerWidget;
@@ -254,6 +255,10 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     private void setGameOverWidget() {
 
+        int[] screenSize = {this.getWidth(), this.getHeight()};
+
+        this.gameOverElements = new ArrayList<Renderable>();
+        this.gameOverElements.add(new GameOverScreen(screenSize));
     }
 
     /////////////////
@@ -271,6 +276,15 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      */
     public JFrame getOwner() {
         return this.owner;
+    }
+
+    /**
+     * Accesor for the current {@code GamePanel} screen mode.
+     * 
+     * @return - {@code ScreenMode} enum value.
+     */
+    public ScreenMode getScreenMode() {
+        return this.mode;
     }
 
     /////////////////

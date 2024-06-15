@@ -50,7 +50,7 @@ public class Game {
     ////////////////
 
     private static final String WINDOW_TITLE = "Target Game :3";
-    private static final int GAME_LENGHT = 20;
+    private static final int GAME_LENGHT = 5;
 
     /////////////////
     // Variables
@@ -128,8 +128,9 @@ public class Game {
 
     // Called on restart
     public void onGameRestart() {
+        this.gamePanel.setScreenMode(ScreenMode.GAME);
         this.timer.forceStop();
-        this.timer.start();
+        initializeTimer();
     }
 
     public void onGamePause() {
@@ -198,10 +199,10 @@ public class Game {
                         
                         break;
                     case Keybinds.PAUSE_KEY:
-                        if(isPaused) {
+                        if(isPaused && this.gamePanel.getScreenMode() == ScreenMode.GAME) {
                             onGameResumed();
                         }
-                        else {
+                        else if (!isPaused && this.gamePanel.getScreenMode() == ScreenMode.GAME) {
                             onGamePause();
                         }
                         break;

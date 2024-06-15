@@ -35,6 +35,10 @@ import com.example.Constants.Fonts;
 import com.example.Interface.Renderable;
 import com.example.Tools.FontUtil;
 
+/**
+ * Pause screen {@code Renderable}.
+ * 
+ */
 public class PauseScreen implements Renderable {
 
     /////////////////
@@ -46,13 +50,19 @@ public class PauseScreen implements Renderable {
     /////////////////
     // Variables
     ////////////////
-    
+
     private int[] size;
 
     /////////////////
     // Constructor
     ////////////////
 
+    /**
+     * Default contructor.
+     * 
+     * @param panelSize - determines the size of the screen, commonly same as the
+     *                  owning {@code JPanel}.
+     */
     public PauseScreen(int[] panelSize) {
         this.size = panelSize;
     }
@@ -60,7 +70,7 @@ public class PauseScreen implements Renderable {
     /////////////////
     // Render
     ////////////////
-    
+
     @Override
     public void refresh(Graphics2D g) {
 
@@ -79,5 +89,5 @@ public class PauseScreen implements Renderable {
         y = origin.getIntY();
         g.drawString(TEXT, x, y);
     }
-    
+
 }
