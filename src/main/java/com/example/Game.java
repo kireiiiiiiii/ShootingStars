@@ -38,6 +38,7 @@ import com.example.Interface.GamePanel;
 import com.example.Interface.ScreenMode;
 import com.example.Interface.MenuPanel;
 import com.example.Tools.ScreenUtil;
+import com.example.Constants.GameDialogue;
 import com.example.Constants.Keybinds;
 import com.example.Constants.Logs;
 
@@ -51,7 +52,6 @@ public class Game {
     // Constatns
     ////////////////
 
-    private static final String WINDOW_TITLE = "Target Game :3";
     private static final int GAME_LENGHT = 20;
     private static final int DEFAULT_TARGET_RADIUS = 20;
     private static final int TARGET_SCORE = 10;
@@ -86,7 +86,7 @@ public class Game {
         double[] windowSize = ScreenUtil.getAppWindowSize();
         int windowWidth = (int) windowSize[0];
         int windowHeight = (int) windowSize[1];
-        this.appFrame = new AppFrame(windowWidth, windowHeight, WINDOW_TITLE);
+        this.appFrame = new AppFrame(windowWidth, windowHeight, GameDialogue.appTitle());
 
         // Set up the scores variable
         onTopscoreFileLoad();

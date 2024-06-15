@@ -33,6 +33,7 @@ import java.awt.Graphics2D;
 
 import com.example.Constants.Colors;
 import com.example.Constants.Fonts;
+import com.example.Constants.GameDialogue;
 import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
 import com.example.Tools.FontUtil;
@@ -50,8 +51,10 @@ public class GameOverScreen implements Renderable {
     private final Color MAIN_TEXT_COLOR = Colors.MAIN_TEXT;
     private final Color SUBTEXT_COLOR = Colors.SUB_TEXT;
     private final Color SCORES_COLOR = Colors.SUB_TEXT;
-    private final String MAIN_MESSAGE = "GAME OVER";
-    private final String SUB_MESSAGE = "Press R to restart";
+    private final String MAIN_MESSAGE = GameDialogue.gameOver();
+    private final String SUB_MESSAGE = GameDialogue.gameOverSubtext();
+    private final String SCORE_MESSAGE = GameDialogue.score() + ": ";
+    private final String TOPSCORE_MESSAGE = GameDialogue.topscore() + ": ";
     private final Font HEADING_FONT = Fonts.HEADING;
     private final Font SCORE_FONT = Fonts.TEXT;
 
@@ -115,19 +118,19 @@ public class GameOverScreen implements Renderable {
         g.setFont(SCORE_FONT.deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
         int[] leftUpCorner = { 0, 0 };
-        originArr = FontUtil.getSouthEastPos(fm, "Top score: " + this.topscore, leftUpCorner);
+        originArr = FontUtil.getSouthEastPos(fm,  TOPSCORE_MESSAGE + this.topscore, leftUpCorner);
         x = originArr[0] + 20;
         y = originArr[1];
-        g.drawString("Top score: " + this.topscore, x, y);
+        g.drawString(TOPSCORE_MESSAGE + this.topscore, x, y);
 
         g.setColor(SCORES_COLOR);
         g.setFont(SCORE_FONT.deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
         int[] rightUpCorner = { size[0], 0 };
-        originArr = FontUtil.getSouthWestPos(fm, "Current score: " + this.currScore, rightUpCorner);
+        originArr = FontUtil.getSouthWestPos(fm, SCORE_MESSAGE + this.currScore, rightUpCorner);
         x = originArr[0] - 20;
         y = originArr[1];
-        g.drawString("Current score: " + this.currScore, x, y);
+        g.drawString(SCORE_MESSAGE + this.currScore, x, y);
 
     }
 

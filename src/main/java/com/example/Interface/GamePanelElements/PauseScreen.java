@@ -33,6 +33,7 @@ import java.awt.Graphics2D;
 import com.example.Common.Vec2D;
 import com.example.Constants.Colors;
 import com.example.Constants.Fonts;
+import com.example.Constants.GameDialogue;
 import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
 import com.example.Tools.FontUtil;
@@ -47,7 +48,7 @@ public class PauseScreen implements Renderable {
     // Constants
     ////////////////
 
-    private final String TEXT = "Pause";
+    private final String TEXT = GameDialogue.pause();
     private final Color TEXT_COLOR = Colors.MAIN_TEXT;
 
     /////////////////

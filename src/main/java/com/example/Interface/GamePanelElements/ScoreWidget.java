@@ -29,6 +29,7 @@ package com.example.Interface.GamePanelElements;
 import java.awt.*;
 import com.example.Constants.Colors;
 import com.example.Constants.Fonts;
+import com.example.Constants.GameDialogue;
 import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
 
@@ -72,7 +73,7 @@ public class ScoreWidget implements Renderable {
         g.fillRect(this.position[0], this.position[1], 200, 50);
         g.setColor(TEXT_COLOR);
         g.setFont(FONT.deriveFont(Font.BOLD, 24));
-        g.drawString("" + this.currScore, this.position[0] + 5, this.position[1] + 24 + 5);
+        g.drawString(GameDialogue.score() + ": " + this.currScore, this.position[0] + 5, this.position[1] + 24 + 5);
     }
 
     @Override
