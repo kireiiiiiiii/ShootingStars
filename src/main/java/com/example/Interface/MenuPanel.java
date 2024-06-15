@@ -39,7 +39,7 @@ import java.awt.*;
  * Main menu {@code JPanel} class.
  * 
  */
-public class MenuPanel extends JPanel implements KeyListener {
+public class MenuPanel extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
 
     /////////////////
     // Varibles
@@ -63,9 +63,10 @@ public class MenuPanel extends JPanel implements KeyListener {
         this.game = g;
         this.owner = owner;
         addKeyListener(this);
+        addMouseListener(this);
+        addMouseMotionListener(this);
         setFocusable(true);
         requestFocusInWindow();
-
         setUpWidgets();
     }
 
@@ -102,6 +103,45 @@ public class MenuPanel extends JPanel implements KeyListener {
     @Override
     public Dimension getSize() {
         return new Dimension(getWidth(), getHeight());
+    }
+
+    /////////////////
+    // Mouse events
+    ////////////////
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        this.game.mouseDragged(e, PanelType.MENU);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        this.game.mouseMoved(e, PanelType.MENU);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        this.game.mouseClicked(e, PanelType.MENU);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        this.game.mousePressed(e, PanelType.MENU);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        this.game.mouseReleased(e, PanelType.MENU);
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        this.game.mouseEntered(e, PanelType.MENU);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        this.game.mouseExited(e, PanelType.MENU);
     }
 
     

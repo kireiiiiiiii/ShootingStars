@@ -31,6 +31,7 @@ import java.io.IOException;
 
 import com.example.Common.AdvancedVariable;
 import com.example.Common.PausableTimer;
+import com.example.Common.Vec2D;
 import com.example.Constants.Paths;
 import com.example.Interface.AppFrame;
 import com.example.Interface.GamePanel;
@@ -50,7 +51,9 @@ public class Game {
     ////////////////
 
     private static final String WINDOW_TITLE = "Target Game :3";
-    private static final int GAME_LENGHT = 5;
+    private static final int GAME_LENGHT = 10;
+    private static final int DEFAULT_TARGET_RADIUS = 20;
+    private static final int TARGET_SCORE = 10;
 
     /////////////////
     // Variables
@@ -69,6 +72,8 @@ public class Game {
 
     private PausableTimer timer;
     private int timeRemaining;
+    private int targetRadius;
+    private int score;
 
     /////////////////
     // Constructors
@@ -124,11 +129,16 @@ public class Game {
         this.gamePanel.setTopscoreWidget(this.topScore.get());
         this.gamePanel.setScreenMode(ScreenMode.GAME);
         this.currPanel = PanelType.GAME;
+        this.targetRadius = DEFAULT_TARGET_RADIUS;
+        this.gamePanel.setTargetWidget(this.targetRadius);
+        this.score = -TARGET_SCORE;
         initializeTimer();
+        onTargetClicked();
     }
 
     // Called on restart
     public void onGameRestart() {
+        this.gamePanel.setTopscoreWidget(this.topScore.get());
         this.gamePanel.setScreenMode(ScreenMode.GAME);
         this.timer.forceStop();
         initializeTimer();
@@ -147,11 +157,40 @@ public class Game {
     public void onGameEnd() {
         this.gamePanel.setScreenMode(ScreenMode.GAME_OVER);
         this.timer.forceStop();
+        
+        if (this.score > this.topScore.get()) {
+            this.topScore.set(this.score);
+            try {
+                this.topScore.save();
+            } catch (IOException e) {
+                System.out.println("Saving failed");
+            }
+        }
     }
 
     public void onTimerIteration() {
         this.gamePanel.setTimeRemaining(timeRemaining);
         this.timeRemaining--;
+    }
+
+    public void onTargetClicked() {
+        int maxX = this.gamePanel.getWidth() - this.targetRadius * 2 - this.gamePanel.WINDOW_PADDING * 2;
+        int maxY = this.gamePanel.getHeight() - this.targetRadius * 2 - this.gamePanel.WINDOW_PADDING * 2;
+        Vec2D newPos = new Vec2D();
+        newPos.randomize(maxX, maxY);
+
+        int x = newPos.getIntX();
+        int y = newPos.getIntY();
+        int[] pos = {x, y};
+
+        this.gamePanel.setTargetWidget(pos);
+        this.score += TARGET_SCORE;
+        this.gamePanel.setScore(this.score);
+    }
+
+    public void onTargetMisclicked() {
+        this.score = Math.max(0, this.score - TARGET_SCORE);
+        this.gamePanel.setScore(this.score);
     }
 
     /////////////////
@@ -179,7 +218,25 @@ public class Game {
     }
 
     public void mouseReleased(MouseEvent e, PanelType p) {
-
+        switch (p) {
+            case MENU:
+                onGameStart();
+                break;
+            
+            case GAME:
+                if (this.gamePanel.getScreenMode() == ScreenMode.GAME) {
+                    if (this.gamePanel.isTargetClicked(e)) {
+                        onTargetClicked();
+                    }
+                    else {
+                        onTargetMisclicked();
+                    }
+                }
+                break;
+            
+            default:
+                break;
+        }
     }
 
     public void mouseEntered(MouseEvent e, PanelType p) {

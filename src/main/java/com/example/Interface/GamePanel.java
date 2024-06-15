@@ -34,6 +34,7 @@ import com.example.Game.PanelType;
 import com.example.Interface.GamePanelElements.GameOverScreen;
 import com.example.Interface.GamePanelElements.PauseScreen;
 import com.example.Interface.GamePanelElements.ScoreWidget;
+import com.example.Interface.GamePanelElements.TargetWidget;
 import com.example.Interface.GamePanelElements.TimerWidget;
 import com.example.Interface.GamePanelElements.TopscoreWidget;
 
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     // Constants
     ////////////////
 
-    private final int WINDOW_PADDING = 10;
+    public final int WINDOW_PADDING = 10;
 
     /////////////////
     // Class variables
@@ -69,6 +70,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private ScoreWidget scoreWidget;
     private TopscoreWidget topscoreWidget;
     private TimerWidget timerWidget;
+    private TargetWidget target;
 
     /////////////////
     // Constructors
@@ -238,11 +240,13 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         this.timerWidget = new TimerWidget(timePos);
         this.scoreWidget = new ScoreWidget(scorePos);
         this.topscoreWidget = new TopscoreWidget(topscorePos);
+        this.target = new TargetWidget();
 
         this.gameElements = new ArrayList<Renderable>();
         this.gameElements.add(this.timerWidget);
         this.gameElements.add(this.scoreWidget);
         this.gameElements.add(this.topscoreWidget);
+        this.gameElements.add(this.target);
     }
 
     private void setPauseWidgets() {
@@ -262,8 +266,18 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     /////////////////
-    // Events
+    // Public methods
     ////////////////
+
+    /**
+     * Forward method call to the {@code TargetWidged} method.
+     * 
+     * @param e
+     * @return
+     */
+    public boolean isTargetClicked(MouseEvent e) {
+        return this.target.wasClicked(e);
+    }
 
     /////////////////
     // Accessor methods
@@ -335,6 +349,35 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      */
     public void setTopscoreWidget(int value) {
         this.topscoreWidget.setTopscore(value);
+    }
+
+    /**
+     * Sets the position of the target widget.
+     * 
+     * @param pos - new position value.
+     */
+    public void setTargetWidget(int[] pos) {
+        this.target.setLocation(pos);
+    }
+
+    /**
+     * Sets the position and radius of the target widget.
+     * 
+     * @param pos - new position value.
+     * @param radius - new radius value.
+     */
+    public void setTargetWidget(int[] pos, int radius) {
+        this.target.setLocation(pos);
+        this.target.setRadius(radius);
+    }
+
+    /**
+     * Sets the radius of the target widget.
+     * 
+     * @param radius - new radius value.
+     */
+    public void setTargetWidget(int radius) {
+        this.target.setRadius(radius);
     }
 
 }
