@@ -1,0 +1,83 @@
+/*
+ * Author: Matěj Šťastný
+ * Date created: 6/14/2024
+ * Github link: https://github.com/kireiiiiiiii/TargetGame
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+package com.example.Interface.GamePanelElements;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import com.example.Common.Vec2D;
+import com.example.Constants.Fonts;
+import com.example.Interface.Renderable;
+import com.example.Tools.FontUtil;
+
+public class PauseScreen implements Renderable {
+
+    /////////////////
+    // Constants
+    ////////////////
+
+    private final String TEXT = "Pause";
+
+    /////////////////
+    // Variables
+    ////////////////
+    
+    private int[] size;
+
+    /////////////////
+    // Constructor
+    ////////////////
+
+    public PauseScreen(int[] panelSize) {
+        this.size = panelSize;
+    }
+
+    /////////////////
+    // Render
+    ////////////////
+    
+    @Override
+    public void refresh(Graphics2D g) {
+
+        FontMetrics fm;
+        Vec2D origin;
+        int[] originArr;
+        int x;
+        int y;
+
+        g.setColor(Color.BLACK);
+        g.setFont(Fonts.HEADING.deriveFont(Font.BOLD, 80));
+        fm = g.getFontMetrics();
+        originArr = FontUtil.getCenteredPos(size[0], size[1], fm, TEXT);
+        origin = new Vec2D(originArr[0], originArr[1]);
+        x = origin.getIntX();
+        y = origin.getIntY();
+        g.drawString(TEXT, x, y);
+    }
+    
+}

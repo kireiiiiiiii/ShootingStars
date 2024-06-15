@@ -37,6 +37,7 @@ import com.example.Interface.GamePanel;
 import com.example.Interface.ScreenMode;
 import com.example.Interface.MenuPanel;
 import com.example.Tools.ScreenUtil;
+import com.example.Constants.Keybinds;
 
 /**
  * Main game object.
@@ -68,6 +69,7 @@ public class Game {
 
     private PausableTimer timer;
     private int timeRemaining;
+    private boolean isPaused;
 
     /////////////////
     // Constructors
@@ -117,6 +119,7 @@ public class Game {
 
     // Called when switching from the menu panel
     public void onGameStart() {
+        this.isPaused = false;
         this.gamePanel.setScreenMode(ScreenMode.GAME);
         this.currPanel = PanelType.GAME;
         this.gamePanel.setTopscoreWidget(this.topScore.get());
@@ -125,11 +128,20 @@ public class Game {
 
     // Called on restart
     public void onGameRestart() {
-
+        this.timer.forceStop();
+        this.timer.start();
     }
 
     public void onGamePause() {
+        this.isPaused = true;
+        this.gamePanel.setScreenMode(ScreenMode.PAUSE);
+        this.timer.pause();
+    }
 
+    public void onGameResumed() {
+        this.isPaused = false;
+        this.gamePanel.setScreenMode(ScreenMode.GAME);
+        this.timer.resume();
     }
 
     public void onGameEnd() {
@@ -178,7 +190,37 @@ public class Game {
     ////////////////
 
     public void keyPressed(KeyEvent e, PanelType p) {
+        switch (p) {
+            case GAME:
+                
+                switch (e.getKeyCode()) {
+                    case Keybinds.DEBUGG_KEY:
+                        
+                        break;
+                    case Keybinds.PAUSE_KEY:
+                        if(isPaused) {
+                            onGameResumed();
+                        }
+                        else {
+                            onGamePause();
+                        }
+                        break;
+                    case Keybinds.RESTART_KEY:
+                        onGameRestart();
+                        break;
+                    default:
+                        break;
+                }
 
+                break;
+        
+            case MENU:
+                onGameStart();
+                break;
+
+            default:
+                break;
+        }
     }
 
     public void keyReleased(KeyEvent e, PanelType p) {

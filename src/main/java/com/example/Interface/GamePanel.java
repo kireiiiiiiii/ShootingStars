@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import com.example.Game;
 import com.example.Game.PanelType;
+import com.example.Interface.GamePanelElements.PauseScreen;
 import com.example.Interface.GamePanelElements.ScoreWidget;
 import com.example.Interface.GamePanelElements.TimerWidget;
 import com.example.Interface.GamePanelElements.TopscoreWidget;
@@ -245,6 +246,10 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     private void setPauseWidgets() {
 
+        int[] screenSize = {this.getWidth(), this.getHeight()};
+
+        this.pauseElements = new ArrayList<Renderable>();
+        this.pauseElements.add(new PauseScreen(screenSize));
     }
 
     private void setGameOverWidget() {
