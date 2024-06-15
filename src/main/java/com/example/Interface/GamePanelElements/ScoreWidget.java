@@ -70,10 +70,10 @@ public class ScoreWidget implements Renderable {
     @Override
     public void refresh(Graphics2D g) {
         g.setColor(BACKROUND_COLOR);
-        g.fillRect(this.position[0], this.position[1], 200, 50);
+        g.fillRoundRect(this.position[0], this.position[1], 200, 50, 20, 20);
         g.setColor(TEXT_COLOR);
         g.setFont(FONT.deriveFont(Font.BOLD, 24));
-        g.drawString(GameDialogue.score() + ": " + this.currScore, this.position[0] + 5, this.position[1] + 24 + 5);
+        g.drawString(GameDialogue.score() + ": " + this.currScore, this.position[0] + 15, this.position[1] + 24 + 8);
     }
 
     @Override
