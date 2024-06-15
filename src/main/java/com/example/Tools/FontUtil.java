@@ -83,4 +83,30 @@ public class FontUtil {
         int[] pos = { textX, textY };
         return pos;
     }
+
+    /**
+     * Calculates the point to render the text south-east of the given point.
+     * 
+     * @param fm FontMetrics object to get text dimensions
+     * @param text The text to be rendered
+     * @param point The point represented by an int array [x, y]
+     * @return The calculated point for rendering the text south-east of the given point
+     */
+    public static int[] getSouthEastPos(FontMetrics fm, String text, int[] point) {
+        if (point == null || point.length < 2) {
+            throw new IllegalArgumentException("Point array must have at least two elements");
+        }
+        
+        int x = point[0];
+        int y = point[1];
+        
+        // Get the height of the text
+        int textHeight = fm.getHeight();
+        
+        // Calculate the new point south-east of the original point
+        int newX = x + 15;
+        int newY = y - textHeight;
+        
+        return new int[] {newX, newY};
+    }
 }

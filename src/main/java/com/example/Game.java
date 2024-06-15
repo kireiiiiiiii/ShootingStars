@@ -156,6 +156,7 @@ public class Game {
 
     public void onGameEnd() {
         this.gamePanel.setScreenMode(ScreenMode.GAME_OVER);
+        this.gamePanel.setGameOverScreen(this.topScore.get(), this.score);
         this.timer.forceStop();
         
         if (this.score > this.topScore.get()) {

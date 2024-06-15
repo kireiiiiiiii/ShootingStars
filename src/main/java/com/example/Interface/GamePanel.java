@@ -74,6 +74,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private TopscoreWidget topscoreWidget;
     private TimerWidget timerWidget;
     private TargetWidget target;
+    private GameOverScreen gameOverScreen;
 
     /////////////////
     // Constructors
@@ -117,7 +118,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         // Set widgets
         setGameWidgets();
         setPauseWidgets();
-        setGameOverWidget();
+        setGameOverWidgets();
         setBackround();
     }
 
@@ -270,12 +271,13 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         this.pauseElements.add(new PauseScreen(screenSize));
     }
 
-    private void setGameOverWidget() {
+    private void setGameOverWidgets() {
 
         int[] screenSize = {this.getWidth(), this.getHeight()};
 
         this.gameOverElements = new ArrayList<Renderable>();
-        this.gameOverElements.add(new GameOverScreen(screenSize));
+        this.gameOverScreen = new GameOverScreen(screenSize);
+        this.gameOverElements.add(this.gameOverScreen);
     }
 
     private void setBackround() {
@@ -410,6 +412,17 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      */
     public void setTargetWidget(int radius) {
         this.target.setRadius(radius);
+    }
+
+    /**
+     * Sets the score values on the game over screen.
+     * 
+     * @param topScore - top score value.
+     * @param currScore - current game score.
+     */
+    public void setGameOverScreen(int topScore, int currScore) {
+        this.gameOverScreen.setScore(currScore);
+        this.gameOverScreen.setTopscore(topScore);
     }
 
 }

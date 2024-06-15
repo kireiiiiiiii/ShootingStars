@@ -43,14 +43,26 @@ import com.example.Tools.FontUtil;
  */
 public class GameOverScreen implements Renderable {
 
+    /////////////////
+    // Constants
+    ////////////////
+
     private final Color MAIN_TEXT_COLOR = Color.BLACK;
     private final Color SUBTEXT_COLOR = Color.RED;
     private final String MAIN_MESSAGE = "GAME OVER";
     private final String SUB_MESSAGE = "Press R to restart";
 
+    /////////////////
+    // Variables
+    ////////////////
+
     private int currScore;
-    private int topScore;
+    private int topscore;
     private int[] size;
+
+    /////////////////
+    // Contrsuctors
+    ////////////////
 
     /**
      * Default constructor.
@@ -61,8 +73,12 @@ public class GameOverScreen implements Renderable {
     public GameOverScreen(int[] size) {
         this.size = size;
         currScore = -1;
-        topScore = -1;
+        topscore = -1;
     }
+
+    /////////////////
+    // Render
+    ////////////////
 
     @Override
     public void refresh(Graphics2D g) {
@@ -94,11 +110,53 @@ public class GameOverScreen implements Renderable {
         x = origin.getIntX();
         y = origin.getIntY();
         g.drawString(SUB_MESSAGE, x, y + sideTextOffset);
+
+        g.setColor(SUBTEXT_COLOR);
+        g.setFont(new Font("Arial", Font.BOLD, 30));
+        fm = g.getFontMetrics();
+        int[] leftUpCorner = {0, 0};
+        originArr = FontUtil.getSouthEastPos(fm, "Top score: " + this.topscore, leftUpCorner);
+        origin = new Vec2D(originArr[0], originArr[1]);
+        x = origin.getIntX();
+        y = origin.getIntY();
+        g.drawString("Top score: " + this.topscore, x, y + sideTextOffset);
+
+        g.setColor(SUBTEXT_COLOR);
+        g.setFont(new Font("Arial", Font.BOLD, 30));
+        fm = g.getFontMetrics();
+        originArr = FontUtil.getSouthEastPos(fm, "Current score: " + this.currScore, leftUpCorner);
+        origin = new Vec2D(originArr[0], originArr[1]);
+        x = size[0] - origin.getIntX() - 250;
+        y = origin.getIntY();
+        g.drawString("Current score: " + this.currScore, x, y + sideTextOffset);
+        
     }
 
     @Override
     public int getZOrder() {
         return ZOrders.SCREENS;
+    }
+
+    /////////////////
+    // Modifiers
+    ////////////////
+
+    /**
+     * Current score setter.
+     * 
+     * @param score - new value.
+     */
+    public void setScore(int score) {
+        this.currScore = score;
+    }
+
+    /**
+     * Top score setter. 
+     * 
+     * @param topscore - new value
+     */
+    public void setTopscore(int topscore) {
+        this.topscore = topscore;
     }
 
 }
