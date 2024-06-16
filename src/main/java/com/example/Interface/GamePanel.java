@@ -254,7 +254,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         this.timerWidget = new TimerWidget(timePos);
         this.scoreWidget = new ScoreWidget(scorePos);
         this.topscoreWidget = new TopscoreWidget(topscorePos);
-        this.target = new TargetWidget();
+        this.target = new TargetWidget(this);
 
         this.gameElements = new ArrayList<Renderable>();
         this.gameElements.add(this.timerWidget);

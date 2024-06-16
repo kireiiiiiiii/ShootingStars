@@ -26,12 +26,14 @@
 
 package com.example.Interface.GamePanelElements;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-
+import javax.swing.JPanel;
+import com.example.Constants.Colors;
+import com.example.Constants.Textures;
 import com.example.Constants.ZOrders;
 import com.example.Interface.Renderable;
+import com.example.Tools.ImageUtil;
 
 /**
  * The target widget.
@@ -43,7 +45,7 @@ public class TargetWidget implements Renderable {
     // Constants
     ////////////////
 
-    private final Color CIRCLE_COLOR = Color.MAGENTA;
+    private final int CORRECTION = 20;
 
     /////////////////
     // Variables
@@ -51,6 +53,8 @@ public class TargetWidget implements Renderable {
 
     private int radius;
     private int[] location;
+    private JPanel owner;
+    private boolean showHitbox;
 
     /////////////////
     // Constructor
@@ -60,7 +64,9 @@ public class TargetWidget implements Renderable {
      * Default contstructor.
      * 
      */
-    public TargetWidget() {
+    public TargetWidget(JPanel owner) {
+        this.showHitbox = false;
+        this.owner = owner;
         this.radius = 10;
         this.location = new int[2];
         this.location[0] = 0;
@@ -73,9 +79,17 @@ public class TargetWidget implements Renderable {
 
     @Override
     public void refresh(Graphics2D g) {
-        g.setColor(CIRCLE_COLOR);
-        g.fillOval(this.location[0] - this.radius, this.location[1] - this.radius,
-                this.radius * 2, this.radius * 2);
+
+        g.drawImage(ImageUtil.scaleImage(Textures.star, radius * 2 + CORRECTION, radius * 2 + CORRECTION),
+                location[0] - radius - CORRECTION / 2, location[1] - radius - CORRECTION / 2 - 2,
+                owner.getFocusCycleRootAncestor());
+
+        if (this.showHitbox) {
+            g.setColor(Colors.HITBOX);
+            g.fillOval(this.location[0] - this.radius, this.location[1] - this.radius,
+                    this.radius * 2, this.radius * 2);
+
+        }
     }
 
     @Override

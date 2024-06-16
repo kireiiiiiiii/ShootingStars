@@ -35,6 +35,12 @@ import java.awt.*;
 public class Colors {
 
     /////////////////
+    // Debug
+    ////////////////
+
+    public static final Color HITBOX = new Color(255, 0, 0, 200);
+
+    /////////////////
     // Main color palette
     ////////////////
 
