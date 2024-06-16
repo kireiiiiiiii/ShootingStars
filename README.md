@@ -1,33 +1,32 @@
-# Java Target Game
+![alt text](https://c1.wallpaperflare.com/preview/427/227/784/stars-starry-sky-galaxy-night-sky-stars.jpg)
 
-Welcome to my Java Target Game! This simple yet entertaining game allows you to test your aim accuracy.
+# ✨ Shooting Stars ✨
 
-## How to Play
+### Specifications
+This game was build using Java.
+
+## Goal of the game
+The goal of the game is to shoot as many stars from the sky as posible, in a given time limit. Each successfuly shot star will earn you 10 points. Try to achieve the highest score possible, before the time runs out. For every miss (click outside the circle) 10 points will be subtracted from your score. However the your score is floored to 10 points, so you can't go negative.☺️
+
+## How to set up
 1. **Download and Setup**: Ensure you have Java installed on your system. Download the game files and extract them to your desired location or clone the repository.
    
-2. **Run the Game**: Open the folder in a compiler like VS Code.
-
-3. **Gameplay**: Once the game starts, you'll see a target (a magenta circle) on your screen. Use your mouse to click them. Every time that you click the target, it will respawn at a new location.
-
-4. **Scoring**: Each successful click on a target earns you +10 points. Your score is displayed at the top left of the screen, and time remaining is displayed under it. Try to achieve the highest score possible, before the time runs out. For every miss (click outside the circle) 10 points will be subtracted from your score. Be careful! The score can go negative!
-
-6. **Restart**: You can restart the game at any time by pressing the "R" key on your keyboard.
-
-7. **Pause**: You can pause the game by hitting the Escape ("esc") key on your keyboard.
+2. **Run the Game**: Open the folder in a compiler like VS Code. There run the AppMain.java file.
+   
+4. **Packaging**: For packaging, use the <code>gradle shadowjar</code> command.
+   *NOTE*: the <code>gradle jar</code> command doesn't work, because it for some reason doesn't include my Maven plugins 
 
 ## Controls
-- Left Mouse Click: Click on targets
-- R Key: Restart the game
-- ESC Key: Pause the game
+- **Left Mouse Click**: Click on targets
+- **R Key**: Restart the game
+- **ESC Key:**: Pause the game
 
 ## Requirements
 - Java Development Kit (JDK) installed on your system
-- Java compiler
 
 ## Contact Information:
-- If you have any questions, feedback, or issues with the game, please contact me on my instagram @_kireiiiiiiii
-- Link: https://www.instagram.com/_kireiiiiiiii?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==
+- If you have any questions, feedback, or issues with the game, please contact me on my instagram [@_kireiiiiiiii](https://www.instagram.com/_kireiiiiiiiiutm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==)
 
 ## Known Issues/Bugs:
-- Game currently runs without any known bugs, feel free to create an issue if you find one!
-
+- The star hitbox is a circle, and is smaller than the star image.
+- Fonts used don't support other languages than english
