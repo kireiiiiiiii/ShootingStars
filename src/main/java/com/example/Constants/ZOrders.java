@@ -36,6 +36,7 @@ public class ZOrders {
     ////////////////
 
     public static final int MENU_BUTTONS = 1;
+    public static final int MENU_PANEL = 10;
 
     /////////////////
     // Game panel

@@ -26,14 +26,16 @@
 
 package com.example.Interface.MenuPanelElements;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
 import com.example.Constants.Colors;
 import com.example.Constants.ZOrders;
+import com.example.Interface.Interactable;
+import com.example.Interface.MenuScreenMode;
 import com.example.Interface.Renderable;
 import com.example.Tools.ImageUtil;
 
@@ -41,7 +43,7 @@ import com.example.Tools.ImageUtil;
  * Button with the menu button style.
  * 
  */
-public class MenuButton implements Renderable {
+public class MenuButton implements Renderable, Interactable {
 
     /////////////////
     // Constants
@@ -59,6 +61,7 @@ public class MenuButton implements Renderable {
     private Image texture;
     private int[] position;
     private JPanel owner;
+    private MenuScreenMode triggerMode;
 
     /////////////////
     // Constructors
@@ -101,6 +104,25 @@ public class MenuButton implements Renderable {
     }
 
     /////////////////
+    // Interact
+    ////////////////
+
+    @Override
+    public MenuScreenMode getScreenModeChange() {
+        System.out.println("Triggered: " + this.triggerMode);
+        return this.triggerMode == null ? MenuScreenMode.MAIN : this.triggerMode;
+    }
+
+    @Override
+    public boolean wasInteracted(MouseEvent e) {
+        int x = e.getX() - position[0];
+        int y = e.getY() - position[1];
+        // System.out.println("X difference: "  + x + " | " + SIZE[0]);
+        // System.out.println("Y difference: "  + y + " | " + SIZE[1]);
+        return x <= SIZE[0] && y <= SIZE[1] && x > 0 && y > 0;
+    }
+
+    /////////////////
     // Modifiers
     ////////////////
 
@@ -112,6 +134,15 @@ public class MenuButton implements Renderable {
      */
     public void setTexture(Image texture) {
         this.texture = texture;
+    }
+
+    /**
+     * Sets the trigger menu screen mode.
+     * 
+     * @param mode - new mode.
+     */
+    public void setTriggerMode(MenuScreenMode mode) {
+        this.triggerMode = mode;
     }
 
 }

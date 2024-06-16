@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     // Class variables
     ////////////////
 
-    public ScreenMode mode;
+    public GameScreenMode mode;
     private JFrame owner;
     private Game game;
 
@@ -113,7 +113,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         // System.out.println("Top score: " + this.topScore.get());
 
         // Set deafult variable values
-        this.mode = ScreenMode.GAME;
+        this.mode = GameScreenMode.GAME;
 
         // Set widgets
         setGameWidgets();
@@ -331,7 +331,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      * 
      * @return - {@code ScreenMode} enum value.
      */
-    public ScreenMode getScreenMode() {
+    public GameScreenMode getScreenMode() {
         return this.mode;
     }
 
@@ -372,7 +372,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      * 
      * @param mode - new {@code ScreenMode}.
      */
-    public void setScreenMode(ScreenMode mode) {
+    public void setScreenMode(GameScreenMode mode) {
         this.mode = mode;
     }
 

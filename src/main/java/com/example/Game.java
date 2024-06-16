@@ -35,7 +35,7 @@ import com.example.Common.Vec2D;
 import com.example.Constants.Paths;
 import com.example.Interface.AppFrame;
 import com.example.Interface.GamePanel;
-import com.example.Interface.ScreenMode;
+import com.example.Interface.GameScreenMode;
 import com.example.Interface.MenuPanel;
 import com.example.Tools.ScreenUtil;
 import com.example.Constants.GameDialogue;
@@ -118,7 +118,7 @@ public class Game {
         this.appFrame.repaint();
         this.gamePanel.requestFocusInWindow();
         this.gamePanel.setTopscoreWidget(this.topScore.get());
-        this.gamePanel.setScreenMode(ScreenMode.GAME);
+        this.gamePanel.setScreenMode(GameScreenMode.GAME);
         this.currPanel = PanelType.GAME;
         this.targetRadius = DEFAULT_TARGET_RADIUS;
         this.gamePanel.setTargetWidget(this.targetRadius);
@@ -131,7 +131,7 @@ public class Game {
     public void onGameRestart() {
         Logs.log(Logs.GAME_RESTART);
         this.gamePanel.setTopscoreWidget(this.topScore.get());
-        this.gamePanel.setScreenMode(ScreenMode.GAME);
+        this.gamePanel.setScreenMode(GameScreenMode.GAME);
         this.timer.forceStop();
         this.score = 0;
         this.gamePanel.setScore(this.score);
@@ -141,19 +141,19 @@ public class Game {
 
     public void onGamePause() {
         Logs.log(Logs.GAME_PAUSE);
-        this.gamePanel.setScreenMode(ScreenMode.PAUSE);
+        this.gamePanel.setScreenMode(GameScreenMode.PAUSE);
         this.timer.pause();
     }
 
     public void onGameResumed() {
         Logs.log(Logs.GAME_RESUMED);
-        this.gamePanel.setScreenMode(ScreenMode.GAME);
+        this.gamePanel.setScreenMode(GameScreenMode.GAME);
         this.timer.resume();
     }
 
     public void onGameEnd() {
         Logs.log(Logs.GAME_OVER);
-        this.gamePanel.setScreenMode(ScreenMode.GAME_OVER);
+        this.gamePanel.setScreenMode(GameScreenMode.GAME_OVER);
         this.gamePanel.setGameOverScreen(this.topScore.get(), this.score);
         this.timer.forceStop();
         // New highscore
@@ -246,11 +246,11 @@ public class Game {
     public void mouseReleased(MouseEvent e, PanelType p) {
         switch (p) {
             case MENU:
-                onGameStart();
+                // onGameStart();
                 break;
 
             case GAME:
-                if (this.gamePanel.getScreenMode() == ScreenMode.GAME) {
+                if (this.gamePanel.getScreenMode() == GameScreenMode.GAME) {
                     if (this.gamePanel.isTargetClicked(e)) {
                         onTargetClicked(false);
                     } else {
@@ -285,9 +285,9 @@ public class Game {
 
                         break;
                     case Keybinds.PAUSE_KEY:
-                        if (this.gamePanel.getScreenMode() == ScreenMode.PAUSE) {
+                        if (this.gamePanel.getScreenMode() == GameScreenMode.PAUSE) {
                             onGameResumed();
-                        } else if (this.gamePanel.getScreenMode() == ScreenMode.GAME) {
+                        } else if (this.gamePanel.getScreenMode() == GameScreenMode.GAME) {
                             onGamePause();
                         }
                         break;

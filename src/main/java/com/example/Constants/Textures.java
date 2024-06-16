@@ -42,6 +42,7 @@ public class Textures {
     public static final Image STAR = setImage("Star.png");
     public static final Image LINK_ICON = setImage("LinkIcon.png");
     public static final Image SETTINGS_ICON = setImage("SettingsIcon.png");
+    public static final Image CLOSE_ICON = setImage("CloseIcon.png");
 
     /////////////////
     // Private methods
