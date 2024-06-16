@@ -144,11 +144,6 @@ public class PopUpPanelWindget implements Renderable, Interactable {
 
     @Override
     public boolean wasInteracted(MouseEvent e) {
-        if (this.owner.getScreenMode() != MenuScreenMode.SETTINGS
-                && this.owner.getScreenMode() != MenuScreenMode.LINKS) {
-            return false;
-        }
-
         int x = e.getX();
         int y = e.getY();
         int posX = this.position[0] + this.size[0] - CLOSE_BTN_RADIUS * 2 - CLOSE_BTN_BORDER_OFSET + CLOSE_BTN_RADIUS

@@ -53,10 +53,12 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
 
     private Game game;
     private JFrame owner;
-    private ArrayList<Renderable> normalRenderables = new ArrayList<Renderable>();
-    private ArrayList<Renderable> settingsRenderables = new ArrayList<Renderable>();
-    private ArrayList<Renderable> linksRenderables = new ArrayList<Renderable>();
-    private ArrayList<Interactable> interactables = new ArrayList<Interactable>();
+    private ArrayList<Renderable> mainRenderables;
+    private ArrayList<Renderable> settingsRenderables;
+    private ArrayList<Renderable> linksRenderables;
+    private ArrayList<Interactable> mainInteractables;
+    private ArrayList<Interactable> settingsInteractables;
+    private ArrayList <Interactable> linksInteractables;
     private MenuScreenMode screenMode = MenuScreenMode.MAIN;
 
     /////////////////
@@ -90,7 +92,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         Graphics2D g = (Graphics2D) graphics;
 
         // Sort the list based on the ZLayer using a Comparator
-        Collections.sort(this.normalRenderables, new Comparator<Renderable>() {
+        Collections.sort(this.mainRenderables, new Comparator<Renderable>() {
             @Override
             public int compare(Renderable r1, Renderable r2) {
                 return Integer.compare(r2.getZOrder(), r1.getZOrder());
@@ -98,7 +100,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         });
 
         // Render the list onto the screen
-        for (Renderable r : this.normalRenderables) {
+        for (Renderable r : this.mainRenderables) {
             r.refresh(g);
         }
 
@@ -178,7 +180,22 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        for (Interactable i : this.interactables) {
+        ArrayList<Interactable> list;
+        switch (this.screenMode) {
+            case MAIN:
+                list = this.mainInteractables;
+                break;
+            case LINKS:
+                list = this.linksInteractables;
+                break;
+            case SETTINGS:
+                list = this.settingsInteractables;
+                break;
+            default:
+                list = new ArrayList<Interactable>();
+                break;
+        }
+        for (Interactable i : list) {
             if (i.wasInteracted(e)) {
                 this.screenMode = i.getScreenModeChange();
             }
@@ -231,28 +248,32 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         int[] linksPos = { this.getWidth() - 90, this.getHeight() - 110 };
         int[] settingsPos = { linksPos[0] - 100, linksPos[1] };
 
-        this.normalRenderables = new ArrayList<Renderable>();
+        this.mainRenderables = new ArrayList<Renderable>();
         this.settingsRenderables = new ArrayList<Renderable>();
         this.linksRenderables = new ArrayList<Renderable>();
-        this.interactables = new ArrayList<Interactable>();
+        this.mainInteractables = new ArrayList<Interactable>();
+        this.settingsInteractables = new ArrayList<Interactable>();
+        this.linksInteractables = new ArrayList<Interactable>();
         MenuButton links = new MenuButton(linksPos, this);
         MenuButton settings = new MenuButton(settingsPos, this);
         PopUpPanelWindget settingsPanel = new PopUpPanelWindget(this);
         PopUpPanelWindget linksPanel = new PopUpPanelWindget(this);
 
-        this.normalRenderables.add(new Backround(size));
-        this.normalRenderables.add(new MenuScreen(size));
-        this.normalRenderables.add(links);
-        this.normalRenderables.add(settings);
+        this.mainRenderables.add(new Backround(size));
+        this.mainRenderables.add(new MenuScreen(size));
+        this.mainRenderables.add(links);
+        this.mainRenderables.add(settings);
 
         this.settingsRenderables.add(settingsPanel);
         
         this.linksRenderables.add(linksPanel);
 
-        this.interactables.add(links);
-        this.interactables.add(settings);
-        this.interactables.add(settingsPanel);
-        this.interactables.add(linksPanel);
+        this.mainInteractables.add(links);
+        this.mainInteractables.add(settings);
+
+        this.settingsInteractables.add(settingsPanel);
+
+        this.linksInteractables.add(linksPanel);
 
 
         links.setTexture(Textures.LINK_ICON);
@@ -261,19 +282,6 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         links.setTriggerMode(MenuScreenMode.LINKS);
         settings.setTriggerMode(MenuScreenMode.SETTINGS);
 
-    }
-
-    /////////////////
-    // Accesors
-    ////////////////
-
-    /**
-     * Screen mode getter.
-     * 
-     * @return
-     */
-    public MenuScreenMode getScreenMode() {
-        return this.screenMode;
     }
 
 }
