@@ -37,7 +37,7 @@ import com.example.Interface.Elements.Backround;
 import com.example.Interface.GamePanelElements.GameOverScreen;
 import com.example.Interface.GamePanelElements.PauseScreen;
 import com.example.Interface.GamePanelElements.ScoreWidget;
-import com.example.Interface.GamePanelElements.TargetWidget;
+import com.example.Interface.GamePanelElements.StarWidget;
 import com.example.Interface.GamePanelElements.TimerWidget;
 import com.example.Interface.GamePanelElements.TopscoreWidget;
 
@@ -73,7 +73,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private ScoreWidget scoreWidget;
     private TopscoreWidget topscoreWidget;
     private TimerWidget timerWidget;
-    private TargetWidget target;
+    private StarWidget target;
     private GameOverScreen gameOverScreen;
 
     /////////////////
@@ -254,7 +254,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         this.timerWidget = new TimerWidget(timePos);
         this.scoreWidget = new ScoreWidget(scorePos);
         this.topscoreWidget = new TopscoreWidget(topscorePos);
-        this.target = new TargetWidget(this);
+        this.target = new StarWidget(this);
 
         this.gameElements = new ArrayList<Renderable>();
         this.gameElements.add(this.timerWidget);

@@ -39,7 +39,7 @@ import com.example.Tools.ImageUtil;
  * The target widget.
  * 
  */
-public class TargetWidget implements Renderable {
+public class StarWidget implements Renderable {
 
     /////////////////
     // Constants
@@ -64,7 +64,7 @@ public class TargetWidget implements Renderable {
      * Default contstructor.
      * 
      */
-    public TargetWidget(JPanel owner) {
+    public StarWidget(JPanel owner) {
         this.showHitbox = false;
         this.owner = owner;
         this.radius = 10;
