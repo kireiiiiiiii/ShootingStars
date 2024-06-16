@@ -55,8 +55,8 @@ public class GameOverScreen implements Renderable {
     private final String SUB_MESSAGE = GameDialogue.gameOverSubtext();
     private final String SCORE_MESSAGE = GameDialogue.score() + ": ";
     private final String TOPSCORE_MESSAGE = GameDialogue.topscore() + ": ";
-    private final Font HEADING_FONT = Fonts.HEADING;
-    private final Font SCORE_FONT = Fonts.TEXT;
+    private final Font HEADING_FONT = Fonts.heading();
+    private final Font SCORE_FONT = Fonts.text();
 
     /////////////////
     // Variables
@@ -97,7 +97,7 @@ public class GameOverScreen implements Renderable {
 
         // Paints the main message
         g.setColor(this.MAIN_TEXT_COLOR);
-        g.setFont(HEADING_FONT.deriveFont(Font.BOLD, 80));
+        g.setFont(HEADING_FONT.deriveFont(Font.PLAIN, 80));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, MAIN_MESSAGE);
         x = originArr[0];

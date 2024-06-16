@@ -45,7 +45,7 @@ public class ScoreWidget implements Renderable {
 
     private final Color BACKROUND_COLOR = Colors.MAIN_GREEN;
     private final Color TEXT_COLOR = Colors.WIDGET_TEXT;
-    private final Font FONT = Fonts.TEXT;
+    private final Font FONT = Fonts.text();
 
     /////////////////
     // Fields
@@ -70,7 +70,7 @@ public class ScoreWidget implements Renderable {
     @Override
     public void refresh(Graphics2D g) {
         g.setColor(BACKROUND_COLOR);
-        g.fillRoundRect(this.position[0], this.position[1], 200, 50, 20, 20);
+        g.fillRoundRect(this.position[0], this.position[1], 250, 50, 20, 20);
         g.setColor(TEXT_COLOR);
         g.setFont(FONT.deriveFont(Font.BOLD, 24));
         g.drawString(GameDialogue.score() + ": " + this.currScore, this.position[0] + 15, this.position[1] + 24 + 8);

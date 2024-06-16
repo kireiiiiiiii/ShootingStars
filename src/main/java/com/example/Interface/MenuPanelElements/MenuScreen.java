@@ -89,7 +89,7 @@ public class MenuScreen implements Renderable {
 
         // Paints the main message
         g.setColor(this.MAIN_TEXT_COLOR);
-        g.setFont(Fonts.HEADING.deriveFont(Font.BOLD, 80));
+        g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 80));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, MAIN_MESSAGE);
         origin = new Vec2D(originArr[0], originArr[1]);
@@ -100,7 +100,7 @@ public class MenuScreen implements Renderable {
 
         // Paints the smaller bottom message
         g.setColor(SUBTEXT_COLOR);
-        g.setFont(Fonts.HEADING.deriveFont(Font.PLAIN, 40));
+        g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, SUB_MESSAGE);
         origin = new Vec2D(originArr[0], originArr[1]);

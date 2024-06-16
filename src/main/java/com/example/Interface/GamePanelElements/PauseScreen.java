@@ -85,7 +85,7 @@ public class PauseScreen implements Renderable {
         int y;
 
         g.setColor(TEXT_COLOR);
-        g.setFont(Fonts.HEADING.deriveFont(Font.BOLD, 80));
+        g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 80));
         fm = g.getFontMetrics();
         originArr = FontUtil.getCenteredPos(size[0], size[1], fm, TEXT);
         origin = new Vec2D(originArr[0], originArr[1]);

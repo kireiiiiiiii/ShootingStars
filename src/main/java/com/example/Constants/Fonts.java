@@ -39,12 +39,38 @@ import java.io.InputStream;
 public class Fonts {
 
     /////////////////
-    // Constants
+    // Deafult
     ////////////////
 
     public static final Font DEFAULT = new Font("Arial", Font.PLAIN, 20);
-    public static final Font HEADING = setFont("heading");
-    public static final Font TEXT = setFont("text");
+
+    /////////////////
+    // Fonts ENGLISH
+    ////////////////
+
+    private static final Font HEADING_EN = setFont("Heading_EN.ttf");
+    private static final Font TEXT_EN = setFont("Text_EN.ttf");
+
+    /////////////////
+    // Fonts CZECH
+    ////////////////
+
+    private static final Font HEADING_CZ = HEADING_EN;
+    private static final Font TEXT_CZ = setFont("Text_CZ.ttf");
+
+    /////////////////
+    // Fonts JAPANESE
+    ////////////////
+
+    private static final Font HEADING_JAP = setFont("Heading_JAP.otf");
+    private static final Font TEXT_JAP = setFont("Text_JAP.otf");
+
+    /////////////////
+    // Fonts KOREAN
+    ////////////////
+
+    private static final Font HEADING_KOR = setFont("Heading_KOR.ttf");
+    private static final Font TEXT_KOR = DEFAULT;
 
     /////////////////
     // Setter
@@ -58,12 +84,41 @@ public class Fonts {
      * @return loaded {@code Font} object or the default font.
      */
     private static Font setFont(String fontType) {
-        fontType = fontType.substring(0, 1).toUpperCase() + fontType.substring(1).toLowerCase() + ".ttf";
         InputStream fontStream = getFontInputStream(fontType);
         try {
             return Font.createFont(Font.TRUETYPE_FONT, fontStream);
         } catch (FontFormatException | IOException e) {
             return DEFAULT;
+        }
+    }
+
+    /////////////////
+    // Accesors
+    ////////////////
+
+    public static Font heading() {
+        switch (GameDialogue.getCurrentLanguage()) {
+            case CZECH:
+                return HEADING_CZ;
+            case JAPANESE:
+                return HEADING_JAP;
+            case KOREAN:
+                return HEADING_KOR;
+            default:
+                return HEADING_EN;
+        }
+    }
+
+    public static Font text() {
+        switch (GameDialogue.getCurrentLanguage()) {
+            case CZECH:
+                return TEXT_CZ;
+            case JAPANESE:
+                return TEXT_JAP;
+            case KOREAN:
+                return TEXT_KOR;
+            default:
+                return TEXT_EN;
         }
     }
 

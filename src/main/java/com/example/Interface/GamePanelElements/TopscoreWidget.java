@@ -46,7 +46,7 @@ public class TopscoreWidget implements Renderable {
     
     private final Color TIMER_BACKROUND = Colors.SCORES_WIDGETS;
     private final Color TIMER_TEXT = Colors.WIDGET_TEXT;
-    private final Font FONT = Fonts.TEXT;
+    private final Font FONT = Fonts.text();
 
     /////////////////
     // Variables
@@ -86,7 +86,7 @@ public class TopscoreWidget implements Renderable {
     @Override
     public void refresh(Graphics2D g) {
         g.setColor(TIMER_BACKROUND);
-        g.fillRoundRect(this.position[0], this.position[1], 200, 50, 20, 20);
+        g.fillRoundRect(this.position[0], this.position[1], 250, 50, 20, 20);
         g.setColor(TIMER_TEXT);
         g.setFont(FONT.deriveFont(Font.BOLD, 24));
         g.drawString(GameDialogue.topscore() + ": " + this.topscore, this.position[0] + 15, this.position[1] + 24 + 8);
