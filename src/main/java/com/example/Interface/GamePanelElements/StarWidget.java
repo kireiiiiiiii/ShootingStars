@@ -80,7 +80,7 @@ public class StarWidget implements Renderable {
     @Override
     public void refresh(Graphics2D g) {
 
-        g.drawImage(ImageUtil.scaleImage(Textures.star, radius * 2 + CORRECTION, radius * 2 + CORRECTION),
+        g.drawImage(ImageUtil.scaleImage(Textures.STAR, radius * 2 + CORRECTION, radius * 2 + CORRECTION),
                 location[0] - radius - CORRECTION / 2, location[1] - radius - CORRECTION / 2 - 2,
                 owner.getFocusCycleRootAncestor());
 

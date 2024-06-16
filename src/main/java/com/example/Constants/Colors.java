@@ -48,6 +48,7 @@ public class Colors {
     public static final Color MAIN_GREEN = new Color(148, 255, 216);
     public static final Color MAIN_YELLOW = new Color(253, 255, 194);
     public static final Color MAIN_PINK = new Color(255, 118, 206);
+    public static final Color MAIN_GRAY = new Color(70, 70, 70);
 
     /////////////////
     // Backround

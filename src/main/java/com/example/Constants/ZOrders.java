@@ -32,6 +32,12 @@ package com.example.Constants;
 public class ZOrders {
 
     /////////////////
+    // Menu panel
+    ////////////////
+
+    public static final int MENU_BUTTONS = 1;
+
+    /////////////////
     // Game panel
     ////////////////
 
