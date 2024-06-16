@@ -74,13 +74,13 @@ public class GameDialogue {
     public static String appTitle() {
         switch (currLanguageIndex) {
             case 1:
-                return "Tref terče";
+                return "Padající Hvězdy";
             case 2:
-                return "的当てゲーム";
+                return "流れ星撃ち";
             case 3:
-                return "타격 게임";
+                return "별을 쏘다";
             default:
-                return "Target Game";
+                return "Shooting stars";
         }
     }
 

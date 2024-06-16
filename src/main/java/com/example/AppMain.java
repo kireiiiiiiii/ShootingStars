@@ -39,7 +39,7 @@ public class AppMain {
     // Constatns
     ////////////////
 
-    public static final String APP_NAME = "TargetGame";
+    public static final String APP_NAME = "ShootingStars";
 
     /////////////////
     // Variables
