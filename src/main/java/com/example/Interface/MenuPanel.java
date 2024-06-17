@@ -34,6 +34,7 @@ import com.example.Interface.Elements.Backround;
 import com.example.Interface.MenuPanelElements.MenuButton;
 import com.example.Interface.MenuPanelElements.MenuScreen;
 import com.example.Interface.MenuPanelElements.PopUpPanelWindget;
+import com.example.Interface.MenuPanelElements.LinksPanel.GithubLink;
 import com.example.Interface.MenuPanelElements.LinksPanel.InstagramLink;
 
 import java.awt.event.*;
@@ -249,7 +250,8 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         int[] size = { this.getWidth(), this.getHeight() };
         int[] linksPos = { this.getWidth() - 90, this.getHeight() - 110 };
         int[] settingsPos = { linksPos[0] - 100, linksPos[1] };
-        int[] igBtnPos = {getWidth()/2 - 380, getHeight()/2 - 50};
+        int[] igBtnPos = {getWidth()/2 - 300, getHeight()/2 - 50};
+        int[] gitBtnPos = {getWidth()/2 + 130, getHeight()/2 - 50};
 
         this.mainRenderables = new ArrayList<Renderable>();
         this.settingsRenderables = new ArrayList<Renderable>();
@@ -262,6 +264,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         PopUpPanelWindget settingsPanel = new PopUpPanelWindget(this);
         PopUpPanelWindget linksPanel = new PopUpPanelWindget(this);
         InstagramLink igLinkBtn = new InstagramLink(this, igBtnPos);
+        GithubLink gitLinkBtn = new GithubLink(this, gitBtnPos);
 
         this.mainRenderables.add(new Backround(size));
         this.mainRenderables.add(new MenuScreen(size));
@@ -272,6 +275,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         
         this.linksRenderables.add(linksPanel);
         this.linksRenderables.add(igLinkBtn);
+        this.linksRenderables.add(gitLinkBtn);
 
         this.mainInteractables.add(links);
         this.mainInteractables.add(settings);
@@ -280,6 +284,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
 
         this.linksInteractables.add(linksPanel);
         this.linksInteractables.add(igLinkBtn);
+        this.linksInteractables.add(gitLinkBtn);
 
 
         links.setTexture(Textures.LINK_ICON);

@@ -29,6 +29,7 @@ package com.example.Interface.MenuPanelElements.LinksPanel;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
+
 import com.example.Common.Links;
 import com.example.Constants.Textures;
 import com.example.Constants.ZOrders;
@@ -38,10 +39,10 @@ import com.example.Interface.Renderable;
 import com.example.Tools.ImageUtil;
 
 /**
- * Button that openes my instagram account page in the browser.
+ * Button, that openes the GitHub repository in the browser.
  * 
  */
-public class InstagramLink implements Renderable, Interactable {
+public class GithubLink implements Renderable, Interactable {
 
     /////////////////
     // Constants
@@ -66,7 +67,7 @@ public class InstagramLink implements Renderable, Interactable {
      * @param owner    - owning {@code JPanel} object.
      * @param position - position.
      */
-    public InstagramLink(JPanel owner, int[] position) {
+    public GithubLink(JPanel owner, int[] position) {
         this.owner = owner;
         this.position = position;
         this.position[0] = this.position[0] + SIZE[0] / 2;
@@ -79,7 +80,7 @@ public class InstagramLink implements Renderable, Interactable {
 
     @Override
     public void refresh(Graphics2D g) {
-        g.drawImage(ImageUtil.scaleImage(Textures.INSTAGRAM_LOGO, SIZE[0], SIZE[1]), position[0], position[1],
+        g.drawImage(ImageUtil.scaleImage(Textures.GITHUB_LOGO, SIZE[0], SIZE[1]), position[0], position[1],
                 this.owner.getFocusCycleRootAncestor());
     }
 
@@ -94,7 +95,7 @@ public class InstagramLink implements Renderable, Interactable {
 
     @Override
     public MenuScreenMode getInteract() {
-        Links.openURL(Links.INSTAGRAM);
+        Links.openURL(Links.GITHUB);
         return null;
     }
 

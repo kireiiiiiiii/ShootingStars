@@ -44,6 +44,7 @@ public class Links {
     ////////////////
     
     public static String INSTAGRAM = "https://www.instagram.com/_kireiiiiiiii";
+    public static String GITHUB = "https://github.com/kireiiiiiiii/ShootingStars";
 
     /////////////////
     // Methods

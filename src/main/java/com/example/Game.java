@@ -52,7 +52,7 @@ public class Game {
     // Constatns
     ////////////////
 
-    private static final int GAME_LENGHT = 5;
+    private static final int GAME_LENGHT = 20;
     private static final int DEFAULT_TARGET_RADIUS = 20;
     private static final int TARGET_SCORE = 10;
 

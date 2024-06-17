@@ -38,7 +38,7 @@ public class GameDialogue {
     // Variables
     ////////////////
 
-    private static Language currLanguage = Language.KOREAN;
+    private static Language currLanguage = Language.ENGLISH;
 
     /////////////////
     // Modifiers
