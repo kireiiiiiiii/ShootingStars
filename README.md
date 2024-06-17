@@ -25,7 +25,7 @@ The goal of the game is to shoot as many stars from the sky as posible, in a giv
 - Java Development Kit (JDK) installed on your system
 
 ## Contact Information:
-- If you have any questions, feedback, or issues with the game, please contact me on my instagram [@_kireiiiiiiii](https://www.instagram.com/_kireiiiiiiiiutm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==)
+- If you have any questions, feedback, or issues with the game, please contact me on my instagram [@_kireiiiiiiii](https://www.instagram.com/_kireiiiiiiii)
 
 ## Known Issues/Bugs:
 - The star hitbox is a circle, and is smaller than the star image.
