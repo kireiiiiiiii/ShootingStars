@@ -39,7 +39,7 @@ public interface Interactable {
      * 
      * @return {@code MenuScreenMode} enum value.
      */
-    public MenuScreenMode getScreenModeChange();
+    public MenuScreenMode getInteract();
 
     /**
      * Checks, if the button was clicked with the target mouse event.

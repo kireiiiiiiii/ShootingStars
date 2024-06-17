@@ -43,6 +43,7 @@ public class Textures {
     public static final Image LINK_ICON = setImage("LinkIcon.png");
     public static final Image SETTINGS_ICON = setImage("SettingsIcon.png");
     public static final Image CLOSE_ICON = setImage("CloseIcon.png");
+    public static final Image INSTAGRAM_LOGO = setImage("InstagramLogo.png");
 
     /////////////////
     // Private methods

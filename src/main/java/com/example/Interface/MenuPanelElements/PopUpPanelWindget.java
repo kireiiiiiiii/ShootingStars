@@ -138,7 +138,7 @@ public class PopUpPanelWindget implements Renderable, Interactable {
     ////////////////
 
     @Override
-    public MenuScreenMode getScreenModeChange() {
+    public MenuScreenMode getInteract() {
         return MenuScreenMode.MAIN;
     }
 

@@ -34,6 +34,7 @@ import com.example.Interface.Elements.Backround;
 import com.example.Interface.MenuPanelElements.MenuButton;
 import com.example.Interface.MenuPanelElements.MenuScreen;
 import com.example.Interface.MenuPanelElements.PopUpPanelWindget;
+import com.example.Interface.MenuPanelElements.LinksPanel.InstagramLink;
 
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -197,7 +198,8 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         }
         for (Interactable i : list) {
             if (i.wasInteracted(e)) {
-                this.screenMode = i.getScreenModeChange();
+                if (i.getInteract() != null)
+                    this.screenMode = i.getInteract();
             }
         }
         this.game.mouseReleased(e, PanelType.MENU);
@@ -247,6 +249,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         int[] size = { this.getWidth(), this.getHeight() };
         int[] linksPos = { this.getWidth() - 90, this.getHeight() - 110 };
         int[] settingsPos = { linksPos[0] - 100, linksPos[1] };
+        int[] igBtnPos = {getWidth()/2 - 380, getHeight()/2 - 50};
 
         this.mainRenderables = new ArrayList<Renderable>();
         this.settingsRenderables = new ArrayList<Renderable>();
@@ -258,6 +261,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         MenuButton settings = new MenuButton(settingsPos, this);
         PopUpPanelWindget settingsPanel = new PopUpPanelWindget(this);
         PopUpPanelWindget linksPanel = new PopUpPanelWindget(this);
+        InstagramLink igLinkBtn = new InstagramLink(this, igBtnPos);
 
         this.mainRenderables.add(new Backround(size));
         this.mainRenderables.add(new MenuScreen(size));
@@ -267,6 +271,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         this.settingsRenderables.add(settingsPanel);
         
         this.linksRenderables.add(linksPanel);
+        this.linksRenderables.add(igLinkBtn);
 
         this.mainInteractables.add(links);
         this.mainInteractables.add(settings);
@@ -274,6 +279,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         this.settingsInteractables.add(settingsPanel);
 
         this.linksInteractables.add(linksPanel);
+        this.linksInteractables.add(igLinkBtn);
 
 
         links.setTexture(Textures.LINK_ICON);
