@@ -30,11 +30,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
+import javax.swing.JPanel;
 import com.example.Constants.Colors;
 import com.example.Constants.Textures;
 import com.example.Constants.ZOrders;
 import com.example.Interface.Interactable;
-import com.example.Interface.MenuPanel;
 import com.example.Interface.MenuScreenMode;
 import com.example.Interface.Renderable;
 import com.example.Tools.ImageUtil;
@@ -62,7 +62,7 @@ public class PopUpPanelWindget implements Renderable, Interactable {
     // Variables
     ////////////////
 
-    private MenuPanel owner;
+    private JPanel owner;
     private int[] size;
     private int[] position;
 
@@ -75,7 +75,7 @@ public class PopUpPanelWindget implements Renderable, Interactable {
      * 
      * @param owner - owning {@code JPanel} object.
      */
-    public PopUpPanelWindget(MenuPanel owner) {
+    public PopUpPanelWindget(JPanel owner) {
         this.owner = owner;
         this.size = new int[2];
         this.position = new int[2];
