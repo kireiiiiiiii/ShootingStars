@@ -40,10 +40,10 @@ public class Files {
     // File names
     ////////////////
 
-    public static final String TOP_SCORE_FILENAME = "TopScore.JSON";
+    public static final String TOP_SCORE_FILENAME = "topscore.JSON";
     private static final String LOG_FILENAME = "log.txt";
-    private static final String USER_DATA_DIR_NAME = "UserData";
-    private static final String LOG_DIRECTORY_NAME = "Logs";
+    private static final String USER_DATA_DIR_NAME = "user_data";
+    private static final String LOG_DIRECTORY_NAME = "system_logs";
     private static final String SETTINGS_FILE_NAME = "settings.JSON";
 
     /////////////////
