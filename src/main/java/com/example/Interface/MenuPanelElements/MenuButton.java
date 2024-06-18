@@ -109,7 +109,6 @@ public class MenuButton implements Renderable, Interactable {
 
     @Override
     public MenuScreenMode getInteract() {
-        System.out.println("Triggered: " + this.triggerMode);
         return this.triggerMode == null ? MenuScreenMode.MAIN : this.triggerMode;
     }
 

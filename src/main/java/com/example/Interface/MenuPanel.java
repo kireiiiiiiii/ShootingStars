@@ -32,6 +32,7 @@ import com.example.Constants.GameDialogue;
 import com.example.Constants.Textures;
 import com.example.Game.PanelType;
 import com.example.Common.Language;
+import com.example.Common.Settings;
 import com.example.Interface.Elements.Backround;
 import com.example.Interface.MenuPanelElements.MenuButton;
 import com.example.Interface.MenuPanelElements.MenuScreen;
@@ -309,6 +310,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
 
     public void setLanguage(Language language) {
         GameDialogue.setLanguage(language);
+        Settings.setLanguage(language);
         this.owner.setTitle(GameDialogue.appTitle());
         repaint();
         this.owner.repaint();

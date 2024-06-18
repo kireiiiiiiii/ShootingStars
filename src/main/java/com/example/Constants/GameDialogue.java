@@ -27,6 +27,7 @@
 package com.example.Constants;
 
 import com.example.Common.Language;
+import com.example.Common.Settings;
 
 /**
  * Constant class with all the game dialogues.
@@ -35,10 +36,16 @@ import com.example.Common.Language;
 public class GameDialogue {
 
     ////////////////
+    // Constants
+    ////////////////
+
+    public static final Language DEFAULT_LANGUAGE = Language.ENGLISH;
+
+    ////////////////
     // Variables
     ////////////////
 
-    private static Language currLanguage = Language.ENGLISH;
+    private static Language currLanguage = Settings.getLanguage();
 
     /////////////////
     // Modifiers

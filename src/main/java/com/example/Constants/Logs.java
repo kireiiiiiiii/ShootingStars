@@ -54,8 +54,8 @@ public class Logs {
     public static final String TAGRET_HIT = "Target hit";
     public static final String TAGRET_NOT_HIT = "Target not hit";
 
-    public static final String TOPSCORE_FILE_LOAD = "\"" + Paths.TOP_SCORE_FILENAME + "\" loaded";
-    public static final String TOPSCORE_FILE_SAVED = "\"" + Paths.TOP_SCORE_FILENAME + "\" saved";
+    public static final String TOPSCORE_FILE_LOAD = "\"" + Files.TOP_SCORE_FILENAME + "\" loaded";
+    public static final String TOPSCORE_FILE_SAVED = "\"" + Files.TOP_SCORE_FILENAME + "\" saved";
 
     public static final String TIMER_INTEARION = "Timer executed";
 
@@ -101,7 +101,7 @@ public class Logs {
         logs.add(log);
         System.out.println(logColor + log + TerminalColors.RESET);
         try {
-            listToFile(logs, Paths.LOG_FILE);
+            listToFile(logs, Files.LOG_FILE);
         } catch (IOException e) {
             System.out.println("FATAL - could not save log file");
         }

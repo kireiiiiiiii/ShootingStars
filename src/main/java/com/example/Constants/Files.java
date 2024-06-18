@@ -44,6 +44,7 @@ public class Files {
     private static final String LOG_FILENAME = "log.txt";
     private static final String USER_DATA_DIR_NAME = "UserData";
     private static final String LOG_DIRECTORY_NAME = "Logs";
+    private static final String SETTINGS_FILE_NAME = "settings.JSON";
 
     /////////////////
     // Directory constants
@@ -61,7 +62,7 @@ public class Files {
 
     public static final File TOP_SCORE_FILE = getScoreFile();
     public static final File LOG_FILE = getLogFile();
-    // public static final File USER_CONFIG_FILE
+    public static final File USER_CONFIG_FILE = getSettingsFile();
 
     /////////////////
     // Private methods
@@ -185,6 +186,11 @@ public class Files {
         return scoreFile;
     }
 
+    /**
+     * Gets the log file, where all of the logs are being saved.
+     * 
+     * @return log file reference.
+     */
     private static File getLogFile() {
         File logDir = new File(LOG_DIR);
 
@@ -203,6 +209,31 @@ public class Files {
         }
 
         return logFile;
+    }
+
+    /**
+     * Gets the log file, where all of the logs are being saved.
+     * 
+     * @return log file reference.
+     */
+    private static File getSettingsFile() {
+        File settingsDir = new File(USER_DATA_DIR);
+
+        // Checks if the dir exists, and creates it if it doesn't
+        if (!settingsDir.exists()) {
+            settingsDir.mkdir();
+        }
+
+        File settingsFile = new File(USER_DATA_DIR + File.separator + SETTINGS_FILE_NAME);
+        try {
+            if (!settingsFile.exists()) {
+                settingsFile.createNewFile();
+            }
+        } catch (IOException e) {
+            assert false : "FATAL - Could not create a settings file";
+        }
+
+        return settingsFile;
     }
 
 }

@@ -31,8 +31,9 @@ import java.io.IOException;
 
 import com.example.Common.AdvancedVariable;
 import com.example.Common.PausableTimer;
+import com.example.Common.Settings;
 import com.example.Common.Vec2D;
-import com.example.Constants.Paths;
+import com.example.Constants.Files;
 import com.example.Interface.AppFrame;
 import com.example.Interface.GamePanel;
 import com.example.Interface.GameScreenMode;
@@ -90,6 +91,9 @@ public class Game {
 
         // Set up the scores variable
         onTopscoreFileLoad();
+
+        // Load the config file
+        Settings.getLanguage();
 
         // Construct the game panel
         this.gamePanel = new GamePanel(this.appFrame, this);
@@ -198,7 +202,7 @@ public class Game {
 
     public void onTopscoreFileLoad() {
         Logs.log(Logs.TOPSCORE_FILE_LOAD);
-        this.topScore = new AdvancedVariable<Integer>(Paths.TOP_SCORE_FILE);
+        this.topScore = new AdvancedVariable<Integer>(Files.TOP_SCORE_FILE);
         try {
             this.topScore.loadFromFile(Integer.class);
         } catch (IOException e) {
