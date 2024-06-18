@@ -1,13 +1,58 @@
+/*
+ * Author: Matěj Šťastný
+ * Date created: 5/18/2024
+ * Github link: https://github.com/kireiiiiiiii/TargetGame
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
 package com.example.Common;
 
 import java.io.IOException;
 import com.example.Constants.Files;
 import com.example.Constants.GameDialogue;
 
+/**
+ * File containing the user settings in order to be loaded the next time the
+ * game is opened.
+ * 
+ */
 public class Settings {
+
+    /////////////////
+    // Variables
+    ////////////////
 
     private static AdvancedVariable<Language> language = new AdvancedVariable<>(Files.USER_CONFIG_FILE);
 
+    /////////////////
+    // Accesors
+    ////////////////
+
+    /**
+     * Returns the language value from the settings file, if the value is not set,
+     * returns the default language.
+     * 
+     * @return a {@code Language} enum value.
+     */
     public static Language getLanguage() {
         try {
             language.loadFromFile(Language.class);
@@ -22,6 +67,15 @@ public class Settings {
         return language.get();
     }
 
+    /////////////////
+    // Modifiers
+    ////////////////
+
+    /**
+     * Setter for the language value. This method saves the file when excecuted.
+     * 
+     * @param newLanguage - new {@code Language} enum value.
+     */
     public static void setLanguage(Language newLanguage) {
         language.set(newLanguage);
         try {
