@@ -48,7 +48,6 @@ public class PauseScreen implements Renderable {
     // Constants
     ////////////////
 
-    private final String TEXT = GameDialogue.pause();
     private final Color TEXT_COLOR = Colors.MAIN_TEXT;
 
     /////////////////
@@ -83,15 +82,17 @@ public class PauseScreen implements Renderable {
         int[] originArr;
         int x;
         int y;
+        String text = GameDialogue.pause();
+
 
         g.setColor(TEXT_COLOR);
         g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 80));
         fm = g.getFontMetrics();
-        originArr = FontUtil.getCenteredPos(size[0], size[1], fm, TEXT);
+        originArr = FontUtil.getCenteredPos(size[0], size[1], fm, text);
         origin = new Vec2D(originArr[0], originArr[1]);
         x = origin.getIntX();
         y = origin.getIntY();
-        g.drawString(TEXT, x, y);
+        g.drawString(text, x, y);
     }
 
     @Override

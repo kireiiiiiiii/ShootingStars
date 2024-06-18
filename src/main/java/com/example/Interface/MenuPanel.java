@@ -28,15 +28,18 @@ package com.example.Interface;
 
 import javax.swing.*;
 import com.example.Game;
+import com.example.Constants.GameDialogue;
 import com.example.Constants.Textures;
 import com.example.Game.PanelType;
+import com.example.Common.Language;
 import com.example.Interface.Elements.Backround;
 import com.example.Interface.MenuPanelElements.MenuButton;
 import com.example.Interface.MenuPanelElements.MenuScreen;
 import com.example.Interface.MenuPanelElements.PopUpPanelWindget;
 import com.example.Interface.MenuPanelElements.LinksPanel.GithubLink;
 import com.example.Interface.MenuPanelElements.LinksPanel.InstagramLink;
-
+import com.example.Interface.MenuPanelElements.SettingsPanel.ChangeButton;
+import com.example.Interface.MenuPanelElements.SettingsPanel.LanguageTitle;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,7 +63,7 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
     private ArrayList<Renderable> linksRenderables;
     private ArrayList<Interactable> mainInteractables;
     private ArrayList<Interactable> settingsInteractables;
-    private ArrayList <Interactable> linksInteractables;
+    private ArrayList<Interactable> linksInteractables;
     private MenuScreenMode screenMode = MenuScreenMode.MAIN;
 
     /////////////////
@@ -250,8 +253,11 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         int[] size = { this.getWidth(), this.getHeight() };
         int[] linksPos = { this.getWidth() - 90, this.getHeight() - 110 };
         int[] settingsPos = { linksPos[0] - 100, linksPos[1] };
-        int[] igBtnPos = {getWidth()/2 - 300, getHeight()/2 - 50};
-        int[] gitBtnPos = {getWidth()/2 + 130, getHeight()/2 - 50};
+        int[] igBtnPos = { getWidth() / 2 - 300, getHeight() / 2 - 50 };
+        int[] gitBtnPos = { getWidth() / 2 + 130, getHeight() / 2 - 50 };
+        int[] langFieldPos = { getWidth()/2 - LanguageTitle.SIZE[0] / 2, getHeight()/2 - LanguageTitle.SIZE[1] / 2 };
+        int[] leftB = {langFieldPos[0] - ChangeButton.SIZE[0] - 20, langFieldPos[1]};
+        int[] rightB = {langFieldPos[0] + LanguageTitle.SIZE[0] + 20, langFieldPos[1]};
 
         this.mainRenderables = new ArrayList<Renderable>();
         this.settingsRenderables = new ArrayList<Renderable>();
@@ -265,6 +271,8 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         PopUpPanelWindget linksPanel = new PopUpPanelWindget(this);
         InstagramLink igLinkBtn = new InstagramLink(this, igBtnPos);
         GithubLink gitLinkBtn = new GithubLink(this, gitBtnPos);
+        ChangeButton left = new ChangeButton(this, leftB, true);
+        ChangeButton right = new ChangeButton(this, rightB, false);
 
         this.mainRenderables.add(new Backround(size));
         this.mainRenderables.add(new MenuScreen(size));
@@ -272,7 +280,10 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         this.mainRenderables.add(settings);
 
         this.settingsRenderables.add(settingsPanel);
-        
+        this.settingsRenderables.add(new LanguageTitle(langFieldPos));
+        this.settingsRenderables.add(left);
+        this.settingsRenderables.add(right);
+
         this.linksRenderables.add(linksPanel);
         this.linksRenderables.add(igLinkBtn);
         this.linksRenderables.add(gitLinkBtn);
@@ -281,11 +292,12 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         this.mainInteractables.add(settings);
 
         this.settingsInteractables.add(settingsPanel);
+        this.settingsInteractables.add(left);
+        this.settingsInteractables.add(right);
 
         this.linksInteractables.add(linksPanel);
         this.linksInteractables.add(igLinkBtn);
         this.linksInteractables.add(gitLinkBtn);
-
 
         links.setTexture(Textures.LINK_ICON);
         settings.setTexture(Textures.SETTINGS_ICON);
@@ -293,6 +305,13 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         links.setTriggerMode(MenuScreenMode.LINKS);
         settings.setTriggerMode(MenuScreenMode.SETTINGS);
 
+    }
+
+    public void setLanguage(Language language) {
+        GameDialogue.setLanguage(language);
+        this.owner.setTitle(GameDialogue.appTitle());
+        repaint();
+        this.owner.repaint();
     }
 
 }

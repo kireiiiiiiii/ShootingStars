@@ -50,8 +50,6 @@ public class MenuScreen implements Renderable {
 
     private final Color MAIN_TEXT_COLOR = Colors.MAIN_TEXT;
     private final Color SUBTEXT_COLOR = Colors.SUB_TEXT;
-    private final String MAIN_MESSAGE = GameDialogue.appTitle();
-    private final String SUB_MESSAGE = GameDialogue.menuSubText();
 
     /////////////////
     // Variables
@@ -86,27 +84,29 @@ public class MenuScreen implements Renderable {
         int x;
         int y;
         int sideTextOffset;
+        String mainMessage = GameDialogue.appTitle();
+        String subMessage = GameDialogue.menuSubText();
 
         // Paints the main message
         g.setColor(this.MAIN_TEXT_COLOR);
         g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 80));
         fm = g.getFontMetrics();
-        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, MAIN_MESSAGE);
+        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, mainMessage);
         origin = new Vec2D(originArr[0], originArr[1]);
         x = origin.getIntX();
         y = origin.getIntY();
         sideTextOffset = fm.getHeight();
-        g.drawString(MAIN_MESSAGE, x, y);
+        g.drawString(mainMessage, x, y);
 
         // Paints the smaller bottom message
         g.setColor(SUBTEXT_COLOR);
         g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
-        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, SUB_MESSAGE);
+        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, subMessage);
         origin = new Vec2D(originArr[0], originArr[1]);
         x = origin.getIntX();
         y = origin.getIntY();
-        g.drawString(SUB_MESSAGE, x, y + sideTextOffset);
+        g.drawString(subMessage, x, y + sideTextOffset);
     }
 
     @Override

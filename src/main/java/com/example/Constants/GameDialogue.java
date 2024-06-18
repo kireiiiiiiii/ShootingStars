@@ -50,7 +50,7 @@ public class GameDialogue {
      * 
      * @param value - new index value.
      */
-    public static void setLanguageIndex(Language language) {
+    public static void setLanguage(Language language) {
         currLanguage = language;
     }
 
@@ -79,6 +79,19 @@ public class GameDialogue {
                 return "별을 쏘다";
             default:
                 return "Shooting stars";
+        }
+    }
+
+    public static String currentLanguage() {
+        switch (currLanguage) {
+            case CZECH:
+                return "Čeština";
+            case JAPANESE:
+                return "日本語";
+            case KOREAN:
+                return "한국인";
+            default:
+                return "English";
         }
     }
 
@@ -162,13 +175,13 @@ public class GameDialogue {
     public static String gameOverSubtext() {
         switch (currLanguage) {
             case CZECH:
-                return "Stiskněte R pro restart";
+                return "Stiskněte \"R\" pro restart";
             case JAPANESE:
                 return "再起動するには \"R\" を押してください";
             case KOREAN:
-                return "다시 시작하려면 R을 누르세요";
+                return "다시 시작하려면 \"R\"을 누르세요";
             default:
-                return "Press R to restart";
+                return "Press \"R\" to restart";
         }
     }
 

@@ -51,12 +51,6 @@ public class GameOverScreen implements Renderable {
     private final Color MAIN_TEXT_COLOR = Colors.MAIN_TEXT;
     private final Color SUBTEXT_COLOR = Colors.SUB_TEXT;
     private final Color SCORES_COLOR = Colors.SUB_TEXT;
-    private final String MAIN_MESSAGE = GameDialogue.gameOver();
-    private final String SUB_MESSAGE = GameDialogue.gameOverSubtext();
-    private final String SCORE_MESSAGE = GameDialogue.score() + ": ";
-    private final String TOPSCORE_MESSAGE = GameDialogue.topscore() + ": ";
-    private final Font HEADING_FONT = Fonts.heading();
-    private final Font SCORE_FONT = Fonts.text();
 
     /////////////////
     // Variables
@@ -94,43 +88,49 @@ public class GameOverScreen implements Renderable {
         int x;
         int y;
         int sideTextOffset;
+        Font headingFont = Fonts.heading();
+        Font scoreFont = Fonts.text();
+        String mainMessage = GameDialogue.gameOver();
+        String subMessage = GameDialogue.gameOverSubtext();
+        String scoreMessage = GameDialogue.score() + ": ";
+        String topscoreMessage = GameDialogue.topscore() + ": ";
 
         // Paints the main message
         g.setColor(this.MAIN_TEXT_COLOR);
-        g.setFont(HEADING_FONT.deriveFont(Font.PLAIN, 80));
+        g.setFont(headingFont.deriveFont(Font.PLAIN, 80));
         fm = g.getFontMetrics();
-        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, MAIN_MESSAGE);
+        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, mainMessage);
         x = originArr[0];
         y = originArr[1];
         sideTextOffset = fm.getHeight();
-        g.drawString(MAIN_MESSAGE, x, y);
+        g.drawString(mainMessage, x, y);
 
         // Paints the smaller bottom message
         g.setColor(SUBTEXT_COLOR);
-        g.setFont(HEADING_FONT.deriveFont(Font.PLAIN, 40));
+        g.setFont(headingFont.deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
-        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, SUB_MESSAGE);
+        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, subMessage);
         x = originArr[0];
         y = originArr[1];
-        g.drawString(SUB_MESSAGE, x, y + sideTextOffset);
+        g.drawString(subMessage, x, y + sideTextOffset);
 
         g.setColor(SUBTEXT_COLOR);
-        g.setFont(SCORE_FONT.deriveFont(Font.PLAIN, 40));
+        g.setFont(scoreFont.deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
         int[] leftUpCorner = { 0, 0 };
-        originArr = FontUtil.getSouthEastPos(fm,  TOPSCORE_MESSAGE + this.topscore, leftUpCorner);
+        originArr = FontUtil.getSouthEastPos(fm,  topscoreMessage + this.topscore, leftUpCorner);
         x = originArr[0] + 20;
         y = originArr[1];
-        g.drawString(TOPSCORE_MESSAGE + this.topscore, x, y);
+        g.drawString(topscoreMessage + this.topscore, x, y);
 
         g.setColor(SCORES_COLOR);
-        g.setFont(SCORE_FONT.deriveFont(Font.PLAIN, 40));
+        g.setFont(scoreFont.deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
         int[] rightUpCorner = { size[0], 0 };
-        originArr = FontUtil.getSouthWestPos(fm, SCORE_MESSAGE + this.currScore, rightUpCorner);
+        originArr = FontUtil.getSouthWestPos(fm, scoreMessage + this.currScore, rightUpCorner);
         x = originArr[0] - 20;
         y = originArr[1];
-        g.drawString(SCORE_MESSAGE + this.currScore, x, y);
+        g.drawString(scoreMessage + this.currScore, x, y);
 
     }
 

@@ -45,6 +45,8 @@ public class Textures {
     public static final Image CLOSE_ICON = setImage("CloseIcon.png");
     public static final Image INSTAGRAM_LOGO = setImage("InstagramLogo.png");
     public static final Image GITHUB_LOGO = setImage("GithubLogo.png");
+    public static final Image ARROW_RIGHT = setImage("ArrowRight.png");
+    public static final Image ARROW_LEFT = setImage("ArrowLeft.png");
 
     /////////////////
     // Private methods

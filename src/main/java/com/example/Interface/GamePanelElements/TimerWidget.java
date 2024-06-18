@@ -46,7 +46,6 @@ public class TimerWidget implements Renderable {
     
     private final Color TIMER_BACKROUND = Colors.SCORES_WIDGETS;
     private final Color TIMER_TEXT = Colors.WIDGET_TEXT;
-    private final Font FONT = Fonts.text();
 
     /////////////////
     // Variables
@@ -85,10 +84,11 @@ public class TimerWidget implements Renderable {
 
     @Override
     public void refresh(Graphics2D g) {
+        Font font = Fonts.text();
         g.setColor(TIMER_BACKROUND);
         g.fillRoundRect(this.position[0], this.position[1], 250, 50, 20, 20);
         g.setColor(TIMER_TEXT);
-        g.setFont(FONT.deriveFont(Font.BOLD, 24));
+        g.setFont(font.deriveFont(Font.BOLD, 24));
         g.drawString(GameDialogue.timeLeft() + ": " + this.timeLeft, this.position[0] + 15, this.position[1] + 24 + 8);
     }
 
