@@ -1,6 +1,6 @@
-![alt text](https://c1.wallpaperflare.com/preview/427/227/784/stars-starry-sky-galaxy-night-sky-stars.jpg)
+![alt text](https://github.com/kireiiiiiiii/ShootingStars/blob/master/Resources/banner.png?raw=true)
 
-# ✨ Shooting Stars ✨
+# ⭐️ Shooting Stars ⭐️
 
 ### Specifications
 This game was build using Java.
