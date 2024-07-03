@@ -34,13 +34,13 @@ import javax.swing.*;
 import com.example.Game;
 import com.example.Game.PanelType;
 import com.example.Interface.Elements.Backround;
-import com.example.Interface.GamePanelElements.GameOverScreen;
-import com.example.Interface.GamePanelElements.HomeButton;
-import com.example.Interface.GamePanelElements.PauseScreen;
-import com.example.Interface.GamePanelElements.ScoreWidget;
-import com.example.Interface.GamePanelElements.StarWidget;
-import com.example.Interface.GamePanelElements.TimerWidget;
-import com.example.Interface.GamePanelElements.TopscoreWidget;
+import com.example.Interface.Elements.GamePanelElements.GameOverScreen;
+import com.example.Interface.Elements.GamePanelElements.HomeButton;
+import com.example.Interface.Elements.GamePanelElements.PauseScreen;
+import com.example.Interface.Elements.GamePanelElements.ScoreWidget;
+import com.example.Interface.Elements.GamePanelElements.StarWidget;
+import com.example.Interface.Elements.GamePanelElements.TimerWidget;
+import com.example.Interface.Elements.GamePanelElements.TopscoreWidget;
 
 import java.awt.*;
 

@@ -24,7 +24,7 @@
  *
  */
 
-package com.example.Interface.MenuPanelElements.LinksPanel;
+package com.example.Interface.Elements.MenuPanelElements.LinksPanel;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;

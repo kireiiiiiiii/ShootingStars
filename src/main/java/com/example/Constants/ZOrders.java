@@ -48,6 +48,7 @@ public class ZOrders {
     public static final int BACKROUND = 10;
     public static final int TARGET = 1;
     public static final int SCREENS = 9;
+    public static final int WIDGETS = 7;
 
 
 }

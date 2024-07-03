@@ -24,7 +24,7 @@
  *
  */
 
-package com.example.Interface.MenuPanelElements;
+package com.example.Interface.Elements.MenuPanelElements;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
