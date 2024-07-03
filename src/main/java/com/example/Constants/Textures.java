@@ -47,6 +47,7 @@ public class Textures {
     public static final Image GITHUB_LOGO = setImage("GithubLogo.png");
     public static final Image ARROW_RIGHT = setImage("ArrowRight.png");
     public static final Image ARROW_LEFT = setImage("ArrowLeft.png");
+    public static final Image HOME_ICON = setImage("HomeIcon.png");
 
     /////////////////
     // Private methods

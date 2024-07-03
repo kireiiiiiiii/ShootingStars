@@ -35,6 +35,7 @@ import com.example.Game;
 import com.example.Game.PanelType;
 import com.example.Interface.Elements.Backround;
 import com.example.Interface.GamePanelElements.GameOverScreen;
+import com.example.Interface.GamePanelElements.HomeButton;
 import com.example.Interface.GamePanelElements.PauseScreen;
 import com.example.Interface.GamePanelElements.ScoreWidget;
 import com.example.Interface.GamePanelElements.StarWidget;
@@ -75,6 +76,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private TimerWidget timerWidget;
     private StarWidget target;
     private GameOverScreen gameOverScreen;
+    private HomeButton homeButton;
 
     /////////////////
     // Constructors
@@ -98,21 +100,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         this.gameElements = new ArrayList<Renderable>();
         this.pauseElements = new ArrayList<Renderable>();
         this.gameOverElements = new ArrayList<Renderable>();
-
-        // // Set up the scores variable
-        // this.topScore = new AdvancedVariable<Integer>(Paths.TOP_SCORE_FILE);
-        // try {
-        // this.topScore.loadFromFile(Integer.class);
-        // } catch (IOException e) {
-        // this.topScore.set(0);
-        // }
-        // // The JSON file is empty = first time playing
-        // if (this.topScore.get() == null) {
-        // this.topScore.set(0);
-        // }
-        // System.out.println("Top score: " + this.topScore.get());
-
-        // Set deafult variable values
         this.mode = GameScreenMode.GAME;
 
         // Set widgets
@@ -266,9 +253,13 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private void setPauseWidgets() {
 
         int[] screenSize = { this.getWidth(), this.getHeight() };
+        int[] homeBtnPos = {20, 20};
+
+        this.homeButton = new HomeButton(this, homeBtnPos);
 
         this.pauseElements = new ArrayList<Renderable>();
         this.pauseElements.add(new PauseScreen(screenSize));
+        this.pauseElements.add(this.homeButton);
     }
 
     private void setGameOverWidgets() {
@@ -278,6 +269,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         this.gameOverElements = new ArrayList<Renderable>();
         this.gameOverScreen = new GameOverScreen(screenSize);
         this.gameOverElements.add(this.gameOverScreen);
+        this.gameOverElements.add(this.homeButton);
     }
 
     private void setBackround() {
@@ -333,6 +325,16 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      */
     public GameScreenMode getScreenMode() {
         return this.mode;
+    }
+
+    /**
+     * Method checking, if a {@code MouseEvent} interacted with the home button.
+     * 
+     * @param e - {@code MouseEvent} object.
+     * @return {@code boolean} factor.
+     */
+    public boolean wasHomeButtonClicked(MouseEvent e) {
+        return this.homeButton.wasInteracted(e);
     }
 
     /////////////////

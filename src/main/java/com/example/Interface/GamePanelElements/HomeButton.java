@@ -1,47 +1,18 @@
-/*
- * Author: Matěj Šťastný
- * Date created: 6/16/2024
- * Github link: https://github.com/kireiiiiiiii/TargetGame
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- */
-
-package com.example.Interface.MenuPanelElements;
+package com.example.Interface.GamePanelElements;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.MouseEvent;
-import javax.swing.JPanel;
 import com.example.Constants.Colors;
+import com.example.Constants.Textures;
 import com.example.Constants.ZOrders;
 import com.example.Interface.Interactable;
 import com.example.Interface.MenuScreenMode;
 import com.example.Interface.Renderable;
 import com.example.Tools.ImageUtil;
+import java.awt.Image;
+import javax.swing.JPanel;
 
-/**
- * Button with the menu button style.
- * 
- */
-public class MenuButton implements Renderable, Interactable {
+public class HomeButton implements Renderable, Interactable {
 
     /////////////////
     // Constants
@@ -57,23 +28,23 @@ public class MenuButton implements Renderable, Interactable {
     ////////////////
 
     private Image texture;
-    private int[] position;
     private JPanel owner;
-    private MenuScreenMode triggerMode;
+    private int[] position;
 
     /////////////////
-    // Constructors
+    // Constructor
     ////////////////
 
     /**
      * Default button constructor.
      * 
-     * @param pos   - position of the button.
-     * @param owner - owning {@code JPanel} object.
+     * @param owner - owning {@code JPanel} object. 
+     * @param position - position of the button in the render.
      */
-    public MenuButton(int[] pos, JPanel owner) {
-        this.position = pos;
+    public HomeButton(JPanel owner, int[] position) {
         this.owner = owner;
+        this.position = position;
+        this.texture = Textures.HOME_ICON;
     }
 
     /////////////////
@@ -107,7 +78,7 @@ public class MenuButton implements Renderable, Interactable {
 
     @Override
     public MenuScreenMode getInteract() {
-        return this.triggerMode == null ? MenuScreenMode.MAIN : this.triggerMode;
+        return null;
     }
 
     @Override
@@ -115,29 +86,6 @@ public class MenuButton implements Renderable, Interactable {
         int x = e.getX() - position[0];
         int y = e.getY() - position[1];
         return x <= SIZE[0] && y <= SIZE[1] && x > 0 && y > 0;
-    }
-
-    /////////////////
-    // Modifiers
-    ////////////////
-
-    /**
-     * Button texture modifier. Sets the icon image displayed in the middle of the
-     * button.
-     * 
-     * @param texture - new {@code Image} texture.
-     */
-    public void setTexture(Image texture) {
-        this.texture = texture;
-    }
-
-    /**
-     * Sets the trigger menu screen mode.
-     * 
-     * @param mode - new mode.
-     */
-    public void setTriggerMode(MenuScreenMode mode) {
-        this.triggerMode = mode;
     }
 
 }

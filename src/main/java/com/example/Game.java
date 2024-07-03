@@ -113,6 +113,16 @@ public class Game {
     // Events
     ////////////////
 
+    // Called when the current JPanel changes from game to menu 
+    public void onGoToMenu() {
+        this.appFrame.remove(this.gamePanel);
+        this.appFrame.add(this.menuPanel);
+        this.appFrame.revalidate();
+        this.appFrame.repaint();
+        this.menuPanel.requestFocusInWindow();
+        this.currPanel = PanelType.MENU;
+    }
+
     // Called when switching from the menu panel
     public void onGameStart() {
         Logs.log(Logs.GAME_START);
@@ -259,6 +269,11 @@ public class Game {
                         onTargetClicked(false);
                     } else {
                         onTargetMisclicked();
+                    }
+                }
+                else if (this.gamePanel.getScreenMode() == GameScreenMode.PAUSE || this.gamePanel.getScreenMode() == GameScreenMode.GAME_OVER) {
+                    if (this.gamePanel.wasHomeButtonClicked(e)) {
+                        onGoToMenu();
                     }
                 }
                 break;
