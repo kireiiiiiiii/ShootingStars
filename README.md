@@ -29,4 +29,3 @@ The goal of the game is to shoot as many stars from the sky as posible, in a giv
 
 ## Known Issues/Bugs:
 - The star hitbox is a circle, and is smaller than the star image.
-- Fonts used don't support other languages than english
