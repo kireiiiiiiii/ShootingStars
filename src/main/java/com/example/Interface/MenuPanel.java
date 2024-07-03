@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/13/2024
- * Github link:  https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -256,9 +256,10 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         int[] settingsPos = { linksPos[0] - 100, linksPos[1] };
         int[] igBtnPos = { getWidth() / 2 - 300, getHeight() / 2 - 50 };
         int[] gitBtnPos = { getWidth() / 2 + 130, getHeight() / 2 - 50 };
-        int[] langFieldPos = { getWidth()/2 - LanguageTitle.SIZE[0] / 2, getHeight()/2 - LanguageTitle.SIZE[1] / 2 };
-        int[] leftB = {langFieldPos[0] - ChangeButton.SIZE[0] - 20, langFieldPos[1]};
-        int[] rightB = {langFieldPos[0] + LanguageTitle.SIZE[0] + 20, langFieldPos[1]};
+        int[] langFieldPos = { getWidth() / 2 - LanguageTitle.SIZE[0] / 2,
+                getHeight() / 2 - LanguageTitle.SIZE[1] / 2 };
+        int[] leftB = { langFieldPos[0] - ChangeButton.SIZE[0] - 20, langFieldPos[1] };
+        int[] rightB = { langFieldPos[0] + LanguageTitle.SIZE[0] + 20, langFieldPos[1] };
 
         this.mainRenderables = new ArrayList<Renderable>();
         this.settingsRenderables = new ArrayList<Renderable>();

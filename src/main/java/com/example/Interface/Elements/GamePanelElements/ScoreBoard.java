@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 7/3/2024
- * Github link:  https://github.com/kireiiiiiiii/TargetGame
+ * Github link:  https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -35,7 +35,8 @@ import com.example.Interface.Renderable;
 import com.example.Tools.FontUtil;
 
 /**
- * Scoreboard widget for the Game Over screen. Shows the top score and the score in the current run.
+ * Scoreboard widget for the Game Over screen. Shows the top score and the score
+ * in the current run.
  * 
  */
 public class ScoreBoard implements Renderable {
@@ -43,7 +44,7 @@ public class ScoreBoard implements Renderable {
     /////////////////
     // Constants
     ////////////////
-    
+
     private final int[] SIZE = { 400, 200 };
     private final int BORDER_WIDTH = 10;
     private final int ARC_WIDTH = 40;
@@ -70,12 +71,11 @@ public class ScoreBoard implements Renderable {
     /////////////////
     // Render
     ////////////////
-    
+
     @Override
     public void refresh(Graphics2D g) {
         String topMessage = GameDialogue.topscore() + ": " + this.topScore;
         String bottomMessage = GameDialogue.score() + ": " + this.score;
-
 
         g.setColor(Colors.MAIN_GRAY);
         g.fillRoundRect(this.position[0] - BORDER_WIDTH / 2, this.position[1] - BORDER_WIDTH / 2,
@@ -90,11 +90,10 @@ public class ScoreBoard implements Renderable {
         int[] bottomCentered = FontUtil.getCenteredPos(SIZE[0], SIZE[1], g.getFontMetrics(), bottomMessage);
 
         // Calculate the vertical positions for the two messages
-        int topMessageY = topCentered[1] - g.getFontMetrics().getHeight()/2 - BETWEEN_TEXT/2 + position[1];
-        int bottomMessageY = bottomCentered[1] + g.getFontMetrics().getHeight()/2 + BETWEEN_TEXT/2 + position[1];
+        int topMessageY = topCentered[1] - g.getFontMetrics().getHeight() / 2 - BETWEEN_TEXT / 2 + position[1];
+        int bottomMessageY = bottomCentered[1] + g.getFontMetrics().getHeight() / 2 + BETWEEN_TEXT / 2 + position[1];
 
-
-        // Draw the strings 
+        // Draw the strings
         g.drawString(topMessage, topCentered[0] + position[0], topMessageY);
         g.drawString(bottomMessage, bottomCentered[0] + position[0], bottomMessageY);
 
@@ -102,7 +101,7 @@ public class ScoreBoard implements Renderable {
 
     @Override
     public int getZOrder() {
-        return ZOrders.WIDGETS;   
+        return ZOrders.WIDGETS;
     }
 
     /////////////////
@@ -126,5 +125,5 @@ public class ScoreBoard implements Renderable {
     public void setScore(int score) {
         this.score = score;
     }
-    
+
 }

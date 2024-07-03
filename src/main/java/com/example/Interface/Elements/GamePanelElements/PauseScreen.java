@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/14/2024
- * Github link: https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -83,7 +83,6 @@ public class PauseScreen implements Renderable {
         int x;
         int y;
         String text = GameDialogue.pause();
-
 
         g.setColor(TEXT_COLOR);
         g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 80));

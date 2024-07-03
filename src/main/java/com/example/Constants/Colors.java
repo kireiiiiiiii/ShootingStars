@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/15/2024
- * Github link: https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -54,7 +54,7 @@ public class Colors {
     // Backround
     ////////////////
 
-    public static final Color BACKROUND = MAIN_YELLOW; 
+    public static final Color BACKROUND = MAIN_YELLOW;
 
     /////////////////
     // Texts
@@ -69,5 +69,5 @@ public class Colors {
     ////////////////
 
     public static final Color SCORES_WIDGETS = MAIN_GREEN;
-    
+
 }

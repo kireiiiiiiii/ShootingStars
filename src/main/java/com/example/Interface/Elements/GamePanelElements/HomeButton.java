@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 7/3/2024
- * Github link:  https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -39,7 +39,8 @@ import java.awt.Image;
 import javax.swing.JPanel;
 
 /**
- * Home button widget for the pause screen and the game over screen. Redirects the user to the main menu.
+ * Home button widget for the pause screen and the game over screen. Redirects
+ * the user to the main menu.
  * 
  */
 public class HomeButton implements Renderable, Interactable {
@@ -68,7 +69,7 @@ public class HomeButton implements Renderable, Interactable {
     /**
      * Default button constructor.
      * 
-     * @param owner - owning {@code JPanel} object. 
+     * @param owner    - owning {@code JPanel} object.
      * @param position - position of the button in the render.
      */
     public HomeButton(JPanel owner, int[] position) {

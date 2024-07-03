@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 5/13/2024
- * Github link: https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *

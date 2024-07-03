@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/14/2024
- * Github link:  https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -30,7 +30,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-
 import com.example.Constants.Colors;
 import com.example.Constants.Fonts;
 import com.example.Constants.GameDialogue;

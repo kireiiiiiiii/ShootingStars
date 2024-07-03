@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/13/2024
- * Github link:  https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -69,7 +69,7 @@ public class ScoreWidget implements Renderable {
     @Override
     public void refresh(Graphics2D g) {
         Font font = Fonts.text();
-        
+
         g.setColor(BACKROUND_COLOR);
         g.fillRoundRect(this.position[0], this.position[1], 250, 50, 20, 20);
         g.setColor(TEXT_COLOR);

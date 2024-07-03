@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/16/2024
- * Github link:  https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -29,7 +29,6 @@ package com.example.Interface.Elements.MenuPanelElements.LinksPanel;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
-
 import com.example.Common.Links;
 import com.example.Constants.Textures;
 import com.example.Constants.ZOrders;

@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/15/2024
- * Github link: https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -62,12 +62,13 @@ public class Textures {
     private static InputStream getImageInputStream(String imageName) {
         return Textures.class.getResourceAsStream(File.separator + "Textures" + File.separator + imageName);
     }
-    
+
     /**
      * Loads an image from the resources folder and returns it as an Image object.
      * 
      * @param imageName - file name of the image.
-     * @return the loaded Image object or {@code null} if {@code IOExeption} occurs, or the {@code InputStream} is {@code null}
+     * @return the loaded Image object or {@code null} if {@code IOExeption} occurs,
+     *         or the {@code InputStream} is {@code null}
      */
     private static Image setImage(String imageName) {
         InputStream imageStream = getImageInputStream(imageName);
@@ -82,5 +83,5 @@ public class Textures {
         }
         return img;
     }
-    
+
 }

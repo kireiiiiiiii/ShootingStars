@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/15/2024
- * Github link: https://github.com/kireiiiiiiii/TargetGame
+ * Github link:  https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -30,7 +30,6 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import com.example.Constants.Logs;
 
 /**

@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/15/2024
- * Github link: https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -49,6 +49,5 @@ public class ZOrders {
     public static final int TARGET = 1;
     public static final int SCREENS = 9;
     public static final int WIDGETS = 7;
-
 
 }

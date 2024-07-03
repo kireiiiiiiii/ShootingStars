@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/13/2024
- * Github link:  https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -27,7 +27,6 @@
 package com.example.Interface.Elements.GamePanelElements;
 
 import java.awt.*;
-
 import com.example.Constants.Colors;
 import com.example.Constants.Fonts;
 import com.example.Constants.GameDialogue;
@@ -43,7 +42,7 @@ public class TimerWidget implements Renderable {
     /////////////////
     // Constants
     ////////////////
-    
+
     private final Color TIMER_BACKROUND = Colors.SCORES_WIDGETS;
     private final Color TIMER_TEXT = Colors.WIDGET_TEXT;
 
@@ -62,7 +61,7 @@ public class TimerWidget implements Renderable {
      * Default contructor.
      * 
      * @param position - position of the widget.
-     * @param time - display time.
+     * @param time     - display time.
      */
     public TimerWidget(int[] position, int time) {
         this.timeLeft = time;
@@ -96,7 +95,7 @@ public class TimerWidget implements Renderable {
     public int getZOrder() {
         return ZOrders.GAME_WIDGETS;
     }
-    
+
     /////////////////
     // Modifiers
     ////////////////
@@ -109,6 +108,5 @@ public class TimerWidget implements Renderable {
     public void setTime(int time) {
         this.timeLeft = time;
     }
-
 
 }

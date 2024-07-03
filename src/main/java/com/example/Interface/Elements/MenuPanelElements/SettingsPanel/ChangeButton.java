@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/15/2024
- * Github link: https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -50,7 +50,7 @@ public class ChangeButton implements Renderable, Interactable {
     /////////////////
     // Constants
     ////////////////
-    
+
     public static final int[] SIZE = { 80, 80 };
     private static final int ROUNDED = 50;
     private static final int BORDER_HEIGHT = 10;
@@ -72,9 +72,9 @@ public class ChangeButton implements Renderable, Interactable {
     /**
      * Default constructor.
      * 
-     * @param owner - owning {@code MenuPanel} object.
-     * @param position
-     * @param facingLeft
+     * @param owner      - owning {@code MenuPanel} object.
+     * @param position   - position of the widget.
+     * @param facingLeft - flips the texture.
      */
     public ChangeButton(MenuPanel owner, int[] position, boolean facingLeft) {
         this.facingLeft = facingLeft;
@@ -124,14 +124,12 @@ public class ChangeButton implements Renderable, Interactable {
             }
         }
 
-
         if (facingLeft) {
             languageIndex--;
             if (languageIndex < 0) {
                 languageIndex = languages.length - 1;
             }
-        }
-        else {
+        } else {
             languageIndex++;
             if (languageIndex >= languages.length) {
                 languageIndex = 0;

@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/18/2024
- * Github link: https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -45,10 +45,10 @@ public class LanguageTitle implements Renderable {
     // Constants
     ////////////////
 
-    public static final int[] SIZE = {400, 80};
+    public static final int[] SIZE = { 400, 80 };
     private static final int ROUNDED = 50;
     private static final int BORDER_HEIGHT = 10;
-    
+
     /////////////////
     // Variables
     ////////////////
@@ -58,7 +58,12 @@ public class LanguageTitle implements Renderable {
     /////////////////
     // Constructors
     ////////////////
-    
+
+    /**
+     * Default constructor.
+     * 
+     * @param pos - position of the widget.
+     */
     public LanguageTitle(int[] pos) {
         this.position = pos;
     }
@@ -72,7 +77,8 @@ public class LanguageTitle implements Renderable {
         String text = GameDialogue.currentLanguage();
 
         g.setColor(Color.BLACK);
-        g.fillRoundRect(this.position[0] - BORDER_HEIGHT/2, this.position[1] - BORDER_HEIGHT/2, SIZE[0] + BORDER_HEIGHT,
+        g.fillRoundRect(this.position[0] - BORDER_HEIGHT / 2, this.position[1] - BORDER_HEIGHT / 2,
+                SIZE[0] + BORDER_HEIGHT,
                 SIZE[1] + BORDER_HEIGHT, ROUNDED + BORDER_HEIGHT, ROUNDED + BORDER_HEIGHT);
 
         g.setColor(Color.WHITE);
@@ -88,5 +94,5 @@ public class LanguageTitle implements Renderable {
     public int getZOrder() {
         return ZOrders.SETTINGS_PANEL_ELEMENTS;
     }
-    
+
 }

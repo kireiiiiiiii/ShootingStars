@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 5/5/2024
- * Github link:  https://github.com/kireiiiiiiii/TargetGame
+ * Github link:  https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -24,14 +24,13 @@
  *
  */
 
-package com.example.Common; //TODO: change package
+package com.example.Common;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;

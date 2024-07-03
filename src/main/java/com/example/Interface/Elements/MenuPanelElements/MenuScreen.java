@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/14/2024
- * Github link:  https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -77,7 +77,7 @@ public class MenuScreen implements Renderable {
 
     @Override
     public void refresh(Graphics2D g) {
-        
+
         FontMetrics fm;
         Vec2D origin;
         int[] originArr;

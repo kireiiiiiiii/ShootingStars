@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/14/2024
- * Github link: https://github.com/kireiiiiiiii/TargetGame
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -27,7 +27,6 @@
 package com.example.Interface.Elements.GamePanelElements;
 
 import java.awt.*;
-
 import com.example.Constants.Colors;
 import com.example.Constants.Fonts;
 import com.example.Constants.GameDialogue;
@@ -39,11 +38,11 @@ import com.example.Interface.Renderable;
  * 
  */
 public class TopscoreWidget implements Renderable {
-    
+
     /////////////////
     // Constants
     ////////////////
-    
+
     private final Color TIMER_BACKROUND = Colors.SCORES_WIDGETS;
     private final Color TIMER_TEXT = Colors.WIDGET_TEXT;
 
@@ -96,7 +95,7 @@ public class TopscoreWidget implements Renderable {
     public int getZOrder() {
         return ZOrders.GAME_WIDGETS;
     }
-    
+
     /////////////////
     // Modifiers
     ////////////////
@@ -109,6 +108,5 @@ public class TopscoreWidget implements Renderable {
     public void setTopscore(int topscore) {
         this.topscore = topscore;
     }
-
 
 }

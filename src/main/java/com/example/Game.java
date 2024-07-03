@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 6/13/2024
- * Github link:  https://github.com/kireiiiiiiii/TargetGame
+ * Github link:  https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -113,7 +113,7 @@ public class Game {
     // Events
     ////////////////
 
-    // Called when the current JPanel changes from game to menu 
+    // Called when the current JPanel changes from game to menu
     public void onGoToMenu() {
         this.appFrame.remove(this.gamePanel);
         this.appFrame.add(this.menuPanel);
@@ -270,8 +270,8 @@ public class Game {
                     } else {
                         onTargetMisclicked();
                     }
-                }
-                else if (this.gamePanel.getScreenMode() == GameScreenMode.PAUSE || this.gamePanel.getScreenMode() == GameScreenMode.GAME_OVER) {
+                } else if (this.gamePanel.getScreenMode() == GameScreenMode.PAUSE
+                        || this.gamePanel.getScreenMode() == GameScreenMode.GAME_OVER) {
                     if (this.gamePanel.wasHomeButtonClicked(e)) {
                         onGoToMenu();
                     }

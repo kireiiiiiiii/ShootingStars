@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
- * Date created: TODO: Change date
- * Github link: TODO: Insert GitHub repo link, where the util file was used. 
+ * Date created: 5/13/2024
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -35,7 +35,7 @@ import java.io.File;
  * loading custom fonts from file, or measuring them.
  * 
  */
-public class FontUtil {
+public class FontUtil { 
 
     /////////////////
     // Font file handeling methods
