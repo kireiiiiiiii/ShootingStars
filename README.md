@@ -1,6 +1,6 @@
-![alt text](https://c1.wallpaperflare.com/preview/427/227/784/stars-starry-sky-galaxy-night-sky-stars.jpg)
+![alt text](https://github.com/kireiiiiiiii/ShootingStars/blob/master/Resources/banner.png?raw=true)
 
-# ✨ Shooting Stars ✨
+# ⭐️ Shooting Stars ⭐️
 
 ### Specifications
 This game was build using Java.
@@ -29,4 +29,3 @@ The goal of the game is to shoot as many stars from the sky as posible, in a giv
 
 ## Known Issues/Bugs:
 - The star hitbox is a circle, and is smaller than the star image.
-- Fonts used don't support other languages than english
