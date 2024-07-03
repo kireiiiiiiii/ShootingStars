@@ -41,7 +41,6 @@ import com.example.Interface.Elements.MenuPanelElements.LinksPanel.GithubLink;
 import com.example.Interface.Elements.MenuPanelElements.LinksPanel.InstagramLink;
 import com.example.Interface.Elements.MenuPanelElements.SettingsPanel.ChangeButton;
 import com.example.Interface.Elements.MenuPanelElements.SettingsPanel.LanguageTitle;
-
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;

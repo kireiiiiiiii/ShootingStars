@@ -37,6 +37,7 @@ import com.example.Interface.Elements.Backround;
 import com.example.Interface.Elements.GamePanelElements.GameOverScreen;
 import com.example.Interface.Elements.GamePanelElements.HomeButton;
 import com.example.Interface.Elements.GamePanelElements.PauseScreen;
+import com.example.Interface.Elements.GamePanelElements.ScoreBoard;
 import com.example.Interface.Elements.GamePanelElements.ScoreWidget;
 import com.example.Interface.Elements.GamePanelElements.StarWidget;
 import com.example.Interface.Elements.GamePanelElements.TimerWidget;
@@ -75,7 +76,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private TopscoreWidget topscoreWidget;
     private TimerWidget timerWidget;
     private StarWidget target;
-    private GameOverScreen gameOverScreen;
+    private ScoreBoard scoreBoard;
     private HomeButton homeButton;
 
     /////////////////
@@ -265,11 +266,14 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     private void setGameOverWidgets() {
 
         int[] screenSize = { this.getWidth(), this.getHeight() };
+        int[] scoreBoardPos = {20, getHeight() - 240};
+
+        this.scoreBoard = new ScoreBoard(scoreBoardPos);
 
         this.gameOverElements = new ArrayList<Renderable>();
-        this.gameOverScreen = new GameOverScreen(screenSize);
-        this.gameOverElements.add(this.gameOverScreen);
+        this.gameOverElements.add(new GameOverScreen(screenSize));
         this.gameOverElements.add(this.homeButton);
+        this.gameOverElements.add(this.scoreBoard);
     }
 
     private void setBackround() {
@@ -423,8 +427,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
      * @param currScore - current game score.
      */
     public void setGameOverScreen(int topScore, int currScore) {
-        this.gameOverScreen.setScore(currScore);
-        this.gameOverScreen.setTopscore(topScore);
+        this.scoreBoard.setScore(currScore);
+        this.scoreBoard.setTopScore(topScore);
     }
 
 }

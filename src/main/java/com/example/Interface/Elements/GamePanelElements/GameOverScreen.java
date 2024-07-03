@@ -50,14 +50,11 @@ public class GameOverScreen implements Renderable {
 
     private final Color MAIN_TEXT_COLOR = Colors.MAIN_TEXT;
     private final Color SUBTEXT_COLOR = Colors.SUB_TEXT;
-    private final Color SCORES_COLOR = Colors.SUB_TEXT;
 
     /////////////////
     // Variables
     ////////////////
 
-    private int currScore;
-    private int topscore;
     private int[] size;
 
     /////////////////
@@ -72,8 +69,6 @@ public class GameOverScreen implements Renderable {
      */
     public GameOverScreen(int[] size) {
         this.size = size;
-        currScore = -1;
-        topscore = -1;
     }
 
     /////////////////
@@ -89,11 +84,8 @@ public class GameOverScreen implements Renderable {
         int y;
         int sideTextOffset;
         Font headingFont = Fonts.heading();
-        Font scoreFont = Fonts.text();
         String mainMessage = GameDialogue.gameOver();
         String subMessage = GameDialogue.gameOverSubtext();
-        String scoreMessage = GameDialogue.score() + ": ";
-        String topscoreMessage = GameDialogue.topscore() + ": ";
 
         // Paints the main message
         g.setColor(this.MAIN_TEXT_COLOR);
@@ -114,51 +106,11 @@ public class GameOverScreen implements Renderable {
         y = originArr[1];
         g.drawString(subMessage, x, y + sideTextOffset);
 
-        g.setColor(SUBTEXT_COLOR);
-        g.setFont(scoreFont.deriveFont(Font.PLAIN, 40));
-        fm = g.getFontMetrics();
-        int[] leftUpCorner = { 0, 0 };
-        originArr = FontUtil.getSouthEastPos(fm,  topscoreMessage + this.topscore, leftUpCorner);
-        x = originArr[0] + 20;
-        y = originArr[1];
-        g.drawString(topscoreMessage + this.topscore, x, y);
-
-        g.setColor(SCORES_COLOR);
-        g.setFont(scoreFont.deriveFont(Font.PLAIN, 40));
-        fm = g.getFontMetrics();
-        int[] rightUpCorner = { size[0], 0 };
-        originArr = FontUtil.getSouthWestPos(fm, scoreMessage + this.currScore, rightUpCorner);
-        x = originArr[0] - 20;
-        y = originArr[1];
-        g.drawString(scoreMessage + this.currScore, x, y);
-
     }
 
     @Override
     public int getZOrder() {
         return ZOrders.SCREENS;
-    }
-
-    /////////////////
-    // Modifiers
-    ////////////////
-
-    /**
-     * Current score setter.
-     * 
-     * @param score - new value.
-     */
-    public void setScore(int score) {
-        this.currScore = score;
-    }
-
-    /**
-     * Top score setter.
-     * 
-     * @param topscore - new value
-     */
-    public void setTopscore(int topscore) {
-        this.topscore = topscore;
     }
 
 }

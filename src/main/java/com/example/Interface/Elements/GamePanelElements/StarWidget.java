@@ -24,7 +24,7 @@
  *
  */
 
-package com.example.Interface.GamePanelElements;
+package com.example.Interface.Elements.GamePanelElements;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;

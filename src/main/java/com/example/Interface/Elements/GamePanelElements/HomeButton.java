@@ -1,3 +1,29 @@
+/*
+ * Author: Matěj Šťastný
+ * Date created: 7/3/2024
+ * Github link:  https://github.com/kireiiiiiiii/TargetGame
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
 package com.example.Interface.Elements.GamePanelElements;
 
 import java.awt.Graphics2D;
@@ -12,6 +38,10 @@ import com.example.Tools.ImageUtil;
 import java.awt.Image;
 import javax.swing.JPanel;
 
+/**
+ * Home button widget for the pause screen and the game over screen. Redirects the user to the main menu.
+ * 
+ */
 public class HomeButton implements Renderable, Interactable {
 
     /////////////////
@@ -69,7 +99,7 @@ public class HomeButton implements Renderable, Interactable {
 
     @Override
     public int getZOrder() {
-        return ZOrders.MENU_BUTTONS;
+        return ZOrders.WIDGETS;
     }
 
     /////////////////
