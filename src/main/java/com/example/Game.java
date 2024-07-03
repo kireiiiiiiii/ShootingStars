@@ -137,6 +137,7 @@ public class Game {
         this.targetRadius = DEFAULT_TARGET_RADIUS;
         this.gamePanel.setTargetWidget(this.targetRadius);
         this.score = 0;
+        this.gamePanel.setScore(this.score);
         initializeTimer();
         onTargetClicked(true);
     }
