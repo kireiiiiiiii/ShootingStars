@@ -9,7 +9,7 @@ repositories {
 }
 
 application {
-    mainClass = "com.example.AppMain"
+    mainClass = "com.kireiiiiiiii.shooting_stars.AppMain"
 }
 
 dependencies {
@@ -25,7 +25,7 @@ tasks.jar {
     archiveFileName.set("$buildDir/libs/ShootingStars.jar")
     from("src/main/Resources")
     manifest {
-        attributes["Main-Class"] = "com.example.AppMain"
+        attributes["Main-Class"] = "com.kireiiiiiiii.shooting_stars.AppMain"
     }
 }
 
