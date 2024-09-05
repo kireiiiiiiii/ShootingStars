@@ -26,7 +26,10 @@
 
 package com.example.Interface;
 
+import java.awt.Image;
+import java.awt.Taskbar;
 import javax.swing.*;
+import com.example.Constants.Textures;
 
 /**
  * A template class of what should be implemented in a custom {@code JFrame}.
@@ -72,6 +75,7 @@ public class AppFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        setIcon(Textures.ICON);
 
         // this.add(new OldGamePanel(this));
     }
@@ -101,4 +105,15 @@ public class AppFrame extends JFrame {
         this.title = title;
         setTitle(this.title);
     }
+
+    /**
+     * Changes the window icon.
+     *
+     * @param path - path of the icon
+     */
+    public void setIcon(Image icon) {
+        Taskbar taskbar = Taskbar.getTaskbar();
+        taskbar.setIconImage(icon);
+    }
+
 }

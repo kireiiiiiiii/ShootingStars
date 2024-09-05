@@ -45,10 +45,11 @@ public class ImageUtil {
     ////////////////
 
     /**
-     * Reads an image from a file and than creates and return a new {@code Image} object reference. 
+     * Reads an image from a file and than creates and return a new {@code Image}
+     * object reference.
      * 
      * @param path - path/name of the target image file
-     * @return a new {@code Image} from target file. 
+     * @return a new {@code Image} from target file.
      * @throws IOException
      */
     public static Image loadImageFromFile(String path) throws IOException {
@@ -58,28 +59,29 @@ public class ImageUtil {
     }
 
     /**
-     * Reads an image from a file and than creates and return a new {@code Image} object reference. 
+     * Reads an image from a file and than creates and return a new {@code Image}
+     * object reference.
      * 
-     * @param imageFile - target image {@code File} object. 
-     * @return a new {@code Image} from target file. 
+     * @param imageFile - target image {@code File} object.
+     * @return a new {@code Image} from target file.
      * @throws IOException
      */
     public static Image loadImageFromFile(File imageFile) throws IOException {
         BufferedImage bufferedImage = ImageIO.read(imageFile);
         return new ImageIcon(bufferedImage).getImage();
     }
-    
+
     /////////////////
     // Image scaling methods
     ////////////////
-    
+
     /**
-     * Scales an {@code Image} object to the desired width and height. 
+     * Scales an {@code Image} object to the desired width and height.
      * 
-     * @param image - target {@code Image} object. 
-     * @param width - target width of the image.
-     * @param height - target height of the omage. 
-     * @return a new {@code Image} object reference of the scaled image. 
+     * @param image  - target {@code Image} object.
+     * @param width  - target width of the image.
+     * @param height - target height of the omage.
+     * @return a new {@code Image} object reference of the scaled image.
      */
     public static Image scaleImage(Image image, int width, int height) {
         BufferedImage scaledImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -97,11 +99,12 @@ public class ImageUtil {
     }
 
     /**
-     * Scales an {@code Image} object to a desired width, while leaving the original height of the image.
+     * Scales an {@code Image} object to a desired width, while leaving the original
+     * height of the image.
      * 
-     * @param image - target {@code Image} object. 
-     * @param width - target width. 
-     * @return a new {@code Image} object reference of the scaled image. 
+     * @param image - target {@code Image} object.
+     * @param width - target width.
+     * @return a new {@code Image} object reference of the scaled image.
      */
     public static Image scaleToWidth(Image image, int width) {
         int height = image.getHeight(null);
@@ -121,15 +124,16 @@ public class ImageUtil {
     }
 
     /**
-     * Scales an {@code Image} object to a desired height, while leaving the original width of the image.
+     * Scales an {@code Image} object to a desired height, while leaving the
+     * original width of the image.
      * 
-     * @param image - target {@code Image} object. 
-     * @param height - target height. 
-     * @return a new {@code Image} object reference of the scaled image. 
+     * @param image  - target {@code Image} object.
+     * @param height - target height.
+     * @return a new {@code Image} object reference of the scaled image.
      */
     public static Image scaleToHeight(Image image, int height) {
         int width = image.getWidth(null);
-        
+
         BufferedImage scaledImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics2D = scaledImage.createGraphics();
 
@@ -143,6 +147,5 @@ public class ImageUtil {
 
         return scaledImage;
     }
-
 
 }

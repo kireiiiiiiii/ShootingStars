@@ -48,6 +48,7 @@ public class Textures {
     public static final Image ARROW_RIGHT = setImage("ArrowRight.png");
     public static final Image ARROW_LEFT = setImage("ArrowLeft.png");
     public static final Image HOME_ICON = setImage("HomeIcon.png");
+    public static final Image ICON = setImage("icon.png");
 
     /////////////////
     // Private methods
