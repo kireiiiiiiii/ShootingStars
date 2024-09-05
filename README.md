@@ -14,7 +14,9 @@ The goal of the game is to shoot as many stars from the sky as posible, in a giv
 2. **Run the Game**: Open the folder in a compiler like VS Code. There run the AppMain.java file.
    
 4. **Packaging**: For packaging, use the <code>gradle shadowjar</code> command.
-   *NOTE*: the <code>gradle jar</code> command doesn't work, because it for some reason doesn't include my Maven plugins 
+   *NOTE*: the <code>gradle jar</code> command doesn't work, because it for some reason doesn't include my Maven plugins
+   
+6. **Distribution**: For packaging into a distribution version (<code>.zip</code>) use <code>gradle asseble</code>.
 
 ## Controls
 - **Left Mouse Click**: Click on targets
