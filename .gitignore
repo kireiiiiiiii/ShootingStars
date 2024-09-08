@@ -73,3 +73,6 @@ build
 
 # Ignore the backups folder
 Backups
+
+# Ignore Excel temporary files
+~$*.xls*
