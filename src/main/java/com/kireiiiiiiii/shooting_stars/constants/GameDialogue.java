@@ -137,6 +137,15 @@ public class GameDialogue {
         return languages;
     }
 
+    /**
+     * Accesor method for the current language index.
+     * 
+     * @return and {@code int} of the index.
+     */
+    public static int getLanguageIndex() {
+        return currLanguageIndex;
+    }
+
     /////////////////
     // Private methods
     ////////////////

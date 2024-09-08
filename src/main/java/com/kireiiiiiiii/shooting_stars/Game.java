@@ -96,7 +96,7 @@ public class Game {
         onTopscoreFileLoad();
 
         // Load the config file
-        int lastLanguageIndex = Settings.getLanguageIndex();
+        int lastLanguageIndex = (int) Settings.getValue("languageIndex");
         GameDialogue.initialLanguageSet(lastLanguageIndex);
         Fonts.setFonts();
 
@@ -252,7 +252,8 @@ public class Game {
         this.appFrame.setTitle(GameDialogue.appName);
         // ---- Log ----
         Logs.log(Logs.LANGUAGE_SET);
-        // TODO Save the index
+        // ---- Save settings----
+        Settings.save();
     }
 
     /////////////////
