@@ -77,6 +77,16 @@ public class SpreadsheetUtil {
         return cellValue;
     }
 
+    /**
+     * Returns a list of values in a row. The process will stop, when the loop finds
+     * an empty cell.
+     * 
+     * @param fileName  - name of the spreadsheet file, {@code .xlsx} will be
+     *                  appended
+     * @param sheetName - name of the target sheet name.
+     * @param rowNumer  - number of the row from 0.
+     * @return an {@code ArrayList} of {@code String} values of the cells.
+     */
     public static ArrayList<String> getRowValues(String fileName, String sheetName, int rowNumer) {
         ArrayList<String> row = new ArrayList<String>();
         boolean foundEmpty = false;
@@ -92,13 +102,21 @@ public class SpreadsheetUtil {
         return row;
     }
 
+    /**
+     * Returns a list of values in a column. The process will stop, when the loop
+     * finds an empty cell.
+     * 
+     * @param fileName    - name of the spreadsheet file, {@code .xlsx} will be
+     *                    appended
+     * @param sheetName   - name of the target sheet name.
+     * @param columnNumer - number of the column from 0.
+     * @return an {@code ArrayList} of {@code String} values of the cells.
+     */
     public static ArrayList<String> getColumnValues(String fileName, String sheetName, int columnNumber) {
-        System.out.println(fileName + " " + sheetName + " " + columnNumber); // TODO DEBUG
         ArrayList<String> collum = new ArrayList<String>();
         boolean foundEmpty = false;
         int currCell = 0;
         while (!foundEmpty) {
-            System.out.println(currCell); // TODO DEBUG
             String cell = getCellValue(fileName, sheetName, currCell, columnNumber);
             foundEmpty = cell == null;
             if (cell != null) {
@@ -106,7 +124,6 @@ public class SpreadsheetUtil {
             }
             currCell++;
         }
-        System.out.println(collum.size() + " " + collum); // TODO DEBUG
         return collum;
     }
 

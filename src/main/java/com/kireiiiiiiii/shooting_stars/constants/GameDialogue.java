@@ -26,11 +26,9 @@
 
 package com.kireiiiiiiii.shooting_stars.constants;
 
-import com.kireiiiiiiii.shooting_stars.common.Settings;
 import com.kireiiiiiiii.shooting_stars.tools.SpreadsheetUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Constant class with all the game dialogues.
@@ -79,6 +77,12 @@ public class GameDialogue {
     // Modifiers
     ////////////////
 
+    /**
+     * Set's the current language to the next one on the language list. If the index
+     * is higher that the total language count, it will be set to zero to cycle the
+     * process.
+     * 
+     */
     public static void setNextLanguage() {
         int languageCount = getLanguages().size();
         currLanguageIndex++;
@@ -88,6 +92,12 @@ public class GameDialogue {
         changeLanguage(currLanguageIndex);
     }
 
+    /**
+     * Set's the current language to the previous one on the language list. If the
+     * index is smaller than 0, it will be set to the last idex of the language list
+     * to cycle the prosess.
+     * 
+     */
     public static void setPreviousLanguage() {
         int languageCount = getLanguages().size();
         currLanguageIndex--;
@@ -97,8 +107,15 @@ public class GameDialogue {
         changeLanguage(currLanguageIndex);
     }
 
+    /**
+     * Sets the language. Used in the initial process of setting up the last
+     * language used. For invalide language, input -1 and the method will set the
+     * language to the first one on the language list. If the index is out of bounds
+     * of the language list, it will also be set to the first language on the list.
+     * 
+     * @param index - language index.
+     */
     public static void initialLanguageSet(int index) {
-        System.out.println(index);
         if (index < 0 || index > getLanguages().size() - 1) {
             index = 0;
         }
@@ -124,6 +141,12 @@ public class GameDialogue {
     // Private methods
     ////////////////
 
+    /**
+     * Changes all the dialogoue fields to the language determined by the language
+     * index from the dialogue spreadsheet.
+     * 
+     * @param languageIndex - language index.
+     */
     private static void changeLanguage(int languageIndex) {
         // ---- Set variables ---
         currLanguageIndex = languageIndex;
@@ -132,14 +155,10 @@ public class GameDialogue {
         ArrayList<String> values = SpreadsheetUtil.getColumnValues(SPREADSHEET_FILENAME, SPREADSHEET_NAME,
                 currLanguageIndex);
         String[] result = new String[values.size()];
-
         for (int i = 0; i < values.size(); i++) {
             result[i] = SpreadsheetUtil.getCellValue(SPREADSHEET_FILENAME, SPREADSHEET_NAME, i, languageIndex + 1);
         }
 
-        System.out.println(Arrays.toString(result));
-
-        // Assign the variables
         languageName = result[0];
         headingFont = result[1];
         textFont = result[2];

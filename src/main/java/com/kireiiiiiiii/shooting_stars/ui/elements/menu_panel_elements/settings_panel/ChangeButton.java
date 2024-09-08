@@ -31,10 +31,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 
-import com.kireiiiiiiii.shooting_stars.AppMain;
-import com.kireiiiiiiii.shooting_stars.common.Language;
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
-import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.constants.ZOrders;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;

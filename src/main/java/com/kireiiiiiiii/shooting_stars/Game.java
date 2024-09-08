@@ -246,15 +246,13 @@ public class Game {
         } else {
             GameDialogue.setPreviousLanguage();
         }
-
         // ---- Change fonts ----
         Fonts.setFonts();
-
         // ---- Set app window title ----
         this.appFrame.setTitle(GameDialogue.appName);
-
         // ---- Log ----
         Logs.log(Logs.LANGUAGE_SET);
+        // TODO Save the index
     }
 
     /////////////////

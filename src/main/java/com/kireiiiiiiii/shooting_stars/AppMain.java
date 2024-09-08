@@ -26,13 +26,9 @@
 
 package com.kireiiiiiiii.shooting_stars;
 
-import java.util.ArrayList;
+import com.kireiiiiiiii.shooting_stars.constants.Logs;
 
 import javax.swing.SwingUtilities;
-
-import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
-import com.kireiiiiiiii.shooting_stars.constants.Logs;
-import com.kireiiiiiiii.shooting_stars.tools.SpreadsheetUtil;
 
 /**
  * Main method for
@@ -63,10 +59,5 @@ public class AppMain {
         };
         SwingUtilities.invokeLater(myApp);
     }
-
-    // ! DEBUG MAIN METHOD
-    // public static void main(String[] args) {
-    // System.out.println(GameDialogue.getLanguages());
-    // }
 
 }
