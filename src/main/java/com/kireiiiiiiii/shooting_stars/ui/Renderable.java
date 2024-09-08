@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
- * Date created: 6/13/2024
- * Github link: https://github.com/kireiiiiiiii/ShootingStars
+ * Date created: 7/27/2024
+ *
  *
  *
  *
@@ -26,27 +26,35 @@
 
 package com.kireiiiiiiii.shooting_stars.ui;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 /**
- * Intefrace for GUI renderable objects.
+ * Interface for objects that can be rendered onto a {@code JPanel} object.
  * 
  */
 public interface Renderable {
 
     /**
-     * Repaints the object onto the designated {@code JPanel} specified by the
-     * {@code Graphics2D} object.
+     * This method renders the object using a {@code Graphics2D} object reference.
      * 
-     * @param g2d - the {@Graphics2D} object of the {@code JPanel}.
+     * @param g - {@code Graphocs2D} object reference of the target {@code JPanel}
+     *          object.
      */
-    public void refresh(Graphics2D g2d);
+    public void render(Graphics2D g);
 
     /**
-     * Returns the Z layer value for the renderable.
+     * This method returns the Z-Index of the object. The Z-Index cannot be changed!
      * 
-     * @return a Z layer value.
+     * @return {@code int} value of the Z-Index.
      */
-    public int getZOrder();
+    public int getZIndex();
+
+    /**
+     * This method returns if the item is hidden or shown, therefore should be
+     * rendered or not.
+     * 
+     * @return {@code boolean} visible/hidden.
+     */
+    public boolean isVisible();
 
 }
