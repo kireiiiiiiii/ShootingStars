@@ -31,7 +31,7 @@ import com.kireiiiiiiii.shooting_stars.constants.Logs;
 import javax.swing.SwingUtilities;
 
 /**
- * Main method for
+ * Main method class.
  * 
  */
 public class AppMain {

@@ -122,14 +122,14 @@ public class Files {
 
     /**
      * Gets the directory where all application data is stored dependion on the OS.
-     * For example:
      * </p>
-     * </p>
-     * On MacOS the directory is "Application Support"
-     * </p>
-     * On Widnows the directory is "Appdata"
-     * </p>
-     * If the directory doesn't exist, it will create one.
+     * <ul>
+     * <li><b>MacOS</b>:
+     * <code>/Users/user-name/Library/Application Support/app-name></code></li>
+     * <li><b>Windows</b>:
+     * <code>C:\Users\ user-name\AppData\Roaming\app-name</code></li>
+     * <li><b>Linux</b>: <code>/home/&lt;user&gt;/.&lt;appName&gt;</code></li>
+     * </ul>
      * 
      * @param appName - name of the application.
      * @return a {@code File} object of the directory.
