@@ -26,8 +26,11 @@
 
 package com.kireiiiiiiii.shooting_stars;
 
+import java.util.ArrayList;
+
 import javax.swing.SwingUtilities;
 
+import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
 import com.kireiiiiiiii.shooting_stars.constants.Logs;
 import com.kireiiiiiiii.shooting_stars.tools.SpreadsheetUtil;
 
@@ -47,8 +50,7 @@ public class AppMain {
     // Variables
     ////////////////
 
-    @SuppressWarnings("unused")
-    private static Game game;
+    public static Game game;
 
     /////////////////
     // Main method
@@ -64,8 +66,7 @@ public class AppMain {
 
     // ! DEBUG MAIN METHOD
     // public static void main(String[] args) {
-    // String cell = SpreadsheetUtil.getCellValue("dialogue", "dialogue", 0, 0);
-    // System.out.println(cell);
+    // System.out.println(GameDialogue.getLanguages());
     // }
 
 }

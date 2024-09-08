@@ -33,7 +33,9 @@ import com.kireiiiiiiii.shooting_stars.common.AdvancedVariable;
 import com.kireiiiiiiii.shooting_stars.common.PausableTimer;
 import com.kireiiiiiiii.shooting_stars.common.Settings;
 import com.kireiiiiiiii.shooting_stars.common.Vec2D;
+import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Files;
+import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
 import com.kireiiiiiiii.shooting_stars.constants.Keybinds;
 import com.kireiiiiiiii.shooting_stars.constants.Logs;
@@ -87,13 +89,16 @@ public class Game {
         double[] windowSize = ScreenUtil.getAppWindowSize();
         int windowWidth = (int) windowSize[0];
         int windowHeight = (int) windowSize[1];
-        this.appFrame = new AppFrame(windowWidth, windowHeight, GameDialogue.appTitle());
+        this.appFrame = new AppFrame(windowWidth, windowHeight, GameDialogue.appName);
+        this.appFrame.setBackground(Colors.BACKROUND); // Set temporary backround while loading
 
         // Set up the scores variable
         onTopscoreFileLoad();
 
         // Load the config file
-        Settings.getLanguage();
+        int lastLanguageIndex = Settings.getLanguageIndex();
+        GameDialogue.initialLanguageSet(lastLanguageIndex);
+        Fonts.setFonts();
 
         // Construct the game panel
         this.gamePanel = new GamePanel(this.appFrame, this);
@@ -232,6 +237,24 @@ public class Game {
         } catch (IOException e) {
             System.out.println("FATAL - Could not save Topscore file");
         }
+    }
+
+    public void onLanguageChange(boolean next) {
+        // ---- Change dialogues ----
+        if (next) {
+            GameDialogue.setNextLanguage();
+        } else {
+            GameDialogue.setPreviousLanguage();
+        }
+
+        // ---- Change fonts ----
+        Fonts.setFonts();
+
+        // ---- Set app window title ----
+        this.appFrame.setTitle(GameDialogue.appName);
+
+        // ---- Log ----
+        Logs.log(Logs.LANGUAGE_SET);
     }
 
     /////////////////

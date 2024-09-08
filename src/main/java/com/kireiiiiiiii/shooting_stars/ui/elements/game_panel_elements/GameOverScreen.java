@@ -84,8 +84,8 @@ public class GameOverScreen implements Renderable {
         int y;
         int sideTextOffset;
         Font headingFont = Fonts.heading();
-        String mainMessage = GameDialogue.gameOver();
-        String subMessage = GameDialogue.gameOverSubtext();
+        String mainMessage = GameDialogue.gameOver;
+        String subMessage = GameDialogue.gameOverSubtext;
 
         // Paints the main message
         g.setColor(this.MAIN_TEXT_COLOR);

@@ -75,8 +75,8 @@ public class ScoreBoard implements Renderable {
 
     @Override
     public void refresh(Graphics2D g) {
-        String topMessage = GameDialogue.topscore() + ": " + this.topScore;
-        String bottomMessage = GameDialogue.score() + ": " + this.score;
+        String topMessage = GameDialogue.topscore + ": " + this.topScore;
+        String bottomMessage = GameDialogue.score + ": " + this.score;
 
         g.setColor(Colors.MAIN_GRAY);
         g.fillRoundRect(this.position[0] - BORDER_WIDTH / 2, this.position[1] - BORDER_WIDTH / 2,

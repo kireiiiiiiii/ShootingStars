@@ -89,7 +89,7 @@ public class TopscoreWidget implements Renderable {
         g.fillRoundRect(this.position[0], this.position[1], 250, 50, 20, 20);
         g.setColor(TIMER_TEXT);
         g.setFont(font.deriveFont(Font.BOLD, 24));
-        g.drawString(GameDialogue.topscore() + ": " + this.topscore, this.position[0] + 15, this.position[1] + 24 + 8);
+        g.drawString(GameDialogue.topscore + ": " + this.topscore, this.position[0] + 15, this.position[1] + 24 + 8);
     }
 
     @Override

@@ -311,12 +311,12 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
 
     }
 
-    public void setLanguage(Language language) {
-        GameDialogue.setLanguage(language);
-        Settings.setLanguage(language);
-        this.owner.setTitle(GameDialogue.appTitle());
-        repaint();
-        this.owner.repaint();
-    }
+    // public void setLanguage(Language language) {
+    // GameDialogue.setLanguage(language);
+    // Settings.setLanguage(language);
+    // this.owner.setTitle(GameDialogue.appTitle());
+    // repaint();
+    // this.owner.repaint();
+    // }
 
 }

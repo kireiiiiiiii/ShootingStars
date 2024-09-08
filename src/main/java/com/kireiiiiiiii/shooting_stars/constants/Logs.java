@@ -59,6 +59,8 @@ public class Logs {
 
     public static final String TIMER_INTEARION = "Timer executed";
 
+    public static final String LANGUAGE_SET = "Language set to " + GameDialogue.languageName;
+
     /////////////////
     // Color constants
     ////////////////
@@ -68,6 +70,7 @@ public class Logs {
     private static final String TARGET_LOG_COLOR = TerminalColors.BACKGROUND_BLUE;
     private static final String FILE_LOG_COLOR = TerminalColors.BACKGROUND_PURPLE;
     private static final String TIMER_LOG_COLOR = TerminalColors.BACKGROUND_YELLOW;
+    private static final String SETTINGS_SET_COLOR = TerminalColors.BACKGROUND_WHITE;
 
     /////////////////
     // Variables
@@ -93,6 +96,8 @@ public class Logs {
             logColor = FILE_LOG_COLOR;
         } else if (logInput.equals(TIMER_INTEARION)) {
             logColor = TIMER_LOG_COLOR;
+        } else if (logInput.equals(LANGUAGE_SET)) {
+            logColor = SETTINGS_SET_COLOR;
         } else {
             logColor = "";
         }

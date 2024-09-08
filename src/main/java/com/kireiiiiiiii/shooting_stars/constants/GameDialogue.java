@@ -26,8 +26,11 @@
 
 package com.kireiiiiiiii.shooting_stars.constants;
 
-import com.kireiiiiiiii.shooting_stars.common.Language;
 import com.kireiiiiiiii.shooting_stars.common.Settings;
+import com.kireiiiiiiii.shooting_stars.tools.SpreadsheetUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Constant class with all the game dialogues.
@@ -39,173 +42,116 @@ public class GameDialogue {
     // Constants
     ////////////////
 
-    public static final Language DEFAULT_LANGUAGE = Language.ENGLISH;
+    private static final String SPREADSHEET_FILENAME = "dialogue";
+    private static final String SPREADSHEET_NAME = "dialogue";
 
     ////////////////
     // Variables
     ////////////////
 
-    private static Language currLanguage = Settings.getLanguage();
+    private static int currLanguageIndex = 0;
+
+    ////////////////
+    // Dialogue varibles
+    ////////////////
+
+    // ---- Language name ----
+    public static String languageName;
+    // ---- Fonts ----
+    public static String headingFont;
+    public static String textFont;
+    // ---- Gloabl ----
+    public static String languageDisplayName;
+    public static String appName;
+    // ---- Main menu ----
+    public static String menuSubText;
+    // ---- Game Widgets ----
+    public static String score;
+    public static String topscore;
+    public static String timeLeft;
+    // ---- Game over screen ----
+    public static String gameOver;
+    public static String gameOverSubtext;
+    // ---- Pause screen ----
+    public static String pause;
 
     /////////////////
     // Modifiers
     ////////////////
 
-    /**
-     * Sets the language index. Will throw {@code IllegalArgumentException} if the
-     * given idex is larger than the numer of languages.
-     * 
-     * @param value - new index value.
-     */
-    public static void setLanguage(Language language) {
-        currLanguage = language;
+    public static void setNextLanguage() {
+        int languageCount = getLanguages().size();
+        currLanguageIndex++;
+        if (currLanguageIndex > languageCount - 1) {
+            currLanguageIndex = 0;
+        }
+        changeLanguage(currLanguageIndex);
+    }
+
+    public static void setPreviousLanguage() {
+        int languageCount = getLanguages().size();
+        currLanguageIndex--;
+        if (currLanguageIndex < 0) {
+            currLanguageIndex = languageCount - 1;
+        }
+        changeLanguage(currLanguageIndex);
+    }
+
+    public static void initialLanguageSet(int index) {
+        System.out.println(index);
+        if (index < 0 || index > getLanguages().size() - 1) {
+            index = 0;
+        }
+        changeLanguage(index);
     }
 
     /////////////////
     // Accesors
     ////////////////
 
-    public static Language getCurrentLanguage() {
-        return currLanguage;
-    }
-
-    /////////////////
-    // Global
-    ////////////////
-
     /**
-     * @return - Title of the game.
+     * Gets all of the available languages from the dialogue spreadsheet.
+     * 
+     * @return an {@code ArrayList} of strings with names of the languages.
      */
-    public static String appTitle() {
-        switch (currLanguage) {
-            case CZECH:
-                return "Padající Hvězdy";
-            case JAPANESE:
-                return "流れ星撃ち";
-            case KOREAN:
-                return "별을 쏘다";
-            default:
-                return "Shooting stars";
-        }
-    }
-
-    public static String currentLanguage() {
-        switch (currLanguage) {
-            case CZECH:
-                return "Čeština";
-            case JAPANESE:
-                return "日本語";
-            case KOREAN:
-                return "한국인";
-            default:
-                return "English";
-        }
+    public static ArrayList<String> getLanguages() {
+        ArrayList<String> languages = SpreadsheetUtil.getRowValues(SPREADSHEET_FILENAME, SPREADSHEET_NAME, 0);
+        languages.remove(0);
+        return languages;
     }
 
     /////////////////
-    // Main menu
+    // Private methods
     ////////////////
 
-    public static String menuSubText() {
-        switch (currLanguage) {
-            case CZECH:
-                return "Stiskněte libovolnou klávesu pro pokračování";
-            case JAPANESE:
-                return "続行するには任意のキーを押してください";
-            case KOREAN:
-                return "아무 키나 누르세요 계속하려면";
-            default:
-                return "Press any key to continue";
+    private static void changeLanguage(int languageIndex) {
+        // ---- Set variables ---
+        currLanguageIndex = languageIndex;
+
+        // ---- Change dialogue variables ----
+        ArrayList<String> values = SpreadsheetUtil.getColumnValues(SPREADSHEET_FILENAME, SPREADSHEET_NAME,
+                currLanguageIndex);
+        String[] result = new String[values.size()];
+
+        for (int i = 0; i < values.size(); i++) {
+            result[i] = SpreadsheetUtil.getCellValue(SPREADSHEET_FILENAME, SPREADSHEET_NAME, i, languageIndex + 1);
         }
+
+        System.out.println(Arrays.toString(result));
+
+        // Assign the variables
+        languageName = result[0];
+        headingFont = result[1];
+        textFont = result[2];
+        languageDisplayName = result[3];
+        appName = result[4];
+        menuSubText = result[5];
+        score = result[6];
+        topscore = result[7];
+        timeLeft = result[8];
+        gameOver = result[9];
+        gameOverSubtext = result[10];
+        pause = result[11];
     }
 
-    /////////////////
-    // Game widgets
-    ////////////////
-
-    public static String score() {
-        switch (currLanguage) {
-            case CZECH:
-                return "Skóre";
-            case JAPANESE:
-                return "スコア";
-            case KOREAN:
-                return "점수";
-            default:
-                return "Score";
-        }
-    }
-
-    public static String topscore() {
-        switch (currLanguage) {
-            case CZECH:
-                return "Nejlepší skóre";
-            case JAPANESE:
-                return "トプスコア";
-            case KOREAN:
-                return "최고 점수";
-            default:
-                return "Top score";
-        }
-    }
-
-    public static String timeLeft() {
-        switch (currLanguage) {
-            case CZECH:
-                return "Zbývající čas";
-            case JAPANESE:
-                return "残り時間";
-            case KOREAN:
-                return "남은 시간 ";
-            default:
-                return "Time left";
-        }
-    }
-
-    /////////////////
-    // Game over screen
-    ////////////////
-
-    public static String gameOver() {
-        switch (currLanguage) {
-            case CZECH:
-                return "KONEC HRY";
-            case JAPANESE:
-                return "ゲームオーバー";
-            case KOREAN:
-                return "게임 오버";
-            default:
-                return "GAME OVER";
-        }
-    }
-
-    public static String gameOverSubtext() {
-        switch (currLanguage) {
-            case CZECH:
-                return "Stiskněte \"R\" pro restart";
-            case JAPANESE:
-                return "再起動するには \"R\" を押してください";
-            case KOREAN:
-                return "다시 시작하려면 \"R\"을 누르세요";
-            default:
-                return "Press \"R\" to restart";
-        }
-    }
-
-    /////////////////
-    // Pause screen
-    ////////////////
-
-    public static String pause() {
-        switch (currLanguage) {
-            case CZECH:
-                return "Pozastaveno";
-            case JAPANESE:
-                return "一時停止";
-            case KOREAN:
-                return "일시 정지";
-            default:
-                return "Pause";
-        }
-    }
 }
