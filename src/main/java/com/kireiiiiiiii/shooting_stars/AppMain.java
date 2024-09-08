@@ -26,9 +26,9 @@
 
 package com.kireiiiiiiii.shooting_stars;
 
-import javax.swing.SwingUtilities;
-
 import com.kireiiiiiiii.shooting_stars.constants.Logs;
+
+import javax.swing.SwingUtilities;
 
 /**
  * Main method for
@@ -46,8 +46,7 @@ public class AppMain {
     // Variables
     ////////////////
 
-    @SuppressWarnings("unused")
-    private static Game game;
+    public static Game game;
 
     /////////////////
     // Main method

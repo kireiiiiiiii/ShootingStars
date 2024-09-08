@@ -75,7 +75,7 @@ public class ScoreWidget implements Renderable {
         g.fillRoundRect(this.position[0], this.position[1], 250, 50, 20, 20);
         g.setColor(TEXT_COLOR);
         g.setFont(font.deriveFont(Font.BOLD, 24));
-        g.drawString(GameDialogue.score() + ": " + this.currScore, this.position[0] + 15, this.position[1] + 24 + 8);
+        g.drawString(GameDialogue.score + ": " + this.currScore, this.position[0] + 15, this.position[1] + 24 + 8);
     }
 
     @Override

@@ -27,6 +27,7 @@
 package com.kireiiiiiiii.shooting_stars.common;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 import com.kireiiiiiiii.shooting_stars.constants.Files;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
@@ -42,48 +43,74 @@ public class Settings {
     // Variables
     ////////////////
 
-    private static AdvancedVariable<Language> language = new AdvancedVariable<>(Files.USER_CONFIG_FILE);
+    public static AdvancedVariable<SettingsStructure> settings = new AdvancedVariable<>(Files.USER_CONFIG_FILE);
+
+    /////////////////
+    // Save method
+    ////////////////
+
+    public static void save() {
+        settings.set(new SettingsStructure(GameDialogue.getLanguageIndex()));
+
+        try {
+            settings.save();
+        } catch (IOException e) {
+            System.out.println("FATAL - Failed to save settings");
+        }
+    }
 
     /////////////////
     // Accesors
     ////////////////
 
-    /**
-     * Returns the language value from the settings file, if the value is not set,
-     * returns the default language.
-     * 
-     * @return a {@code Language} enum value.
-     */
-    public static Language getLanguage() {
+    public static Object getValue(String fieldName) {
+        // Load the variable
         try {
-            language.loadFromFile(Language.class);
+            settings.loadFromFile(SettingsStructure.class);
         } catch (IOException e) {
-            language.set(GameDialogue.DEFAULT_LANGUAGE);
+            settings.set(new SettingsStructure(0));
             try {
-                language.save();
+                settings.save();
             } catch (IOException e1) {
-                System.out.println("FATAL - Could not save settings language data");
+                System.out.println("FATAL - Failed to save settings");
             }
         }
-        return language.get();
+
+        Object obj = settings.get();
+        // Get the class of the object
+        Class<?> objClass = obj.getClass();
+
+        // Get the field by name (this does not include private fields in superclasses)
+        Field field;
+        try {
+            field = objClass.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            return field.get(obj);
+
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            System.out.println(
+                    "FATAL - " + e.getClass().getName() + " occured when trying to acces a settings field value");
+            return null;
+        }
     }
 
-    /////////////////
-    // Modifiers
-    ////////////////
-
     /**
-     * Setter for the language value. This method saves the file when excecuted.
+     * An object structure class to hold all of the settings values.
      * 
-     * @param newLanguage - new {@code Language} enum value.
      */
-    public static void setLanguage(Language newLanguage) {
-        language.set(newLanguage);
-        try {
-            language.save();
-        } catch (IOException e) {
-            System.out.println("FATAL - Could not save language settings data");
+    public static class SettingsStructure {
+        // Empty constructor used by the jackson library.
+        public SettingsStructure() {
         }
+
+        // Parameterized constructer used to create a new object with values.
+        public SettingsStructure(int languageIndex) {
+            this.languageIndex = languageIndex;
+        }
+
+        // ---- Settings ----
+
+        public int languageIndex = 1;
     }
 
 }

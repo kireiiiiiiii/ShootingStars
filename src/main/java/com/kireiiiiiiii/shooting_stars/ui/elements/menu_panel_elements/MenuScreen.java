@@ -85,8 +85,8 @@ public class MenuScreen implements Renderable {
         int x;
         int y;
         int sideTextOffset;
-        String mainMessage = GameDialogue.appTitle();
-        String subMessage = GameDialogue.menuSubText();
+        String mainMessage = GameDialogue.appName;
+        String subMessage = GameDialogue.menuSubText;
 
         // Paints the main message
         g.setColor(this.MAIN_TEXT_COLOR);

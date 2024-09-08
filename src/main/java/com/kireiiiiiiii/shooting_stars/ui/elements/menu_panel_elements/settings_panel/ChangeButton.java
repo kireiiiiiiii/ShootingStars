@@ -31,9 +31,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 
-import com.kireiiiiiiii.shooting_stars.common.Language;
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
-import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.constants.ZOrders;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
@@ -117,26 +115,7 @@ public class ChangeButton implements Renderable, Interactable {
 
     @Override
     public MenuScreenMode getInteract() {
-        Language[] languages = Language.values();
-        int languageIndex = 0;
-        for (int i = 0; i < languages.length; i++) {
-            if (languages[i] == GameDialogue.getCurrentLanguage()) {
-                languageIndex = i;
-            }
-        }
-
-        if (facingLeft) {
-            languageIndex--;
-            if (languageIndex < 0) {
-                languageIndex = languages.length - 1;
-            }
-        } else {
-            languageIndex++;
-            if (languageIndex >= languages.length) {
-                languageIndex = 0;
-            }
-        }
-        this.owner.setLanguage(languages[languageIndex]);
+        com.kireiiiiiiii.shooting_stars.AppMain.game.onLanguageChange(!facingLeft);
         return null;
     }
 

@@ -30,9 +30,6 @@ import javax.swing.*;
 
 import com.kireiiiiiiii.shooting_stars.Game;
 import com.kireiiiiiiii.shooting_stars.Game.PanelType;
-import com.kireiiiiiiii.shooting_stars.common.Language;
-import com.kireiiiiiiii.shooting_stars.common.Settings;
-import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.ui.elements.Backround;
 import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.MenuButton;
@@ -309,14 +306,6 @@ public class MenuPanel extends JPanel implements KeyListener, MouseListener, Mou
         links.setTriggerMode(MenuScreenMode.LINKS);
         settings.setTriggerMode(MenuScreenMode.SETTINGS);
 
-    }
-
-    public void setLanguage(Language language) {
-        GameDialogue.setLanguage(language);
-        Settings.setLanguage(language);
-        this.owner.setTitle(GameDialogue.appTitle());
-        repaint();
-        this.owner.repaint();
     }
 
 }

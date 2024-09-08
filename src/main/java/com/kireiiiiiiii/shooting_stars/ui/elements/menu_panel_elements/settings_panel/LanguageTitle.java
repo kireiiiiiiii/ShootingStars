@@ -75,7 +75,7 @@ public class LanguageTitle implements Renderable {
 
     @Override
     public void refresh(Graphics2D g) {
-        String text = GameDialogue.currentLanguage();
+        String text = GameDialogue.languageDisplayName;
 
         g.setColor(Color.BLACK);
         g.fillRoundRect(this.position[0] - BORDER_HEIGHT / 2, this.position[1] - BORDER_HEIGHT / 2,

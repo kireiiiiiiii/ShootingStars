@@ -13,10 +13,15 @@ application {
 }
 
 dependencies {
+    //---- JSON file manipulation ----
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.12.3")
     implementation ("com.fasterxml.jackson.core:jackson-core:2.12.3")
     implementation ("com.fasterxml.jackson.core:jackson-annotations:2.12.3")
+    //---- XLSX spreadsheet manipulation ----
+    implementation("org.apache.poi:poi-ooxml:5.2.3")
+    implementation("org.apache.logging.log4j:log4j-core:2.20.0")
+    implementation("org.apache.logging.log4j:log4j-api:2.20.0")
 }
 
 tasks.jar {

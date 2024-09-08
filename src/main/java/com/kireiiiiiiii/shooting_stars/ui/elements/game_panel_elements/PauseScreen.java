@@ -83,7 +83,7 @@ public class PauseScreen implements Renderable {
         int[] originArr;
         int x;
         int y;
-        String text = GameDialogue.pause();
+        String text = GameDialogue.pause;
 
         g.setColor(TEXT_COLOR);
         g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 80));
