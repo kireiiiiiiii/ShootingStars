@@ -29,7 +29,9 @@ package com.kireiiiiiiii.shooting_stars;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.ArrayList;
 
+import com.kireiiiiiiii.shooting_stars.ui.Interactable;
 import com.kireiiiiiiii.shooting_stars.common.AdvancedVariable;
 import com.kireiiiiiiii.shooting_stars.common.PausableTimer;
 import com.kireiiiiiiii.shooting_stars.common.Settings;
@@ -116,10 +118,6 @@ public class Game {
     /////////////////
     // Events
     ////////////////
-
-    public void onWidgetRefresh() {
-        // TODO
-    }
 
     // Called when the current JPanel changes from game to menu
     public void onGoToMenu() {
@@ -296,65 +294,124 @@ public class Game {
         Settings.save();
     }
 
+    /**
+     * Method to determine if a interactable was clicked. This is achieved by
+     * sorting out the not visible or not interacted widgets, and than sorting then
+     * based on their Z-Index. The one on top is the one the user interacted with.
+     * 
+     * @param e - {@code MouseEvent} of the click
+     */
+    public void onMouseClicked(MouseEvent e) {
+        ArrayList<Renderable> widgets = this.gpanel.getInteractables();
+        // Clear not visible widgets
+        for (int i = 0; i < widgets.size(); i++) {
+            Renderable r = widgets.get(i);
+            if (!r.isVisible()) {
+                widgets.remove(i);
+                i--;
+            }
+        }
+        if (widgets.size() <= 0) {
+            return;
+        }
+
+        // Sort based on Z-Index - user clicked the one displayed on top right? :3
+        int size = widgets.size();
+        boolean swapped;
+        for (int i = 0; i < size - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < size - i - 1; j++) {
+                if (widgets.get(j).getZIndex() > widgets.get(j + 1).getZIndex()) {
+                    // Swap the elements
+                    Renderable temp = widgets.get(j);
+                    widgets.set(j, widgets.get(j + 1));
+                    widgets.set(j + 1, temp);
+                    swapped = true;
+                }
+            }
+            if (!swapped) {
+                break;
+            }
+        }
+
+        // Convert to Interactable objects, and filter out all not clicked
+        ArrayList<Interactable> buttons = new ArrayList<Interactable>();
+        for (int i = 0; i < widgets.size(); i++) {
+            Interactable btn = (Interactable) widgets.get(i);
+            if (btn.wasInteracted(e)) {
+                buttons.add(btn);
+            }
+        }
+        if (buttons.size() <= 0) {
+            return;
+        }
+
+        Interactable interacted = buttons.get(0);
+        System.out.println("Interacted: " + interacted.getClass());
+
+    }
+
     public void onWidgetSetup() {
 
-        // MENU MAIN
-        int[] size = { this.gpanel.getWidth(), this.gpanel.getHeight() };
-        int[] linksPos = { this.gpanel.getWidth() - 90, this.gpanel.getHeight() - 110 };
-        int[] settingsPos = { linksPos[0] - 100, linksPos[1] };
-        int[] igBtnPos = { this.gpanel.getWidth() / 2 - 300, this.gpanel.getHeight() / 2 - 50 };
-        int[] gitBtnPos = { this.gpanel.getWidth() / 2 + 130, this.gpanel.getHeight() / 2 - 50 };
-        int[] langFieldPos = { this.gpanel.getWidth() / 2 - LanguageTitle.size[0] / 2,
-                this.gpanel.getHeight() / 2 - LanguageTitle.size[1] / 2 };
-        int[] leftB = { langFieldPos[0] - ChangeButton.SIZE[0] - 20, langFieldPos[1] };
-        int[] rightB = { langFieldPos[0] + LanguageTitle.size[0] + 20,
-                langFieldPos[1] };
-        // GAME MAIN
-        int[] scorePos = { 20, 20 };
-        int[] timePos = { 20, 80 };
-        int[] topscorePos = { 20, 140 };
-        // PAUSE SCREEN
-        int[] homeBtnPosPAUSE = { 20, 20 };
-        // GAME OVER SCREEN
-        int[] scoreBoardPosGO = { 20, this.gpanel.getHeight() - 240 };
+        // Screen dimension for clarity
+        int width = this.gpanel.getWidth();
+        int height = this.gpanel.getHeight();
+
+        // GLOBAL
+        int[] appSize = { width, height };
+        // MAIN MENU
+        int[] menu_linkBtn = { width - 90, height - 110 };
+        int[] menu_optionsBtn = { menu_linkBtn[0] - 100, menu_linkBtn[1] };
+        // OPTIONS
+        int[] options_instagramBtn = { width / 2 - 300, height / 2 - 50 };
+        int[] options_gitBtn = { width / 2 + 130, height / 2 - 50 };
+        int[] options_currlan = { width / 2 - LanguageTitle.size[0] / 2, height / 2 - LanguageTitle.size[1] / 2 };
+        int[] options_prevlanBtn = { options_currlan[0] - ChangeButton.SIZE[0] - 20, options_currlan[1] };
+        int[] options_nextlanBtn = { options_currlan[0] + LanguageTitle.size[0] + 20, options_currlan[1] };
+        // GAME
+        int[] game_score = { 20, 20 };
+        int[] game_time = { 20, 80 };
+        int[] game_topscore = { 20, 140 };
+        // PAUSE
+        int[] pause_menuBtn = { 20, 20 };
+        // GAMEOVER
+        int[] gameov_scoreboard = { 20, height - 240 };
         // ------------------------------------------------------------------------------------------------
 
         this.gpanel.add(Arrays.asList(
-                (Renderable) new Backround(size),
-                (Renderable) new MenuScreen(size),
-                (Renderable) new MenuButton(linksPos, Textures.LINK_ICON),
-                (Renderable) new MenuButton(settingsPos, Textures.SETTINGS_ICON),
+
+                // MAIN MENU
+                (Renderable) new Backround(appSize),
+                (Renderable) new MenuScreen(appSize),
+                (Renderable) new MenuButton(menu_linkBtn, Textures.LINK_ICON),
+                (Renderable) new MenuButton(menu_optionsBtn, Textures.SETTINGS_ICON),
 
                 // OPTIONS & LINKS PANEL
-                (Renderable) new PopUpPanelWindget(size),
-                (Renderable) new LanguageTitle(langFieldPos),
-                (Renderable) new ChangeButton(leftB, true),
-                (Renderable) new ChangeButton(rightB, false),
-                (Renderable) new InstagramLink(igBtnPos),
-                (Renderable) new GithubLink(gitBtnPos),
+                (Renderable) new PopUpPanelWindget(appSize),
+                (Renderable) new LanguageTitle(options_currlan),
+                (Renderable) new ChangeButton(options_prevlanBtn, true),
+                (Renderable) new ChangeButton(options_nextlanBtn, false),
+                (Renderable) new InstagramLink(options_instagramBtn),
+                (Renderable) new GithubLink(options_gitBtn),
 
                 // GAME MAIN
-                (Renderable) new TimerWidget(timePos),
-                (Renderable) new ScoreWidget(scorePos),
-                (Renderable) new TopscoreWidget(topscorePos),
+                (Renderable) new TimerWidget(game_time),
+                (Renderable) new ScoreWidget(game_score),
+                (Renderable) new TopscoreWidget(game_topscore),
                 (Renderable) new StarWidget(),
 
                 // PAUSE SCREEN
-                (Renderable) new HomeButton(homeBtnPosPAUSE),
-                (Renderable) new PauseScreen(size),
+                (Renderable) new HomeButton(pause_menuBtn),
+                (Renderable) new PauseScreen(appSize),
 
                 // GAME OVER SCREEN
-                (Renderable) new ScoreBoard(scoreBoardPosGO),
-                (Renderable) new GameOverScreen(size)));
+                (Renderable) new ScoreBoard(gameov_scoreboard),
+                (Renderable) new GameOverScreen(appSize)));
     }
 
     /////////////////
     // Mouse events override methods
     ////////////////
-
-    public void onMouseClicked(MouseEvent e) {
-
-    }
 
     public void mouseDragged(MouseEvent e) {
 
@@ -373,8 +430,7 @@ public class Game {
     }
 
     public void mouseReleased(MouseEvent e) {
-        // TODO Get all interactables, filter clicked and visibility and sort
-        // TODO by z layer
+        onMouseClicked(e);
     }
 
     public void mouseEntered(MouseEvent e) {
