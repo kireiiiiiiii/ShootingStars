@@ -27,11 +27,13 @@
 package com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
-import com.kireiiiiiiii.shooting_stars.constants.ZOrders;
+import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
+import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
@@ -53,6 +55,7 @@ public class TopscoreWidget implements Renderable {
 
     private int topscore;
     private int[] position;
+    private boolean visible;
 
     /////////////////
     // Constructors
@@ -83,7 +86,12 @@ public class TopscoreWidget implements Renderable {
     ////////////////
 
     @Override
-    public void refresh(Graphics2D g) {
+    public void render(Graphics2D g, Container img) {
+
+        if (!visible) {
+            return;
+        }
+
         Font font = Fonts.text();
         g.setColor(TIMER_BACKROUND);
         g.fillRoundRect(this.position[0], this.position[1], 250, 50, 20, 20);
@@ -93,8 +101,30 @@ public class TopscoreWidget implements Renderable {
     }
 
     @Override
-    public int getZOrder() {
-        return ZOrders.GAME_WIDGETS;
+    public int getZIndex() {
+        return ZIndexes.GAME_WIDGETS;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return this.visible;
+    }
+
+    @Override
+    public void hide() {
+        this.visible = false;
+    }
+
+    @Override
+    public void show() {
+        this.visible = true;
+    }
+
+    @Override
+    public ArrayList<String> getTags() {
+        ArrayList<String> tags = new ArrayList<String>();
+        tags.add(WidgetTags.GAME);
+        return tags;
     }
 
     /////////////////

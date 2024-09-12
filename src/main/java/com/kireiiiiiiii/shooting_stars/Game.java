@@ -28,6 +28,7 @@ package com.kireiiiiiiii.shooting_stars;
 
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.kireiiiiiiii.shooting_stars.common.AdvancedVariable;
 import com.kireiiiiiiii.shooting_stars.common.PausableTimer;
@@ -37,13 +38,28 @@ import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Files;
 import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
-import com.kireiiiiiiii.shooting_stars.constants.Keybinds;
 import com.kireiiiiiiii.shooting_stars.constants.Logs;
+import com.kireiiiiiiii.shooting_stars.constants.Textures;
+import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.tools.ScreenUtil;
-import com.kireiiiiiiii.shooting_stars.ui.AppFrame;
-import com.kireiiiiiiii.shooting_stars.ui.GamePanel;
-import com.kireiiiiiiii.shooting_stars.ui.GameScreenMode;
-import com.kireiiiiiiii.shooting_stars.ui.MenuPanel;
+import com.kireiiiiiiii.shooting_stars.ui.GPanel;
+import com.kireiiiiiiii.shooting_stars.ui.Renderable;
+import com.kireiiiiiiii.shooting_stars.ui.elements.Backround;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.GameOverScreen;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.HomeButton;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.PauseScreen;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.ScoreBoard;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.ScoreWidget;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.StarWidget;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.TimerWidget;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.TopscoreWidget;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.MenuButton;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.MenuScreen;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.PopUpPanelWindget;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.links_panel.GithubLink;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.links_panel.InstagramLink;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.settings_panel.ChangeButton;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.settings_panel.LanguageTitle;
 
 /**
  * Main game object.
@@ -58,16 +74,14 @@ public class Game {
     private static final int GAME_LENGHT = 20;
     private static final int DEFAULT_TARGET_RADIUS = 20;
     private static final int TARGET_SCORE = 10;
+    private static final int FPS = 60;
+    public final int WINDOW_PADDING = 10;
 
     /////////////////
     // Variables
     ////////////////
 
-    private AppFrame appFrame;
-    private PanelType currPanel;
-    private MenuPanel menuPanel;
-    private GamePanel gamePanel;
-    private GameLoop gameLoop;
+    private GPanel gpanel;
     private AdvancedVariable<Integer> topScore;
 
     /////////////////
@@ -80,103 +94,111 @@ public class Game {
     private int score;
 
     /////////////////
-    // Constructors
+    // Constructor
     ////////////////
 
     public Game() {
-
-        // Initiliaze the app frames
+        // ---- Setup the GPanel ----
         double[] windowSize = ScreenUtil.getAppWindowSize();
-        int windowWidth = (int) windowSize[0];
-        int windowHeight = (int) windowSize[1];
-        this.appFrame = new AppFrame(windowWidth, windowHeight, GameDialogue.appName);
-        this.appFrame.setBackground(Colors.BACKROUND); // Set temporary backround while loading
+        this.gpanel = new GPanel(FPS, (int) windowSize[0], (int) windowSize[1], false, GameDialogue.appName);
+        gpanel.getAppFrame().setBackground(Colors.BACKROUND);
+        onWidgetSetup();
 
-        // Set up the scores variable
+        // ---- Load the score and options file ----
         onTopscoreFileLoad();
-
-        // Load the config file
-        int lastLanguageIndex = (int) Settings.getValue("languageIndex");
-        GameDialogue.initialLanguageSet(lastLanguageIndex);
+        GameDialogue.initialLanguageSet((int) Settings.getValue("languageIndex"));
         Fonts.setFonts();
 
-        // Construct the game panel
-        this.gamePanel = new GamePanel(this.appFrame, this);
-
-        // Construct and display the menu panel
-        this.menuPanel = new MenuPanel(this, appFrame);
-        this.currPanel = PanelType.MENU;
-        this.appFrame.add(this.menuPanel);
-
-        // Initialize the Game loop
-        this.gameLoop = new GameLoop();
-        this.gameLoop.start();
-
+        // ---- Display the menu elements ----
+        onGoToMenu();
     }
 
     /////////////////
     // Events
     ////////////////
 
+    public void onWidgetRefresh() {
+        // TODO
+    }
+
     // Called when the current JPanel changes from game to menu
     public void onGoToMenu() {
-        this.appFrame.remove(this.gamePanel);
-        this.appFrame.add(this.menuPanel);
-        this.appFrame.revalidate();
-        this.appFrame.repaint();
-        this.menuPanel.requestFocusInWindow();
-        this.currPanel = PanelType.MENU;
+        this.gpanel.hideAllWidgets();
+        this.gpanel.showTaggedWidgets(WidgetTags.MAIN_MENU);
     }
 
     // Called when switching from the menu panel
     public void onGameStart() {
+        // ---- Log & variable setup ----
         Logs.log(Logs.GAME_START);
-        this.appFrame.remove(this.menuPanel);
-        this.appFrame.add(this.gamePanel);
-        this.appFrame.revalidate();
-        this.appFrame.repaint();
-        this.gamePanel.requestFocusInWindow();
-        this.gamePanel.setTopscoreWidget(this.topScore.get());
-        this.gamePanel.setScreenMode(GameScreenMode.GAME);
-        this.currPanel = PanelType.GAME;
-        this.targetRadius = DEFAULT_TARGET_RADIUS;
-        this.gamePanel.setTargetWidget(this.targetRadius);
         this.score = 0;
-        this.gamePanel.setScore(this.score);
+        this.targetRadius = DEFAULT_TARGET_RADIUS;
+        // ----Set widget values ----
+        for (TopscoreWidget w : this.gpanel.getWidgetsByClass(TopscoreWidget.class)) {
+            w.setTopscore(this.topScore.get());
+        }
+        for (ScoreWidget w : this.gpanel.getWidgetsByClass(ScoreWidget.class)) {
+            w.setScore(this.score);
+        }
+        for (StarWidget w : this.gpanel.getWidgetsByClass(StarWidget.class)) {
+            w.setRadius(this.targetRadius);
+        }
+        // ---- Start the timer, and reset the target ----
         initializeTimer();
         onTargetClicked(true);
     }
 
     // Called on restart
     public void onGameRestart() {
+        // ---- Log & variable setup ----
         Logs.log(Logs.GAME_RESTART);
-        this.gamePanel.setTopscoreWidget(this.topScore.get());
-        this.gamePanel.setScreenMode(GameScreenMode.GAME);
-        this.timer.forceStop();
         this.score = 0;
-        this.gamePanel.setScore(this.score);
-        onTargetClicked(true);
+        // ----Set widget values ----
+        for (TopscoreWidget w : this.gpanel.getWidgetsByClass(TopscoreWidget.class)) {
+            w.setTopscore(this.topScore.get());
+        }
+        for (ScoreWidget w : this.gpanel.getWidgetsByClass(ScoreWidget.class)) {
+            w.setScore(this.score);
+        }
+        // ---- Start the timer, and reset the target ----
+        this.timer.forceStop();
         initializeTimer();
+        onTargetClicked(true);
     }
 
     public void onGamePause() {
+        // ---- Log ----
         Logs.log(Logs.GAME_PAUSE);
-        this.gamePanel.setScreenMode(GameScreenMode.PAUSE);
+        // ----Set widget values ----
+        this.gpanel.hideAllWidgets();
+        this.gpanel.showTaggedWidgets(WidgetTags.PAUSE);
+        // ---- Timer ----
         this.timer.pause();
     }
 
     public void onGameResumed() {
+        // ---- Log ----
         Logs.log(Logs.GAME_RESUMED);
-        this.gamePanel.setScreenMode(GameScreenMode.GAME);
+        // ----Set widget values ----
+        this.gpanel.hideAllWidgets();
+        this.gpanel.showTaggedWidgets(WidgetTags.GAME);
+        // ---- Timer ----
         this.timer.resume();
     }
 
     public void onGameEnd() {
+        // ---- Log ----
         Logs.log(Logs.GAME_OVER);
-        this.gamePanel.setScreenMode(GameScreenMode.GAME_OVER);
-        this.gamePanel.setGameOverScreen(this.topScore.get(), this.score);
+        // ----Set widget values ----
+        this.gpanel.hideAllWidgets();
+        this.gpanel.showTaggedWidgets(WidgetTags.GAME_OVER);
+        for (ScoreBoard w : this.gpanel.getWidgetsByClass(ScoreBoard.class)) {
+            w.setScore(this.score);
+            w.setTopScore(this.topScore.get());
+        }
+        // ---- Timer ----
         this.timer.forceStop();
-        // New highscore
+        // ---- Check for new Topscore ----
         if (this.score > this.topScore.get()) {
             this.topScore.set(this.score);
             onTopscoreFileSave();
@@ -185,14 +207,19 @@ public class Game {
     }
 
     public void onTimerIteration() {
+        // ---- Log ----
         Logs.log(Logs.TIMER_INTEARION);
-        this.gamePanel.setTimeRemaining(timeRemaining);
+        // ----Set widget values ----
+        for (TimerWidget w : this.gpanel.getWidgetsByClass(TimerWidget.class)) {
+            w.setTime(timeRemaining);
+        }
         this.timeRemaining--;
     }
 
     public void onTargetClicked(boolean init) {
-        int maxX = this.gamePanel.getWidth() - this.targetRadius * 2 - this.gamePanel.WINDOW_PADDING * 2;
-        int maxY = this.gamePanel.getHeight() - this.targetRadius * 2 - this.gamePanel.WINDOW_PADDING * 2;
+        // ---- Calculate next position ----
+        int maxX = this.gpanel.getWidth() - this.targetRadius * 2 - WINDOW_PADDING * 2;
+        int maxY = this.gpanel.getHeight() - this.targetRadius * 2 - WINDOW_PADDING * 2;
         Vec2D newPos = new Vec2D();
         newPos.randomize(maxX, maxY);
 
@@ -200,38 +227,51 @@ public class Game {
         int y = newPos.getIntY();
         int[] pos = { x, y };
 
-        this.gamePanel.setTargetWidget(pos);
+        // ----Set widget values ----
+        for (StarWidget w : this.gpanel.getWidgetsByClass(StarWidget.class)) {
+            w.setLocation(pos);
+        }
 
-        // Update the score and log the click, if not ititial execution
+        // ---- Update the score and log the click, if not ititial execution ----
         if (!init) {
             Logs.log(Logs.TAGRET_HIT);
             this.score += TARGET_SCORE;
-            this.gamePanel.setScore(this.score);
+            for (ScoreWidget w : this.gpanel.getWidgetsByClass(ScoreWidget.class)) {
+                w.setScore(this.score);
+            }
         }
     }
 
     public void onTargetMisclicked() {
+        // ---- Log ----
         Logs.log(Logs.TAGRET_NOT_HIT);
+        // ---- Update ----
         this.score = Math.max(0, this.score - TARGET_SCORE);
-        this.gamePanel.setScore(this.score);
+        for (ScoreWidget w : this.gpanel.getWidgetsByClass(ScoreWidget.class)) {
+            w.setScore(this.score);
+        }
     }
 
     public void onTopscoreFileLoad() {
+        // ---- Log ----
         Logs.log(Logs.TOPSCORE_FILE_LOAD);
+        // ---- Load topscore ----
         this.topScore = new AdvancedVariable<Integer>(Files.TOP_SCORE_FILE);
         try {
             this.topScore.loadFromFile(Integer.class);
         } catch (IOException e) {
             this.topScore.set(0);
         }
-        // The JSON file is empty = first time playing
+        // --- File empty ----
         if (this.topScore.get() == null) {
             this.topScore.set(0);
         }
     }
 
     public void onTopscoreFileSave() {
+        // ---- Log ----
         Logs.log(Logs.TOPSCORE_FILE_SAVED);
+        // --- Save file ----
         try {
             this.topScore.save();
         } catch (IOException e) {
@@ -249,11 +289,63 @@ public class Game {
         // ---- Change fonts ----
         Fonts.setFonts();
         // ---- Set app window title ----
-        this.appFrame.setTitle(GameDialogue.appName);
+        this.gpanel.setName(GameDialogue.appName);
         // ---- Log ----
         Logs.log(Logs.LANGUAGE_SET);
         // ---- Save settings----
         Settings.save();
+    }
+
+    public void onWidgetSetup() {
+
+        // MENU MAIN
+        int[] size = { this.gpanel.getWidth(), this.gpanel.getHeight() };
+        int[] linksPos = { this.gpanel.getWidth() - 90, this.gpanel.getHeight() - 110 };
+        int[] settingsPos = { linksPos[0] - 100, linksPos[1] };
+        int[] igBtnPos = { this.gpanel.getWidth() / 2 - 300, this.gpanel.getHeight() / 2 - 50 };
+        int[] gitBtnPos = { this.gpanel.getWidth() / 2 + 130, this.gpanel.getHeight() / 2 - 50 };
+        int[] langFieldPos = { this.gpanel.getWidth() / 2 - LanguageTitle.size[0] / 2,
+                this.gpanel.getHeight() / 2 - LanguageTitle.size[1] / 2 };
+        int[] leftB = { langFieldPos[0] - ChangeButton.SIZE[0] - 20, langFieldPos[1] };
+        int[] rightB = { langFieldPos[0] + LanguageTitle.size[0] + 20,
+                langFieldPos[1] };
+        // GAME MAIN
+        int[] scorePos = { 20, 20 };
+        int[] timePos = { 20, 80 };
+        int[] topscorePos = { 20, 140 };
+        // PAUSE SCREEN
+        int[] homeBtnPosPAUSE = { 20, 20 };
+        // GAME OVER SCREEN
+        int[] scoreBoardPosGO = { 20, this.gpanel.getHeight() - 240 };
+        // ------------------------------------------------------------------------------------------------
+
+        this.gpanel.add(Arrays.asList(
+                (Renderable) new Backround(size),
+                (Renderable) new MenuScreen(size),
+                (Renderable) new MenuButton(linksPos, Textures.LINK_ICON),
+                (Renderable) new MenuButton(settingsPos, Textures.SETTINGS_ICON),
+
+                // OPTIONS & LINKS PANEL
+                (Renderable) new PopUpPanelWindget(size),
+                (Renderable) new LanguageTitle(langFieldPos),
+                (Renderable) new ChangeButton(leftB, true),
+                (Renderable) new ChangeButton(rightB, false),
+                (Renderable) new InstagramLink(igBtnPos),
+                (Renderable) new GithubLink(gitBtnPos),
+
+                // GAME MAIN
+                (Renderable) new TimerWidget(timePos),
+                (Renderable) new ScoreWidget(scorePos),
+                (Renderable) new TopscoreWidget(topscorePos),
+                (Renderable) new StarWidget(),
+
+                // PAUSE SCREEN
+                (Renderable) new HomeButton(homeBtnPosPAUSE),
+                (Renderable) new PauseScreen(size),
+
+                // GAME OVER SCREEN
+                (Renderable) new ScoreBoard(scoreBoardPosGO),
+                (Renderable) new GameOverScreen(size)));
     }
 
     /////////////////
@@ -264,53 +356,32 @@ public class Game {
 
     }
 
-    public void mouseDragged(MouseEvent e, PanelType p) {
+    public void mouseDragged(MouseEvent e) {
 
     }
 
-    public void mouseMoved(MouseEvent e, PanelType p) {
+    public void mouseMoved(MouseEvent e) {
 
     }
 
-    public void mouseClicked(MouseEvent e, PanelType p) {
+    public void mouseClicked(MouseEvent e) {
 
     }
 
-    public void mousePressed(MouseEvent e, PanelType p) {
+    public void mousePressed(MouseEvent e) {
 
     }
 
-    public void mouseReleased(MouseEvent e, PanelType p) {
-        switch (p) {
-            case MENU:
-                // onGameStart();
-                break;
-
-            case GAME:
-                if (this.gamePanel.getScreenMode() == GameScreenMode.GAME) {
-                    if (this.gamePanel.isTargetClicked(e)) {
-                        onTargetClicked(false);
-                    } else {
-                        onTargetMisclicked();
-                    }
-                } else if (this.gamePanel.getScreenMode() == GameScreenMode.PAUSE
-                        || this.gamePanel.getScreenMode() == GameScreenMode.GAME_OVER) {
-                    if (this.gamePanel.wasHomeButtonClicked(e)) {
-                        onGoToMenu();
-                    }
-                }
-                break;
-
-            default:
-                break;
-        }
+    public void mouseReleased(MouseEvent e) {
+        // TODO Get all interactables, filter clicked and visibility and sort
+        // TODO by z layer
     }
 
-    public void mouseEntered(MouseEvent e, PanelType p) {
+    public void mouseEntered(MouseEvent e) {
 
     }
 
-    public void mouseExited(MouseEvent e, PanelType p) {
+    public void mouseExited(MouseEvent e) {
 
     }
 
@@ -318,44 +389,15 @@ public class Game {
     // Key events override methods
     ////////////////
 
-    public void keyPressed(KeyEvent e, PanelType p) {
-        switch (p) {
-            case GAME:
-
-                switch (e.getKeyCode()) {
-                    case Keybinds.DEBUGG_KEY:
-
-                        break;
-                    case Keybinds.PAUSE_KEY:
-                        if (this.gamePanel.getScreenMode() == GameScreenMode.PAUSE) {
-                            onGameResumed();
-                        } else if (this.gamePanel.getScreenMode() == GameScreenMode.GAME) {
-                            onGamePause();
-                        }
-                        break;
-                    case Keybinds.RESTART_KEY:
-                        onGameRestart();
-                        break;
-                    default:
-                        break;
-                }
-
-                break;
-
-            case MENU:
-                onGameStart();
-                break;
-
-            default:
-                break;
-        }
+    public void keyPressed(KeyEvent e) {
+        // TODO Check if can be pressed
     }
 
-    public void keyReleased(KeyEvent e, PanelType p) {
+    public void keyReleased(KeyEvent e) {
 
     }
 
-    public void keyTyped(KeyEvent e, PanelType p) {
+    public void keyTyped(KeyEvent e) {
 
     }
 
@@ -389,65 +431,6 @@ public class Game {
         };
         this.timer = new PausableTimer(1000, GAME_LENGHT + 1, onFinished, everyRun);
         timer.start();
-    }
-
-    /////////////////
-    // Threads
-    ////////////////
-
-    /**
-     * Game loop {@code Thread} class.
-     * 
-     */
-    private class GameLoop extends Thread {
-
-        public static int deltaTime = 0;
-
-        @Override
-        public void run() {
-            while (true) {
-                deltaTime++;
-
-                // 60fps rendering (each 16 miliseconds)
-                // Repaints the current panel
-                if (deltaTime % 16 == 0) {
-
-                    if (currPanel != null) {
-                        // Render current panel
-                        switch (currPanel) {
-                            case GAME:
-                                gamePanel.repaint();
-                                break;
-                            case MENU:
-                                menuPanel.repaint();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
-
-                // Sleep for 1 Milisecond
-                try {
-                    sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    /////////////////
-    // Enums
-    ////////////////
-
-    /**
-     * Enum, that determines what {@code JPanel} is used.
-     * 
-     */
-    public enum PanelType {
-        GAME,
-        MENU
     }
 
 }

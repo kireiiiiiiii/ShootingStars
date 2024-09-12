@@ -28,11 +28,13 @@ package com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Container;
 import java.awt.event.MouseEvent;
-import javax.swing.JPanel;
+import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
-import com.kireiiiiiiii.shooting_stars.constants.ZOrders;
+import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
+import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
 import com.kireiiiiiiii.shooting_stars.ui.Interactable;
 import com.kireiiiiiiii.shooting_stars.ui.MenuScreenMode;
@@ -59,8 +61,8 @@ public class MenuButton implements Renderable, Interactable {
 
     private Image texture;
     private int[] position;
-    private JPanel owner;
     private MenuScreenMode triggerMode;
+    private boolean isVisible;
 
     /////////////////
     // Constructors
@@ -72,9 +74,9 @@ public class MenuButton implements Renderable, Interactable {
      * @param pos   - position of the button.
      * @param owner - owning {@code JPanel} object.
      */
-    public MenuButton(int[] pos, JPanel owner) {
+    public MenuButton(int[] pos, Image texture) {
+        this.texture = texture;
         this.position = pos;
-        this.owner = owner;
     }
 
     /////////////////
@@ -82,7 +84,11 @@ public class MenuButton implements Renderable, Interactable {
     ////////////////
 
     @Override
-    public void refresh(Graphics2D g) {
+    public void render(Graphics2D g, Container img) {
+        if (!isVisible) {
+            return;
+        }
+
         g.setColor(Colors.MAIN_GRAY);
         g.fillRoundRect(this.position[0] - BORDER_WIDTH / 2, this.position[1] - BORDER_WIDTH / 2,
                 SIZE[0] + BORDER_WIDTH, SIZE[1] + BORDER_WIDTH, ARC_WIDTH + BORDER_WIDTH, ARC_WIDTH + BORDER_WIDTH);
@@ -92,14 +98,35 @@ public class MenuButton implements Renderable, Interactable {
         if (this.texture != null) {
             g.drawImage(
                     ImageUtil.scaleImage(this.texture, SIZE[0] - ICON_PADDING[0], SIZE[1] - ICON_PADDING[1]),
-                    position[0] + ICON_PADDING[0] / 2, position[1] + ICON_PADDING[1] / 2,
-                    this.owner.getFocusCycleRootAncestor());
+                    position[0] + ICON_PADDING[0] / 2, position[1] + ICON_PADDING[1] / 2, img);
         }
     }
 
     @Override
-    public int getZOrder() {
-        return ZOrders.MENU_BUTTONS;
+    public int getZIndex() {
+        return ZIndexes.MENU_BUTTONS;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return this.isVisible;
+    }
+
+    @Override
+    public void hide() {
+        this.isVisible = false;
+    }
+
+    @Override
+    public void show() {
+        this.isVisible = true;
+    }
+
+    @Override
+    public ArrayList<String> getTags() {
+        ArrayList<String> tags = new ArrayList<String>();
+        tags.add(WidgetTags.MAIN_MENU);
+        return tags;
     }
 
     /////////////////

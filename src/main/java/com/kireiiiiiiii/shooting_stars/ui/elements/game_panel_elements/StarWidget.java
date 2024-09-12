@@ -27,12 +27,14 @@
 package com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements;
 
 import java.awt.Graphics2D;
+import java.awt.Container;
 import java.awt.event.MouseEvent;
-import javax.swing.JPanel;
+import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
-import com.kireiiiiiiii.shooting_stars.constants.ZOrders;
+import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
+import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
@@ -54,8 +56,8 @@ public class StarWidget implements Renderable {
 
     private int radius;
     private int[] location;
-    private JPanel owner;
     private boolean showHitbox;
+    private boolean visible;
 
     /////////////////
     // Constructor
@@ -65,9 +67,8 @@ public class StarWidget implements Renderable {
      * Default contstructor.
      * 
      */
-    public StarWidget(JPanel owner) {
+    public StarWidget() {
         this.showHitbox = false;
-        this.owner = owner;
         this.radius = 10;
         this.location = new int[2];
         this.location[0] = 0;
@@ -79,11 +80,14 @@ public class StarWidget implements Renderable {
     ////////////////
 
     @Override
-    public void refresh(Graphics2D g) {
+    public void render(Graphics2D g, Container img) {
+
+        if (!visible) {
+            return;
+        }
 
         g.drawImage(ImageUtil.scaleImage(Textures.STAR, radius * 2 + CORRECTION, radius * 2 + CORRECTION),
-                location[0] - radius - CORRECTION / 2, location[1] - radius - CORRECTION / 2 - 2,
-                owner.getFocusCycleRootAncestor());
+                location[0] - radius - CORRECTION / 2, location[1] - radius - CORRECTION / 2 - 2, img);
 
         if (this.showHitbox) {
             g.setColor(Colors.HITBOX);
@@ -94,8 +98,30 @@ public class StarWidget implements Renderable {
     }
 
     @Override
-    public int getZOrder() {
-        return ZOrders.TARGET;
+    public int getZIndex() {
+        return ZIndexes.TARGET;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return this.visible;
+    }
+
+    @Override
+    public void hide() {
+        this.visible = false;
+    }
+
+    @Override
+    public void show() {
+        this.visible = true;
+    }
+
+    @Override
+    public ArrayList<String> getTags() {
+        ArrayList<String> tags = new ArrayList<String>();
+        tags.add(WidgetTags.GAME);
+        return tags;
     }
 
     /////////////////

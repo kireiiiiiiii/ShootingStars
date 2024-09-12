@@ -30,11 +30,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.Container;
+import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
-import com.kireiiiiiiii.shooting_stars.constants.ZOrders;
+import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
+import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.tools.FontUtil;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
@@ -56,6 +59,7 @@ public class GameOverScreen implements Renderable {
     ////////////////
 
     private int[] size;
+    private boolean visible = false;
 
     /////////////////
     // Contrsuctors
@@ -76,7 +80,11 @@ public class GameOverScreen implements Renderable {
     ////////////////
 
     @Override
-    public void refresh(Graphics2D g) {
+    public void render(Graphics2D g, Container img) {
+
+        if (!visible) {
+            return;
+        }
 
         FontMetrics fm;
         int[] originArr;
@@ -109,8 +117,30 @@ public class GameOverScreen implements Renderable {
     }
 
     @Override
-    public int getZOrder() {
-        return ZOrders.SCREENS;
+    public int getZIndex() {
+        return ZIndexes.SCREENS;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return this.visible;
+    }
+
+    @Override
+    public void hide() {
+        this.visible = false;
+    }
+
+    @Override
+    public void show() {
+        this.visible = true;
+    }
+
+    @Override
+    public ArrayList<String> getTags() {
+        ArrayList<String> tags = new ArrayList<String>();
+        tags.add(WidgetTags.GAME_OVER);
+        return tags;
     }
 
 }

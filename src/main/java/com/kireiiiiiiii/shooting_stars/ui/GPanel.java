@@ -34,11 +34,16 @@ import java.awt.Taskbar;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import com.kireiiiiiiii.shooting_stars.AppMain;
 
 /**
  * <h2>GPanel</h2>
@@ -97,7 +102,7 @@ import javax.swing.SwingUtilities;
  * @author Matěj Šťastný
  * @since 7/23/2024
  */
-public class GPanel extends JPanel implements MouseListener, MouseMotionListener {
+public class GPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 
     /////////////////
     // Variables
@@ -183,7 +188,7 @@ public class GPanel extends JPanel implements MouseListener, MouseMotionListener
         for (int i = 0; i < this.widgets.size(); i++) {
             Renderable renderable = this.widgets.get(i);
             if (renderable.isVisible()) {
-                renderable.render(g);
+                renderable.render(g, this.appFrame.getFocusCycleRootAncestor());
             }
         }
     }
@@ -209,44 +214,59 @@ public class GPanel extends JPanel implements MouseListener, MouseMotionListener
     }
 
     /////////////////
-    // Mouse events override methods
+    // Event override methods
     ////////////////
 
     // TODO: Implement Event Listeners
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        AppMain.game.mouseDragged(e);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        AppMain.game.mouseMoved(e);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        AppMain.game.mouseClicked(e);
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        AppMain.game.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        AppMain.game.mouseReleased(e);
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        AppMain.game.mouseEntered(e);
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+        AppMain.game.mouseExited(e);
+    }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+        AppMain.game.keyTyped(e);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        AppMain.game.keyPressed(e);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        AppMain.game.keyReleased(e);
     }
 
     /////////////////
@@ -260,6 +280,40 @@ public class GPanel extends JPanel implements MouseListener, MouseMotionListener
      */
     public JFrame getAppFrame() {
         return this.appFrame;
+    }
+
+    /**
+     * Makes a list of widgets of given class.
+     * 
+     * @param <T>
+     * @param targetClass - target class.
+     * @return list of {@code T} objects.
+     */
+    public <T> ArrayList<T> getWidgetsByClass(Class<T> targetClass) {
+        ArrayList<T> list = new ArrayList<>();
+        for (Renderable r : this.widgets) {
+            if (targetClass.isInstance(r)) {
+                list.add(targetClass.cast(r));
+            }
+        }
+        return list;
+    }
+
+    /**
+     * This method makes a list of {@code Renderable} objects in the {@code widgets}
+     * list that are also implementing the {@code Interacteble} inteface.
+     * 
+     * @return - list of {@code Renderable} object, that are implementing the
+     *         {@code Interactable} interface.
+     */
+    public ArrayList<Renderable> getInteractables() {
+        ArrayList<Renderable> interactables = new ArrayList<Renderable>();
+        for (Renderable r : this.widgets) {
+            if (r instanceof Interactable) {
+                interactables.add(r);
+            }
+        }
+        return interactables;
     }
 
     /////////////////
@@ -286,6 +340,18 @@ public class GPanel extends JPanel implements MouseListener, MouseMotionListener
     }
 
     /**
+     * Adds all the widgets in a list using the {@code add()} method for all of
+     * them.
+     * 
+     * @param widgets - list of {@code Renderable} objects.
+     */
+    public void add(List<Renderable> widgets) {
+        for (Renderable r : widgets) {
+            this.add(r);
+        }
+    }
+
+    /**
      * Changes the window icon.
      *
      * @param path - path of the icon
@@ -293,6 +359,64 @@ public class GPanel extends JPanel implements MouseListener, MouseMotionListener
     public void setIcon(Image icon) {
         Taskbar taskbar = Taskbar.getTaskbar();
         taskbar.setIconImage(icon);
+    }
+
+    /////////////////
+    // Visibility methods
+    ////////////////
+
+    /**
+     * Prevents a widget being rendered.
+     * 
+     * @param index - index of the widget in the array.
+     */
+    public void hide(int index) {
+        if (index >= 0 && index < this.widgets.size() - 1) {
+            this.widgets.get(index).hide();
+        }
+    }
+
+    /**
+     * Sets a widget to render.
+     * 
+     * @param index - index of the object in the array.
+     */
+    public void show(int index) {
+        if (index >= 0 && index < this.widgets.size() - 1) {
+            this.widgets.get(index).show();
+        }
+    }
+
+    public void hideAllWidgets() {
+        for (Renderable r : this.widgets) {
+            r.hide();
+        }
+    }
+
+    public void showAllWidgets() {
+        for (Renderable r : this.widgets) {
+            r.show();
+        }
+    }
+
+    public void hideTaggedWidgets(String tag) {
+        for (Renderable r : this.widgets) {
+            for (String currTag : r.getTags()) {
+                if (currTag.equals(tag)) {
+                    r.hide();
+                }
+            }
+        }
+    }
+
+    public void showTaggedWidgets(String tag) {
+        for (Renderable r : this.widgets) {
+            for (String currTag : r.getTags()) {
+                if (currTag.equals(tag)) {
+                    r.show();
+                }
+            }
+        }
     }
 
     /////////////////

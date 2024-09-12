@@ -29,7 +29,7 @@ package com.kireiiiiiiii.shooting_stars.constants;
 /**
  * Constants class with zlayers.
  */
-public class ZOrders {
+public class ZIndexes {
 
     /////////////////
     // Menu panel

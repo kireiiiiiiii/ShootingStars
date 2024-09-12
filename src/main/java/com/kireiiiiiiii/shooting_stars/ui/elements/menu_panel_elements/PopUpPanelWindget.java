@@ -29,12 +29,14 @@ package com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Container;
 import java.awt.event.MouseEvent;
-import javax.swing.JPanel;
+import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
-import com.kireiiiiiiii.shooting_stars.constants.ZOrders;
+import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
+import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
 import com.kireiiiiiiii.shooting_stars.ui.Interactable;
 import com.kireiiiiiiii.shooting_stars.ui.MenuScreenMode;
@@ -63,9 +65,10 @@ public class PopUpPanelWindget implements Renderable, Interactable {
     // Variables
     ////////////////
 
-    private JPanel owner;
     private int[] size;
     private int[] position;
+    private int[] screenSize;
+    private boolean isVisible;
 
     /////////////////
     // Constructors
@@ -76,14 +79,14 @@ public class PopUpPanelWindget implements Renderable, Interactable {
      * 
      * @param owner - owning {@code JPanel} object.
      */
-    public PopUpPanelWindget(JPanel owner) {
-        this.owner = owner;
+    public PopUpPanelWindget(int[] screenSize) {
+        this.screenSize = screenSize;
         this.size = new int[2];
         this.position = new int[2];
-        this.size[0] = (int) (this.owner.getWidth() * SCALE_COEF);
-        this.size[1] = (int) (this.owner.getHeight() * SCALE_COEF);
-        this.position[0] = (this.owner.getWidth() - this.size[0]) / 2;
-        this.position[1] = (this.owner.getHeight() - this.size[1]) / 2;
+        this.size[0] = (int) (screenSize[0] * SCALE_COEF);
+        this.size[1] = (int) (screenSize[1] * SCALE_COEF);
+        this.position[0] = (screenSize[0] - this.size[0]) / 2;
+        this.position[1] = (screenSize[1] - this.size[1]) / 2;
     }
 
     /////////////////
@@ -91,11 +94,15 @@ public class PopUpPanelWindget implements Renderable, Interactable {
     ////////////////
 
     @Override
-    public void refresh(Graphics2D g) {
+    public void render(Graphics2D g, Container img) {
+
+        if (!this.isVisible) {
+            return;
+        }
 
         // Blur fill
         g.setColor(BLUR);
-        g.fillRect(0, 0, this.owner.getWidth(), this.owner.getHeight());
+        g.fillRect(0, 0, this.screenSize[0], this.screenSize[1]);
 
         int x = this.position[0] - BORDER_THICKNES / 2;
         int y = this.position[1] - BORDER_THICKNES / 2;
@@ -126,12 +133,35 @@ public class PopUpPanelWindget implements Renderable, Interactable {
 
         // Exit icon texture
         Image icon = ImageUtil.scaleImage(Textures.CLOSE_ICON, width - ICON_PADDING * 2, height - ICON_PADDING * 2);
-        g.drawImage(icon, x + ICON_PADDING, y + ICON_PADDING, owner.getFocusCycleRootAncestor());
+        g.drawImage(icon, x + ICON_PADDING, y + ICON_PADDING, img);
     }
 
     @Override
-    public int getZOrder() {
-        return ZOrders.MENU_PANEL;
+    public int getZIndex() {
+        return ZIndexes.MENU_PANEL;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return this.isVisible;
+    }
+
+    @Override
+    public void hide() {
+        this.isVisible = false;
+    }
+
+    @Override
+    public void show() {
+        this.isVisible = true;
+    }
+
+    @Override
+    public ArrayList<String> getTags() {
+        ArrayList<String> tags = new ArrayList<String>();
+        tags.add(WidgetTags.OPTIONS);
+        tags.add(WidgetTags.LINKS);
+        return tags;
     }
 
     /////////////////

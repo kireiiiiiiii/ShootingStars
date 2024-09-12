@@ -27,6 +27,8 @@
 package com.kireiiiiiiii.shooting_stars.ui;
 
 import java.awt.Graphics2D;
+import java.awt.Container;
+import java.util.ArrayList;
 
 /**
  * Interface for objects that can be rendered onto a {@code JPanel} object.
@@ -40,7 +42,7 @@ public interface Renderable {
      * @param g - {@code Graphocs2D} object reference of the target {@code JPanel}
      *          object.
      */
-    public void render(Graphics2D g);
+    public void render(Graphics2D g, Container focusCycleRootAncestor);
 
     /**
      * This method returns the Z-Index of the object. The Z-Index cannot be changed!
@@ -56,5 +58,11 @@ public interface Renderable {
      * @return {@code boolean} visible/hidden.
      */
     public boolean isVisible();
+
+    public void hide();
+
+    public void show();
+
+    public ArrayList<String> getTags();
 
 }
