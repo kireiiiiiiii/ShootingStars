@@ -24,7 +24,7 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.game;
+package com.kireiiiiiiii.shooting_stars.ui.game;
 
 import java.awt.Graphics2D;
 import java.awt.Container;
@@ -37,8 +37,8 @@ import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
+import com.kireiiiiiiii.shooting_stars.interfaces.Renderable;
 import com.kireiiiiiiii.shooting_stars.tools.FontUtil;
-import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
  * Scoreboard widget for the Game Over screen. Shows the top score and the score

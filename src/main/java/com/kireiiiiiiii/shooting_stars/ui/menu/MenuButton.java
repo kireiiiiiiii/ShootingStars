@@ -24,7 +24,7 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.menu;
+package com.kireiiiiiiii.shooting_stars.ui.menu;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -35,9 +35,9 @@ import java.util.ArrayList;
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
+import com.kireiiiiiiii.shooting_stars.interfaces.Interactable;
+import com.kireiiiiiiii.shooting_stars.interfaces.Renderable;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
-import com.kireiiiiiiii.shooting_stars.ui.Interactable;
-import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
  * Button with the menu button style.

@@ -24,13 +24,13 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.game;
+package com.kireiiiiiiii.shooting_stars.ui.menu;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Graphics2D;
 import java.awt.Container;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.common.Vec2D;
@@ -39,40 +39,41 @@ import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
+import com.kireiiiiiiii.shooting_stars.interfaces.Renderable;
 import com.kireiiiiiiii.shooting_stars.tools.FontUtil;
-import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
- * Pause screen {@code Renderable}.
+ * Main menu screen, shown to player with the game launch.
  * 
  */
-public class PauseScreen implements Renderable {
+public class MenuScreen implements Renderable {
 
     /////////////////
     // Constants
     ////////////////
 
-    private final Color TEXT_COLOR = Colors.MAIN_TEXT;
+    private final Color MAIN_TEXT_COLOR = Colors.MAIN_TEXT;
+    private final Color SUBTEXT_COLOR = Colors.SUB_TEXT;
 
     /////////////////
     // Variables
     ////////////////
 
     private int[] size;
-    private boolean visible;
+    private boolean isVisible;
 
     /////////////////
     // Constructor
     ////////////////
 
     /**
-     * Default contructor.
+     * Default constructor.
      * 
-     * @param panelSize - determines the size of the screen, commonly same as the
-     *                  owning {@code JPanel}.
+     * @param size - size of the game over screen, commonly the size of the owning
+     *             {@code JPanel}.
      */
-    public PauseScreen(int[] panelSize) {
-        this.size = panelSize;
+    public MenuScreen(int[] size) {
+        this.size = size;
     }
 
     /////////////////
@@ -81,8 +82,7 @@ public class PauseScreen implements Renderable {
 
     @Override
     public void render(Graphics2D g, Container img) {
-
-        if (!visible) {
+        if (!this.isVisible) {
             return;
         }
 
@@ -91,16 +91,30 @@ public class PauseScreen implements Renderable {
         int[] originArr;
         int x;
         int y;
-        String text = GameDialogue.pause;
+        int sideTextOffset;
+        String mainMessage = GameDialogue.appName;
+        String subMessage = GameDialogue.menuSubText;
 
-        g.setColor(TEXT_COLOR);
+        // Paints the main message
+        g.setColor(this.MAIN_TEXT_COLOR);
         g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 80));
         fm = g.getFontMetrics();
-        originArr = FontUtil.getCenteredPos(size[0], size[1], fm, text);
+        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, mainMessage);
         origin = new Vec2D(originArr[0], originArr[1]);
         x = origin.getIntX();
         y = origin.getIntY();
-        g.drawString(text, x, y);
+        sideTextOffset = fm.getHeight();
+        g.drawString(mainMessage, x, y);
+
+        // Paints the smaller bottom message
+        g.setColor(SUBTEXT_COLOR);
+        g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 40));
+        fm = g.getFontMetrics();
+        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, subMessage);
+        origin = new Vec2D(originArr[0], originArr[1]);
+        x = origin.getIntX();
+        y = origin.getIntY();
+        g.drawString(subMessage, x, y + sideTextOffset);
     }
 
     @Override
@@ -110,23 +124,23 @@ public class PauseScreen implements Renderable {
 
     @Override
     public boolean isVisible() {
-        return this.visible;
+        return this.isVisible;
     }
 
     @Override
     public void hide() {
-        this.visible = false;
+        this.isVisible = false;
     }
 
     @Override
     public void show() {
-        this.visible = true;
+        this.isVisible = true;
     }
 
     @Override
     public ArrayList<String> getTags() {
         ArrayList<String> tags = new ArrayList<String>();
-        tags.add(WidgetTags.PAUSE);
+        tags.add(WidgetTags.MAIN_MENU);
         return tags;
     }
 

@@ -24,7 +24,7 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui;
+package com.kireiiiiiiii.shooting_stars.interfaces;
 
 import java.awt.event.MouseEvent;
 

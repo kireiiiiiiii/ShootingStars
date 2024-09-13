@@ -1,6 +1,6 @@
 /*
  * Author: Matěj Šťastný
- * Date created: 6/13/2024
+ * Date created: 6/14/2024
  * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
@@ -24,53 +24,59 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.game;
+package com.kireiiiiiiii.shooting_stars.ui.game;
 
-import java.awt.Graphics2D;
-import java.awt.Container;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Container;
 import java.util.ArrayList;
 
+import com.kireiiiiiiii.shooting_stars.common.Vec2D;
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
-import com.kireiiiiiiii.shooting_stars.ui.Renderable;
+import com.kireiiiiiiii.shooting_stars.interfaces.Renderable;
+import com.kireiiiiiiii.shooting_stars.tools.FontUtil;
 
 /**
- * Widget, that displays score at the top of the screen.
+ * Pause screen {@code Renderable}.
  * 
  */
-public class ScoreWidget implements Renderable {
+public class PauseScreen implements Renderable {
 
     /////////////////
     // Constants
     ////////////////
 
-    private final Color BACKROUND_COLOR = Colors.MAIN_GREEN;
-    private final Color TEXT_COLOR = Colors.WIDGET_TEXT;
+    private final Color TEXT_COLOR = Colors.MAIN_TEXT;
 
     /////////////////
-    // Fields
+    // Variables
     ////////////////
 
-    private int currScore;
-    private int[] position;
+    private int[] size;
     private boolean visible;
 
     /////////////////
-    // Contructor
+    // Constructor
     ////////////////
 
-    public ScoreWidget(int[] position) {
-        this.currScore = 0;
-        this.position = position;
+    /**
+     * Default contructor.
+     * 
+     * @param panelSize - determines the size of the screen, commonly same as the
+     *                  owning {@code JPanel}.
+     */
+    public PauseScreen(int[] panelSize) {
+        this.size = panelSize;
     }
 
     /////////////////
-    // Render methods
+    // Render
     ////////////////
 
     @Override
@@ -80,18 +86,26 @@ public class ScoreWidget implements Renderable {
             return;
         }
 
-        Font font = Fonts.text();
+        FontMetrics fm;
+        Vec2D origin;
+        int[] originArr;
+        int x;
+        int y;
+        String text = GameDialogue.pause;
 
-        g.setColor(BACKROUND_COLOR);
-        g.fillRoundRect(this.position[0], this.position[1], 250, 50, 20, 20);
         g.setColor(TEXT_COLOR);
-        g.setFont(font.deriveFont(Font.BOLD, 24));
-        g.drawString(GameDialogue.score + ": " + this.currScore, this.position[0] + 15, this.position[1] + 24 + 8);
+        g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 80));
+        fm = g.getFontMetrics();
+        originArr = FontUtil.getCenteredPos(size[0], size[1], fm, text);
+        origin = new Vec2D(originArr[0], originArr[1]);
+        x = origin.getIntX();
+        y = origin.getIntY();
+        g.drawString(text, x, y);
     }
 
     @Override
     public int getZIndex() {
-        return ZIndexes.GAME_WIDGETS;
+        return ZIndexes.SCREENS;
     }
 
     @Override
@@ -112,21 +126,8 @@ public class ScoreWidget implements Renderable {
     @Override
     public ArrayList<String> getTags() {
         ArrayList<String> tags = new ArrayList<String>();
-        tags.add(WidgetTags.GAME);
+        tags.add(WidgetTags.PAUSE);
         return tags;
-    }
-
-    /////////////////
-    // Modifiers
-    ////////////////
-
-    /**
-     * Modifier method for the score.
-     * 
-     * @param score - new score value.
-     */
-    public void setScore(int score) {
-        this.currScore = score;
     }
 
 }

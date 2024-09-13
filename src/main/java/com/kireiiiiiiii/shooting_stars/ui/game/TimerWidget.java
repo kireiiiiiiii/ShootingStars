@@ -1,6 +1,6 @@
 /*
  * Author: Matěj Šťastný
- * Date created: 6/14/2024
+ * Date created: 6/13/2024
  * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
@@ -24,9 +24,12 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.game;
+package com.kireiiiiiiii.shooting_stars.ui.game;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Container;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
@@ -34,13 +37,13 @@ import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
-import com.kireiiiiiiii.shooting_stars.ui.Renderable;
+import com.kireiiiiiiii.shooting_stars.interfaces.Renderable;
 
 /**
- * Widget to display players top score.
+ * Widget, that displays time left
  * 
  */
-public class TopscoreWidget implements Renderable {
+public class TimerWidget implements Renderable {
 
     /////////////////
     // Constants
@@ -53,7 +56,7 @@ public class TopscoreWidget implements Renderable {
     // Variables
     ////////////////
 
-    private int topscore;
+    private int timeLeft;
     private int[] position;
     private boolean visible;
 
@@ -62,22 +65,22 @@ public class TopscoreWidget implements Renderable {
     ////////////////
 
     /**
-     * Deafult contructor with a default widget topscore value.
+     * Default contructor.
      * 
      * @param position - position of the widget.
-     * @param topscore - default topscore value.
+     * @param time     - display time.
      */
-    public TopscoreWidget(int[] position, int topscore) {
-        this.topscore = topscore;
+    public TimerWidget(int[] position, int time) {
+        this.timeLeft = time;
         this.position = position;
     }
 
     /**
-     * Constructor without a default topscore value given, is set to 0.
+     * Constructor without an initial time set.
      * 
      * @param position - position of the widget.
      */
-    public TopscoreWidget(int[] position) {
+    public TimerWidget(int[] position) {
         this(position, 0);
     }
 
@@ -97,7 +100,7 @@ public class TopscoreWidget implements Renderable {
         g.fillRoundRect(this.position[0], this.position[1], 250, 50, 20, 20);
         g.setColor(TIMER_TEXT);
         g.setFont(font.deriveFont(Font.BOLD, 24));
-        g.drawString(GameDialogue.topscore + ": " + this.topscore, this.position[0] + 15, this.position[1] + 24 + 8);
+        g.drawString(GameDialogue.timeLeft + ": " + this.timeLeft, this.position[0] + 15, this.position[1] + 24 + 8);
     }
 
     @Override
@@ -134,10 +137,10 @@ public class TopscoreWidget implements Renderable {
     /**
      * Modifier method for the time.
      * 
-     * @param topscore - new value.
+     * @param time - new value.
      */
-    public void setTopscore(int topscore) {
-        this.topscore = topscore;
+    public void setTime(int time) {
+        this.timeLeft = time;
     }
 
 }

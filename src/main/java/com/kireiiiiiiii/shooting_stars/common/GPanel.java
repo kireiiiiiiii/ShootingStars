@@ -24,7 +24,7 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui;
+package com.kireiiiiiiii.shooting_stars.common;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -44,6 +44,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import com.kireiiiiiiii.shooting_stars.AppMain;
+import com.kireiiiiiiii.shooting_stars.interfaces.Interactable;
+import com.kireiiiiiiii.shooting_stars.interfaces.Renderable;
 
 /**
  * <h2>GPanel</h2>

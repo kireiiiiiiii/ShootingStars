@@ -24,7 +24,7 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements;
+package com.kireiiiiiiii.shooting_stars.ui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
-import com.kireiiiiiiii.shooting_stars.ui.Renderable;
+import com.kireiiiiiiii.shooting_stars.interfaces.Renderable;
 
 /**
  * Renderable backround object.

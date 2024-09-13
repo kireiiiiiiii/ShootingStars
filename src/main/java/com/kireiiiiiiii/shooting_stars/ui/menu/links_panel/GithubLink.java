@@ -24,7 +24,7 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.menu.links_panel;
+package com.kireiiiiiiii.shooting_stars.ui.menu.links_panel;
 
 import java.awt.Graphics2D;
 import java.awt.Container;
@@ -35,15 +35,15 @@ import com.kireiiiiiiii.shooting_stars.constants.Interact;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
+import com.kireiiiiiiii.shooting_stars.interfaces.Interactable;
+import com.kireiiiiiiii.shooting_stars.interfaces.Renderable;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
-import com.kireiiiiiiii.shooting_stars.ui.Interactable;
-import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
- * Button that openes my instagram account page in the browser.
+ * Button, that openes the GitHub repository in the browser.
  * 
  */
-public class InstagramLink implements Renderable, Interactable {
+public class GithubLink implements Renderable, Interactable {
 
     /////////////////
     // Constants
@@ -68,7 +68,7 @@ public class InstagramLink implements Renderable, Interactable {
      * @param owner    - owning {@code JPanel} object.
      * @param position - position.
      */
-    public InstagramLink(int[] position) {
+    public GithubLink(int[] position) {
         this.position = position;
         this.position[0] = this.position[0] + SIZE[0] / 2;
         this.position[1] = this.position[1] + SIZE[1] / 2;
@@ -84,7 +84,7 @@ public class InstagramLink implements Renderable, Interactable {
             return;
         }
 
-        g.drawImage(ImageUtil.scaleImage(Textures.INSTAGRAM_LOGO, SIZE[0], SIZE[1]), position[0], position[1], img);
+        g.drawImage(ImageUtil.scaleImage(Textures.GITHUB_LOGO, SIZE[0], SIZE[1]), position[0], position[1], img);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class InstagramLink implements Renderable, Interactable {
 
     @Override
     public Runnable getInteraction() {
-        return Interact.INSTAGRAM;
+        return Interact.GITHUB;
     }
 
     @Override
@@ -131,3 +131,23 @@ public class InstagramLink implements Renderable, Interactable {
     }
 
 }
+
+// local lualine_nightfly = require("lualine.themes.nightfly")
+// local new_colors = {
+// blue = "#65D1FF",
+// green = "#3EFFDC",
+// violet = "#FF61EF",
+// yellow = "#FFDA7B",
+// black = "#000000",
+// }
+
+// lualine_nightfly.normal.a.bg = new_colors.blue
+// lualine_nightfly.insert.a.bg = new_colors.green
+// lualine_nightfly.visual.a.bg = new_colors.violet
+// lualine_nightfly.command = {
+// a = {
+// gui = "bold",
+// bg = new_colors.yellow,
+// fg = new_colors.black,
+// },
+// }
