@@ -33,7 +33,6 @@ import java.awt.Graphics2D;
 import java.awt.Container;
 import java.util.ArrayList;
 
-import com.kireiiiiiiii.shooting_stars.common.Vec2D;
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
@@ -87,8 +86,7 @@ public class PauseScreen implements Renderable {
         }
 
         FontMetrics fm;
-        Vec2D origin;
-        int[] originArr;
+        int[] textPos;
         int x;
         int y;
         String text = GameDialogue.pause;
@@ -96,10 +94,9 @@ public class PauseScreen implements Renderable {
         g.setColor(TEXT_COLOR);
         g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 80));
         fm = g.getFontMetrics();
-        originArr = FontUtil.getCenteredPos(size[0], size[1], fm, text);
-        origin = new Vec2D(originArr[0], originArr[1]);
-        x = origin.getIntX();
-        y = origin.getIntY();
+        textPos = FontUtil.getCenteredPos(size[0], size[1], fm, text);
+        x = textPos[0];
+        y = textPos[1];
         g.drawString(text, x, y);
     }
 

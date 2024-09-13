@@ -33,7 +33,6 @@ import java.awt.Container;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import com.kireiiiiiiii.shooting_stars.common.Vec2D;
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
@@ -87,8 +86,7 @@ public class MenuScreen implements Renderable {
         }
 
         FontMetrics fm;
-        Vec2D origin;
-        int[] originArr;
+        int[] testPos;
         int x;
         int y;
         int sideTextOffset;
@@ -99,10 +97,9 @@ public class MenuScreen implements Renderable {
         g.setColor(this.MAIN_TEXT_COLOR);
         g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 80));
         fm = g.getFontMetrics();
-        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, mainMessage);
-        origin = new Vec2D(originArr[0], originArr[1]);
-        x = origin.getIntX();
-        y = origin.getIntY();
+        testPos = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, mainMessage);
+        x = testPos[0];
+        y = testPos[1];
         sideTextOffset = fm.getHeight();
         g.drawString(mainMessage, x, y);
 
@@ -110,10 +107,9 @@ public class MenuScreen implements Renderable {
         g.setColor(SUBTEXT_COLOR);
         g.setFont(Fonts.heading().deriveFont(Font.PLAIN, 40));
         fm = g.getFontMetrics();
-        originArr = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, subMessage);
-        origin = new Vec2D(originArr[0], originArr[1]);
-        x = origin.getIntX();
-        y = origin.getIntY();
+        testPos = FontUtil.getCenteredPos(this.size[0], this.size[1], fm, subMessage);
+        x = testPos[0];
+        y = testPos[1];
         g.drawString(subMessage, x, y + sideTextOffset);
     }
 

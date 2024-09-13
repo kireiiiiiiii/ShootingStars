@@ -35,7 +35,6 @@ import com.kireiiiiiiii.shooting_stars.common.AdvancedVariable;
 import com.kireiiiiiiii.shooting_stars.common.GPanel;
 import com.kireiiiiiiii.shooting_stars.common.PausableTimer;
 import com.kireiiiiiiii.shooting_stars.common.Settings;
-import com.kireiiiiiiii.shooting_stars.common.Vec2D;
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Files;
 import com.kireiiiiiiii.shooting_stars.constants.Fonts;
@@ -304,13 +303,13 @@ public class Game {
      */
     public void onTargetHit(boolean init) {
         // ---- Calculate next position ----
-        int maxX = this.gpanel.getWidth() - this.targetRadius * 2 - WINDOW_PADDING * 2;
-        int maxY = this.gpanel.getHeight() - this.targetRadius * 2 - WINDOW_PADDING * 2;
-        Vec2D newPos = new Vec2D();
-        newPos.randomize(maxX, maxY);
+        int minY = 0;
+        int minX = 0;
+        int maxX = this.gpanel.getWidth();
+        int maxY = this.gpanel.getHeight();
 
-        int x = newPos.getIntX();
-        int y = newPos.getIntY();
+        int x = (int) (Math.random() * (maxX - minX + 1)) + minX;
+        int y = (int) (Math.random() * (maxY - minY + 1)) + minY;
         int[] pos = { x, y };
 
         // ----Set widget values ----
