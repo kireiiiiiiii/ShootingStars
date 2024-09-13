@@ -40,6 +40,7 @@ import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Files;
 import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
+import com.kireiiiiiiii.shooting_stars.constants.Interact;
 import com.kireiiiiiiii.shooting_stars.constants.Logs;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
@@ -121,8 +122,25 @@ public class Game {
 
     // Called when the current JPanel changes from game to menu
     public void onGoToMenu() {
+        for (MenuButton w : this.gpanel.getWidgetsByClass(MenuButton.class)) {
+            w.setInteract(true);
+        }
         this.gpanel.hideAllWidgets();
         this.gpanel.showTaggedWidgets(WidgetTags.MAIN_MENU);
+    }
+
+    public void onGoToOptions() {
+        for (MenuButton w : this.gpanel.getWidgetsByClass(MenuButton.class)) {
+            w.setInteract(false);
+        }
+        this.gpanel.showTaggedWidgets(WidgetTags.OPTIONS);
+    }
+
+    public void onGoToLinks() {
+        for (MenuButton w : this.gpanel.getWidgetsByClass(MenuButton.class)) {
+            w.setInteract(false);
+        }
+        this.gpanel.showTaggedWidgets(WidgetTags.LINKS);
     }
 
     // Called when switching from the menu panel
@@ -347,7 +365,8 @@ public class Game {
         }
 
         Interactable interacted = buttons.get(0);
-        System.out.println("Interacted: " + interacted.getClass());
+        // System.out.println("Interacted: " + interacted.getClass());
+        interacted.getInteraction().run();
 
     }
 
@@ -383,8 +402,8 @@ public class Game {
                 // MAIN MENU
                 (Renderable) new Backround(appSize),
                 (Renderable) new MenuScreen(appSize),
-                (Renderable) new MenuButton(menu_linkBtn, Textures.LINK_ICON),
-                (Renderable) new MenuButton(menu_optionsBtn, Textures.SETTINGS_ICON),
+                (Renderable) new MenuButton(menu_linkBtn, Textures.LINK_ICON, Interact.LINKS), // LINKS
+                (Renderable) new MenuButton(menu_optionsBtn, Textures.SETTINGS_ICON, Interact.OPTIONS), // OPTIONS
 
                 // OPTIONS & LINKS PANEL
                 (Renderable) new PopUpPanelWindget(appSize),

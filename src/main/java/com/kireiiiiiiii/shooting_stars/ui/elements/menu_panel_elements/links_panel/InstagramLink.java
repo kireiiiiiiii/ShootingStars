@@ -31,13 +31,12 @@ import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import com.kireiiiiiiii.shooting_stars.common.Links;
+import com.kireiiiiiiii.shooting_stars.constants.Interact;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
 import com.kireiiiiiiii.shooting_stars.ui.Interactable;
-import com.kireiiiiiiii.shooting_stars.ui.MenuScreenMode;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
@@ -90,7 +89,7 @@ public class InstagramLink implements Renderable, Interactable {
 
     @Override
     public int getZIndex() {
-        return ZIndexes.MENU_PANEL_BUTTONS;
+        return ZIndexes.POPUP_PANEL_BUTTONS;
     }
 
     @Override
@@ -120,9 +119,8 @@ public class InstagramLink implements Renderable, Interactable {
     ////////////////
 
     @Override
-    public MenuScreenMode getInteract() {
-        Links.openURL(Links.INSTAGRAM);
-        return null;
+    public Runnable getInteraction() {
+        return Interact.INSTAGRAM;
     }
 
     @Override

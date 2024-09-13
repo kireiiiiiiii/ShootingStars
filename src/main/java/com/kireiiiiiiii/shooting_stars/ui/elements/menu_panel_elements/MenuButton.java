@@ -37,7 +37,6 @@ import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
 import com.kireiiiiiiii.shooting_stars.ui.Interactable;
-import com.kireiiiiiiii.shooting_stars.ui.MenuScreenMode;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
@@ -61,8 +60,9 @@ public class MenuButton implements Renderable, Interactable {
 
     private Image texture;
     private int[] position;
-    private MenuScreenMode triggerMode;
+    private Runnable interaction;
     private boolean isVisible;
+    private boolean disabledInteract;
 
     /////////////////
     // Constructors
@@ -74,9 +74,10 @@ public class MenuButton implements Renderable, Interactable {
      * @param pos   - position of the button.
      * @param owner - owning {@code JPanel} object.
      */
-    public MenuButton(int[] pos, Image texture) {
+    public MenuButton(int[] pos, Image texture, Runnable interaction) {
         this.texture = texture;
         this.position = pos;
+        this.interaction = interaction;
     }
 
     /////////////////
@@ -134,12 +135,16 @@ public class MenuButton implements Renderable, Interactable {
     ////////////////
 
     @Override
-    public MenuScreenMode getInteract() {
-        return this.triggerMode == null ? MenuScreenMode.MAIN : this.triggerMode;
+    public Runnable getInteraction() {
+        return this.interaction;
     }
 
     @Override
     public boolean wasInteracted(MouseEvent e) {
+        if (this.disabledInteract) {
+            return false;
+        }
+
         int x = e.getX() - position[0];
         int y = e.getY() - position[1];
         return x <= SIZE[0] && y <= SIZE[1] && x > 0 && y > 0;
@@ -159,13 +164,8 @@ public class MenuButton implements Renderable, Interactable {
         this.texture = texture;
     }
 
-    /**
-     * Sets the trigger menu screen mode.
-     * 
-     * @param mode - new mode.
-     */
-    public void setTriggerMode(MenuScreenMode mode) {
-        this.triggerMode = mode;
+    public void setInteract(boolean value) {
+        this.disabledInteract = !value;
     }
 
 }

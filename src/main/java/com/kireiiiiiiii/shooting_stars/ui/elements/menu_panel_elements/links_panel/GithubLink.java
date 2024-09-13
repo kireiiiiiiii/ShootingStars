@@ -31,13 +31,12 @@ import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import com.kireiiiiiiii.shooting_stars.common.Links;
+import com.kireiiiiiiii.shooting_stars.constants.Interact;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
 import com.kireiiiiiiii.shooting_stars.ui.Interactable;
-import com.kireiiiiiiii.shooting_stars.ui.MenuScreenMode;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
@@ -90,24 +89,7 @@ public class GithubLink implements Renderable, Interactable {
 
     @Override
     public int getZIndex() {
-        return ZIndexes.MENU_PANEL_BUTTONS;
-    }
-
-    /////////////////
-    // Interact
-    ////////////////
-
-    @Override
-    public MenuScreenMode getInteract() {
-        Links.openURL(Links.GITHUB);
-        return null;
-    }
-
-    @Override
-    public boolean wasInteracted(MouseEvent e) {
-        int x = e.getX() - position[0];
-        int y = e.getY() - position[1];
-        return x <= SIZE[0] && y <= SIZE[1] && x > 0 && y > 0;
+        return ZIndexes.POPUP_PANEL_BUTTONS;
     }
 
     @Override
@@ -130,6 +112,22 @@ public class GithubLink implements Renderable, Interactable {
         ArrayList<String> tags = new ArrayList<String>();
         tags.add(WidgetTags.LINKS);
         return tags;
+    }
+
+    /////////////////
+    // Interact
+    ////////////////
+
+    @Override
+    public Runnable getInteraction() {
+        return Interact.GITHUB;
+    }
+
+    @Override
+    public boolean wasInteracted(MouseEvent e) {
+        int x = e.getX() - position[0];
+        int y = e.getY() - position[1];
+        return x <= SIZE[0] && y <= SIZE[1] && x > 0 && y > 0;
     }
 
 }

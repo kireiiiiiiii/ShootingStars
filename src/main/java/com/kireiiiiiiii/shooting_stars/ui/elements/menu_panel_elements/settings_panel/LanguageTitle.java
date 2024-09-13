@@ -101,7 +101,7 @@ public class LanguageTitle implements Renderable {
 
     @Override
     public int getZIndex() {
-        return ZIndexes.SETTINGS_PANEL_ELEMENTS;
+        return ZIndexes.POPUP_PANEL_BUTTONS;
     }
 
     @Override

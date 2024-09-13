@@ -34,12 +34,12 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
+import com.kireiiiiiiii.shooting_stars.constants.Interact;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
 import com.kireiiiiiiii.shooting_stars.ui.Interactable;
-import com.kireiiiiiiii.shooting_stars.ui.MenuScreenMode;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
@@ -110,7 +110,7 @@ public class ChangeButton implements Renderable, Interactable {
 
     @Override
     public int getZIndex() {
-        return ZIndexes.SETTINGS_PANEL_ELEMENTS;
+        return ZIndexes.POPUP_PANEL_BUTTONS;
     }
 
     @Override
@@ -140,9 +140,8 @@ public class ChangeButton implements Renderable, Interactable {
     ////////////////
 
     @Override
-    public MenuScreenMode getInteract() {
-        com.kireiiiiiiii.shooting_stars.AppMain.game.onLanguageChange(!facingLeft);
-        return null;
+    public Runnable getInteraction() {
+        return facingLeft ? Interact.PREV_LAN : Interact.NEXT_LAN;
     }
 
     @Override

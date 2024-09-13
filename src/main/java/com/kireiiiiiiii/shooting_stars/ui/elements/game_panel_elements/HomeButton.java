@@ -33,12 +33,12 @@ import java.awt.Image;
 import java.awt.Container;
 
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
+import com.kireiiiiiiii.shooting_stars.constants.Interact;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
 import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
 import com.kireiiiiiiii.shooting_stars.ui.Interactable;
-import com.kireiiiiiiii.shooting_stars.ui.MenuScreenMode;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
@@ -138,8 +138,8 @@ public class HomeButton implements Renderable, Interactable {
     ////////////////
 
     @Override
-    public MenuScreenMode getInteract() {
-        return null;
+    public Runnable getInteraction() {
+        return Interact.HOME;
     }
 
     @Override
