@@ -141,6 +141,8 @@ public class GPanel extends JPanel implements MouseListener, MouseMotionListener
         // ---- Action listeners setup ----
         addMouseListener(this);
         addMouseMotionListener(this);
+        addKeyListener(this);
+        requestFocusInWindow();
 
         // ---- Start rendering ----
         startRendering();

@@ -1,6 +1,6 @@
 /*
  * Author: Matěj Šťastný
- * Date created: 7/3/2024
+ * Date created: 6/16/2024
  * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
@@ -24,15 +24,13 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements;
+package com.kireiiiiiiii.shooting_stars.ui.elements.menu.links_panel;
 
 import java.awt.Graphics2D;
+import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.awt.Image;
-import java.awt.Container;
 
-import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Interact;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
@@ -42,42 +40,38 @@ import com.kireiiiiiiii.shooting_stars.ui.Interactable;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
- * Home button widget for the pause screen and the game over screen. Redirects
- * the user to the main menu.
+ * Button that openes my instagram account page in the browser.
  * 
  */
-public class HomeButton implements Renderable, Interactable {
+public class InstagramLink implements Renderable, Interactable {
 
     /////////////////
     // Constants
     ////////////////
 
-    private final int[] SIZE = { 70, 70 };
-    private final int[] ICON_PADDING = { 15, 15 };
-    private final int BORDER_WIDTH = 10;
-    private final int ARC_WIDTH = 40;
+    private final int[] SIZE = { 90, 90 };
 
     /////////////////
     // Variables
     ////////////////
 
-    private Image texture;
     private int[] position;
-    private boolean visible;
+    private boolean isVisible;
 
     /////////////////
-    // Constructor
+    // Constructors
     ////////////////
 
     /**
-     * Default button constructor.
+     * Default constructor.
      * 
      * @param owner    - owning {@code JPanel} object.
-     * @param position - position of the button in the render.
+     * @param position - position.
      */
-    public HomeButton(int[] position) {
+    public InstagramLink(int[] position) {
         this.position = position;
-        this.texture = Textures.HOME_ICON;
+        this.position[0] = this.position[0] + SIZE[0] / 2;
+        this.position[1] = this.position[1] + SIZE[1] / 2;
     }
 
     /////////////////
@@ -86,50 +80,37 @@ public class HomeButton implements Renderable, Interactable {
 
     @Override
     public void render(Graphics2D g, Container img) {
-
-        if (!visible) {
+        if (!this.isVisible) {
             return;
         }
 
-        g.setColor(Colors.MAIN_GRAY);
-        g.fillRoundRect(this.position[0] - BORDER_WIDTH / 2, this.position[1] - BORDER_WIDTH / 2,
-                SIZE[0] + BORDER_WIDTH, SIZE[1] + BORDER_WIDTH, ARC_WIDTH + BORDER_WIDTH, ARC_WIDTH + BORDER_WIDTH);
-        g.setColor(Colors.MAIN_GREEN);
-        g.fillRoundRect(this.position[0], this.position[1], SIZE[0], SIZE[1], ARC_WIDTH, ARC_WIDTH);
-
-        if (this.texture != null) {
-            g.drawImage(
-                    ImageUtil.scaleImage(this.texture, SIZE[0] - ICON_PADDING[0], SIZE[1] - ICON_PADDING[1]),
-                    position[0] + ICON_PADDING[0] / 2, position[1] + ICON_PADDING[1] / 2,
-                    img);
-        }
+        g.drawImage(ImageUtil.scaleImage(Textures.INSTAGRAM_LOGO, SIZE[0], SIZE[1]), position[0], position[1], img);
     }
 
     @Override
     public int getZIndex() {
-        return ZIndexes.WIDGETS;
+        return ZIndexes.POPUP_PANEL_BUTTONS;
     }
 
     @Override
     public boolean isVisible() {
-        return this.visible;
+        return this.isVisible;
     }
 
     @Override
     public void hide() {
-        this.visible = false;
+        this.isVisible = false;
     }
 
     @Override
     public void show() {
-        this.visible = true;
+        this.isVisible = true;
     }
 
     @Override
     public ArrayList<String> getTags() {
         ArrayList<String> tags = new ArrayList<String>();
-        tags.add(WidgetTags.PAUSE);
-        tags.add(WidgetTags.GAME_OVER);
+        tags.add(WidgetTags.LINKS);
         return tags;
     }
 
@@ -139,7 +120,7 @@ public class HomeButton implements Renderable, Interactable {
 
     @Override
     public Runnable getInteraction() {
-        return Interact.HOME;
+        return Interact.INSTAGRAM;
     }
 
     @Override

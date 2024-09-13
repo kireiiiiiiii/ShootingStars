@@ -24,7 +24,7 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.settings_panel;
+package com.kireiiiiiiii.shooting_stars.ui.elements.menu.settings_panel;
 
 import java.awt.Color;
 import java.awt.Font;

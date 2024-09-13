@@ -41,6 +41,7 @@ import com.kireiiiiiiii.shooting_stars.constants.Files;
 import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
 import com.kireiiiiiiii.shooting_stars.constants.Interact;
+import com.kireiiiiiiii.shooting_stars.constants.Keybinds;
 import com.kireiiiiiiii.shooting_stars.constants.Logs;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
@@ -48,21 +49,21 @@ import com.kireiiiiiiii.shooting_stars.tools.ScreenUtil;
 import com.kireiiiiiiii.shooting_stars.ui.GPanel;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 import com.kireiiiiiiii.shooting_stars.ui.elements.Backround;
-import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.GameOverScreen;
-import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.HomeButton;
-import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.PauseScreen;
-import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.ScoreBoard;
-import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.ScoreWidget;
-import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.StarWidget;
-import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.TimerWidget;
-import com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements.TopscoreWidget;
-import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.MenuButton;
-import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.MenuScreen;
-import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.PopUpPanelWindget;
-import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.links_panel.GithubLink;
-import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.links_panel.InstagramLink;
-import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.settings_panel.ChangeButton;
-import com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.settings_panel.LanguageTitle;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game.GameOverScreen;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game.HomeButton;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game.PauseScreen;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game.ScoreBoard;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game.ScoreWidget;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game.StarWidget;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game.TimerWidget;
+import com.kireiiiiiiii.shooting_stars.ui.elements.game.TopscoreWidget;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu.MenuButton;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu.MenuScreen;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu.PopUpPanelWindget;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu.links_panel.GithubLink;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu.links_panel.InstagramLink;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu.settings_panel.ChangeButton;
+import com.kireiiiiiiii.shooting_stars.ui.elements.menu.settings_panel.LanguageTitle;
 
 /**
  * Main game object.
@@ -95,6 +96,7 @@ public class Game {
     private int timeRemaining;
     private int targetRadius;
     private int score;
+    private boolean paused;
 
     /////////////////
     // Constructor
@@ -122,6 +124,9 @@ public class Game {
 
     // Called when the current JPanel changes from game to menu
     public void onGoToMenu() {
+        Keybinds.setEnabledAll(false);
+        Keybinds.setEnabled(true, Keybinds.START_KEY);
+
         for (MenuButton w : this.gpanel.getWidgetsByClass(MenuButton.class)) {
             w.setInteract(true);
         }
@@ -148,7 +153,12 @@ public class Game {
         // ---- Log & variable setup ----
         Logs.log(Logs.GAME_START);
         this.score = 0;
+        this.paused = false;
         this.targetRadius = DEFAULT_TARGET_RADIUS;
+        // ----Set keybinds ----
+        Keybinds.setEnabledAll(false);
+        Keybinds.setEnabled(true, Keybinds.PAUSE_KEY);
+        Keybinds.setEnabled(true, Keybinds.RESTART_KEY);
         // ----Set widget values ----
         for (TopscoreWidget w : this.gpanel.getWidgetsByClass(TopscoreWidget.class)) {
             w.setTopscore(this.topScore.get());
@@ -159,6 +169,8 @@ public class Game {
         for (StarWidget w : this.gpanel.getWidgetsByClass(StarWidget.class)) {
             w.setRadius(this.targetRadius);
         }
+        this.gpanel.hideAllWidgets();
+        this.gpanel.showTaggedWidgets(WidgetTags.GAME);
         // ---- Start the timer, and reset the target ----
         initializeTimer();
         onTargetClicked(true);
@@ -169,6 +181,10 @@ public class Game {
         // ---- Log & variable setup ----
         Logs.log(Logs.GAME_RESTART);
         this.score = 0;
+        // ----Set keybinds ----
+        Keybinds.setEnabledAll(false);
+        Keybinds.setEnabled(true, Keybinds.PAUSE_KEY);
+        Keybinds.setEnabled(true, Keybinds.RESTART_KEY);
         // ----Set widget values ----
         for (TopscoreWidget w : this.gpanel.getWidgetsByClass(TopscoreWidget.class)) {
             w.setTopscore(this.topScore.get());
@@ -176,15 +192,28 @@ public class Game {
         for (ScoreWidget w : this.gpanel.getWidgetsByClass(ScoreWidget.class)) {
             w.setScore(this.score);
         }
+        this.gpanel.hideAllWidgets();
+        this.gpanel.showTaggedWidgets(WidgetTags.GAME);
         // ---- Start the timer, and reset the target ----
         this.timer.forceStop();
         initializeTimer();
         onTargetClicked(true);
     }
 
+    public void onTogglePause() {
+        if (paused) {
+            onGameResumed();
+        } else {
+            onGamePause();
+        }
+        this.paused = !this.paused;
+    }
+
     public void onGamePause() {
         // ---- Log ----
         Logs.log(Logs.GAME_PAUSE);
+        // ----Set widget values ----
+        Keybinds.setEnabled(false, Keybinds.RESTART_KEY);
         // ----Set widget values ----
         this.gpanel.hideAllWidgets();
         this.gpanel.showTaggedWidgets(WidgetTags.PAUSE);
@@ -196,6 +225,8 @@ public class Game {
         // ---- Log ----
         Logs.log(Logs.GAME_RESUMED);
         // ----Set widget values ----
+        Keybinds.setEnabled(true, Keybinds.RESTART_KEY);
+        // ----Set widget values ----
         this.gpanel.hideAllWidgets();
         this.gpanel.showTaggedWidgets(WidgetTags.GAME);
         // ---- Timer ----
@@ -206,12 +237,16 @@ public class Game {
         // ---- Log ----
         Logs.log(Logs.GAME_OVER);
         // ----Set widget values ----
+        Keybinds.setEnabled(false, Keybinds.PAUSE_KEY);
+        // ----Set widget values ----
         this.gpanel.hideAllWidgets();
         this.gpanel.showTaggedWidgets(WidgetTags.GAME_OVER);
         for (ScoreBoard w : this.gpanel.getWidgetsByClass(ScoreBoard.class)) {
             w.setScore(this.score);
             w.setTopScore(this.topScore.get());
         }
+        this.gpanel.hideAllWidgets();
+        this.gpanel.showTaggedWidgets(WidgetTags.GAME_OVER);
         // ---- Timer ----
         this.timer.forceStop();
         // ---- Check for new Topscore ----
@@ -251,7 +286,9 @@ public class Game {
         // ---- Update the score and log the click, if not ititial execution ----
         if (!init) {
             Logs.log(Logs.TAGRET_HIT);
-            this.score += TARGET_SCORE;
+            System.out.println(this.score);
+            this.score += TARGET_SCORE * 2;
+            System.out.println(this.score);
             for (ScoreWidget w : this.gpanel.getWidgetsByClass(ScoreWidget.class)) {
                 w.setScore(this.score);
             }
@@ -360,13 +397,18 @@ public class Game {
                 buttons.add(btn);
             }
         }
-        if (buttons.size() <= 0) {
-            return;
+        if (buttons.size() > 0) {
+            Interactable interacted = buttons.get(0);
+            interacted.getInteraction().run();
         }
 
-        Interactable interacted = buttons.get(0);
-        // System.out.println("Interacted: " + interacted.getClass());
-        interacted.getInteraction().run();
+        // Update the score
+        if (!paused) {
+            this.score -= this.score <= 0 ? 0 : TARGET_SCORE;
+            for (ScoreWidget w : this.gpanel.getWidgetsByClass(ScoreWidget.class)) {
+                w.setScore(this.score);
+            }
+        }
 
     }
 
@@ -465,7 +507,7 @@ public class Game {
     ////////////////
 
     public void keyPressed(KeyEvent e) {
-        // TODO Check if can be pressed
+        Keybinds.interact(e);
     }
 
     public void keyReleased(KeyEvent e) {

@@ -24,7 +24,7 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements;
+package com.kireiiiiiiii.shooting_stars.ui.elements.game;
 
 import java.awt.Graphics2D;
 import java.awt.Container;

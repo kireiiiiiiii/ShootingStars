@@ -1,6 +1,6 @@
 /*
  * Author: Matěj Šťastný
- * Date created: 6/16/2024
+ * Date created: 6/15/2024
  * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
@@ -24,13 +24,16 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.links_panel;
+package com.kireiiiiiiii.shooting_stars.ui.elements.menu.settings_panel;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Container;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Interact;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
 import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
@@ -40,22 +43,27 @@ import com.kireiiiiiiii.shooting_stars.ui.Interactable;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
- * Button, that openes the GitHub repository in the browser.
+ * Basic language change button widget.
  * 
  */
-public class GithubLink implements Renderable, Interactable {
+public class ChangeButton implements Renderable, Interactable {
 
     /////////////////
     // Constants
     ////////////////
 
-    private final int[] SIZE = { 90, 90 };
+    public static final int[] SIZE = { 80, 80 };
+    private static final int ROUNDED = 50;
+    private static final int BORDER_HEIGHT = 10;
+    private static int ICON_PADDING = 10;
 
     /////////////////
-    // Variables
+    // Varibles
     ////////////////
 
     private int[] position;
+    private Image texture;
+    private boolean facingLeft;
     private boolean isVisible;
 
     /////////////////
@@ -65,13 +73,20 @@ public class GithubLink implements Renderable, Interactable {
     /**
      * Default constructor.
      * 
-     * @param owner    - owning {@code JPanel} object.
-     * @param position - position.
+     * @param owner      - owning {@code MenuPanel} object.
+     * @param position   - position of the widget.
+     * @param facingLeft - flips the texture.
      */
-    public GithubLink(int[] position) {
+    public ChangeButton(int[] position, boolean facingLeft) {
+        this.facingLeft = facingLeft;
         this.position = position;
-        this.position[0] = this.position[0] + SIZE[0] / 2;
-        this.position[1] = this.position[1] + SIZE[1] / 2;
+        if (facingLeft) {
+            this.texture = ImageUtil.scaleImage(Textures.ARROW_LEFT, SIZE[0] - ICON_PADDING * 2,
+                    SIZE[1] - ICON_PADDING * 2);
+        } else {
+            this.texture = ImageUtil.scaleImage(Textures.ARROW_RIGHT, SIZE[0] - ICON_PADDING * 2,
+                    SIZE[1] - ICON_PADDING * 2);
+        }
     }
 
     /////////////////
@@ -84,7 +99,13 @@ public class GithubLink implements Renderable, Interactable {
             return;
         }
 
-        g.drawImage(ImageUtil.scaleImage(Textures.GITHUB_LOGO, SIZE[0], SIZE[1]), position[0], position[1], img);
+        g.setColor(Color.BLACK);
+        g.fillRoundRect(this.position[0] - BORDER_HEIGHT / 2, this.position[1] - BORDER_HEIGHT / 2,
+                SIZE[0] + BORDER_HEIGHT,
+                SIZE[1] + BORDER_HEIGHT, ROUNDED + BORDER_HEIGHT, ROUNDED + BORDER_HEIGHT);
+        g.setColor(Colors.MAIN_PINK);
+        g.fillRoundRect(this.position[0], this.position[1], SIZE[0], SIZE[1], ROUNDED, ROUNDED);
+        g.drawImage(this.texture, this.position[0] + ICON_PADDING, this.position[1] + ICON_PADDING, img);
     }
 
     @Override
@@ -110,7 +131,7 @@ public class GithubLink implements Renderable, Interactable {
     @Override
     public ArrayList<String> getTags() {
         ArrayList<String> tags = new ArrayList<String>();
-        tags.add(WidgetTags.LINKS);
+        tags.add(WidgetTags.OPTIONS);
         return tags;
     }
 
@@ -120,7 +141,7 @@ public class GithubLink implements Renderable, Interactable {
 
     @Override
     public Runnable getInteraction() {
-        return Interact.GITHUB;
+        return facingLeft ? Interact.PREV_LAN : Interact.NEXT_LAN;
     }
 
     @Override
@@ -131,23 +152,3 @@ public class GithubLink implements Renderable, Interactable {
     }
 
 }
-
-// local lualine_nightfly = require("lualine.themes.nightfly")
-// local new_colors = {
-// blue = "#65D1FF",
-// green = "#3EFFDC",
-// violet = "#FF61EF",
-// yellow = "#FFDA7B",
-// black = "#000000",
-// }
-
-// lualine_nightfly.normal.a.bg = new_colors.blue
-// lualine_nightfly.insert.a.bg = new_colors.green
-// lualine_nightfly.visual.a.bg = new_colors.violet
-// lualine_nightfly.command = {
-// a = {
-// gui = "bold",
-// bg = new_colors.yellow,
-// fg = new_colors.black,
-// },
-// }

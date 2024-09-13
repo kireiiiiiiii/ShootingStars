@@ -24,7 +24,7 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements;
+package com.kireiiiiiiii.shooting_stars.ui.elements.game;
 
 import java.awt.Graphics2D;
 import java.awt.Container;
@@ -40,48 +40,33 @@ import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
- * Widget, that displays time left
+ * Widget, that displays score at the top of the screen.
  * 
  */
-public class TimerWidget implements Renderable {
+public class ScoreWidget implements Renderable {
 
     /////////////////
     // Constants
     ////////////////
 
-    private final Color TIMER_BACKROUND = Colors.SCORES_WIDGETS;
-    private final Color TIMER_TEXT = Colors.WIDGET_TEXT;
+    private final Color BACKROUND_COLOR = Colors.MAIN_GREEN;
+    private final Color TEXT_COLOR = Colors.WIDGET_TEXT;
 
     /////////////////
-    // Variables
+    // Fields
     ////////////////
 
-    private int timeLeft;
+    private int currScore;
     private int[] position;
     private boolean visible;
 
     /////////////////
-    // Constructors
+    // Contructor
     ////////////////
 
-    /**
-     * Default contructor.
-     * 
-     * @param position - position of the widget.
-     * @param time     - display time.
-     */
-    public TimerWidget(int[] position, int time) {
-        this.timeLeft = time;
+    public ScoreWidget(int[] position) {
+        this.currScore = 0;
         this.position = position;
-    }
-
-    /**
-     * Constructor without an initial time set.
-     * 
-     * @param position - position of the widget.
-     */
-    public TimerWidget(int[] position) {
-        this(position, 0);
     }
 
     /////////////////
@@ -96,11 +81,12 @@ public class TimerWidget implements Renderable {
         }
 
         Font font = Fonts.text();
-        g.setColor(TIMER_BACKROUND);
+
+        g.setColor(BACKROUND_COLOR);
         g.fillRoundRect(this.position[0], this.position[1], 250, 50, 20, 20);
-        g.setColor(TIMER_TEXT);
+        g.setColor(TEXT_COLOR);
         g.setFont(font.deriveFont(Font.BOLD, 24));
-        g.drawString(GameDialogue.timeLeft + ": " + this.timeLeft, this.position[0] + 15, this.position[1] + 24 + 8);
+        g.drawString(GameDialogue.score + ": " + this.currScore, this.position[0] + 15, this.position[1] + 24 + 8);
     }
 
     @Override
@@ -135,12 +121,12 @@ public class TimerWidget implements Renderable {
     ////////////////
 
     /**
-     * Modifier method for the time.
+     * Modifier method for the score.
      * 
-     * @param time - new value.
+     * @param score - new score value.
      */
-    public void setTime(int time) {
-        this.timeLeft = time;
+    public void setScore(int score) {
+        this.currScore = score;
     }
 
 }

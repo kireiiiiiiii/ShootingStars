@@ -1,6 +1,6 @@
 /*
  * Author: Matěj Šťastný
- * Date created: 6/13/2024
+ * Date created: 6/14/2024
  * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
@@ -24,12 +24,9 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements;
+package com.kireiiiiiiii.shooting_stars.ui.elements.game;
 
-import java.awt.Graphics2D;
-import java.awt.Container;
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
@@ -40,33 +37,48 @@ import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
 import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
- * Widget, that displays score at the top of the screen.
+ * Widget to display players top score.
  * 
  */
-public class ScoreWidget implements Renderable {
+public class TopscoreWidget implements Renderable {
 
     /////////////////
     // Constants
     ////////////////
 
-    private final Color BACKROUND_COLOR = Colors.MAIN_GREEN;
-    private final Color TEXT_COLOR = Colors.WIDGET_TEXT;
+    private final Color TIMER_BACKROUND = Colors.SCORES_WIDGETS;
+    private final Color TIMER_TEXT = Colors.WIDGET_TEXT;
 
     /////////////////
-    // Fields
+    // Variables
     ////////////////
 
-    private int currScore;
+    private int topscore;
     private int[] position;
     private boolean visible;
 
     /////////////////
-    // Contructor
+    // Constructors
     ////////////////
 
-    public ScoreWidget(int[] position) {
-        this.currScore = 0;
+    /**
+     * Deafult contructor with a default widget topscore value.
+     * 
+     * @param position - position of the widget.
+     * @param topscore - default topscore value.
+     */
+    public TopscoreWidget(int[] position, int topscore) {
+        this.topscore = topscore;
         this.position = position;
+    }
+
+    /**
+     * Constructor without a default topscore value given, is set to 0.
+     * 
+     * @param position - position of the widget.
+     */
+    public TopscoreWidget(int[] position) {
+        this(position, 0);
     }
 
     /////////////////
@@ -81,12 +93,11 @@ public class ScoreWidget implements Renderable {
         }
 
         Font font = Fonts.text();
-
-        g.setColor(BACKROUND_COLOR);
+        g.setColor(TIMER_BACKROUND);
         g.fillRoundRect(this.position[0], this.position[1], 250, 50, 20, 20);
-        g.setColor(TEXT_COLOR);
+        g.setColor(TIMER_TEXT);
         g.setFont(font.deriveFont(Font.BOLD, 24));
-        g.drawString(GameDialogue.score + ": " + this.currScore, this.position[0] + 15, this.position[1] + 24 + 8);
+        g.drawString(GameDialogue.topscore + ": " + this.topscore, this.position[0] + 15, this.position[1] + 24 + 8);
     }
 
     @Override
@@ -121,12 +132,12 @@ public class ScoreWidget implements Renderable {
     ////////////////
 
     /**
-     * Modifier method for the score.
+     * Modifier method for the time.
      * 
-     * @param score - new score value.
+     * @param topscore - new value.
      */
-    public void setScore(int score) {
-        this.currScore = score;
+    public void setTopscore(int topscore) {
+        this.topscore = topscore;
     }
 
 }

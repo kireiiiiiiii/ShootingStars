@@ -24,7 +24,7 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements;
+package com.kireiiiiiiii.shooting_stars.ui.elements.menu;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

@@ -58,4 +58,24 @@ public class Interact {
     public static final Runnable PREV_LAN = () -> {
         AppMain.game.onLanguageChange(false);
     };
+
+    public static final Runnable PAUSE = () -> {
+        AppMain.game.onTogglePause();
+    };
+
+    public static final Runnable DEBUG = () -> {
+
+    };
+
+    public static final Runnable RESTART = () -> {
+        AppMain.game.onGameRestart();
+    };
+
+    public static final Runnable START = () -> {
+        AppMain.game.onGameStart();
+    };
+
+    public static final Runnable TARGET_INTERACTED = () -> {
+        AppMain.game.onTargetClicked(false);
+    };
 }
