@@ -24,22 +24,15 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui;
+package com.kireiiiiiiii.shooting_stars.interfaces;
 
 import java.awt.event.MouseEvent;
 
 /**
- * Button interface.
+ * Interface for interactable ui elements.
  * 
  */
 public interface Interactable {
-
-    /**
-     * Returns the {@code MenuScreenMode} that the button will trigger when clicked.
-     * 
-     * @return {@code MenuScreenMode} enum value.
-     */
-    public MenuScreenMode getInteract();
 
     /**
      * Checks, if the button was clicked with the target mouse event.
@@ -48,5 +41,12 @@ public interface Interactable {
      * @return {@code true} if interacted, and {@code false} if not.
      */
     public boolean wasInteracted(MouseEvent e);
+
+    /**
+     * Accesor method for the event, that is supposed to happen on interact.
+     * 
+     * @return a {@code Runnable} event.
+     */
+    public Runnable getInteraction();
 
 }

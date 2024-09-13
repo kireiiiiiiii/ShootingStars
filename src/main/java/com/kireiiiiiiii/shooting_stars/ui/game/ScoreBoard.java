@@ -24,16 +24,21 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.game_panel_elements;
+package com.kireiiiiiiii.shooting_stars.ui.game;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Container;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
-import com.kireiiiiiiii.shooting_stars.constants.ZOrders;
+import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
+import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
+import com.kireiiiiiiii.shooting_stars.interfaces.Renderable;
 import com.kireiiiiiiii.shooting_stars.tools.FontUtil;
-import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
  * Scoreboard widget for the Game Over screen. Shows the top score and the score
@@ -58,6 +63,7 @@ public class ScoreBoard implements Renderable {
     private int[] position;
     private int topScore;
     private int score;
+    private boolean visible;
 
     /////////////////
     // Constructor
@@ -67,6 +73,7 @@ public class ScoreBoard implements Renderable {
         this.position = position;
         this.topScore = -1;
         this.score = 1;
+        this.visible = false;
     }
 
     /////////////////
@@ -74,7 +81,12 @@ public class ScoreBoard implements Renderable {
     ////////////////
 
     @Override
-    public void refresh(Graphics2D g) {
+    public void render(Graphics2D g, Container img) {
+
+        if (!visible) {
+            return;
+        }
+
         String topMessage = GameDialogue.topscore + ": " + this.topScore;
         String bottomMessage = GameDialogue.score + ": " + this.score;
 
@@ -101,8 +113,30 @@ public class ScoreBoard implements Renderable {
     }
 
     @Override
-    public int getZOrder() {
-        return ZOrders.WIDGETS;
+    public int getZIndex() {
+        return ZIndexes.SCREENS;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return this.visible;
+    }
+
+    @Override
+    public void hide() {
+        this.visible = false;
+    }
+
+    @Override
+    public void show() {
+        this.visible = true;
+    }
+
+    @Override
+    public ArrayList<String> getTags() {
+        ArrayList<String> tags = new ArrayList<String>();
+        tags.add(WidgetTags.GAME_OVER);
+        return tags;
     }
 
     /////////////////

@@ -24,21 +24,23 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements.settings_panel;
+package com.kireiiiiiiii.shooting_stars.ui.menu.settings_panel;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
+import com.kireiiiiiiii.shooting_stars.constants.Interact;
 import com.kireiiiiiiii.shooting_stars.constants.Textures;
-import com.kireiiiiiiii.shooting_stars.constants.ZOrders;
+import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
+import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
+import com.kireiiiiiiii.shooting_stars.interfaces.Interactable;
+import com.kireiiiiiiii.shooting_stars.interfaces.Renderable;
 import com.kireiiiiiiii.shooting_stars.tools.ImageUtil;
-import com.kireiiiiiiii.shooting_stars.ui.Interactable;
-import com.kireiiiiiiii.shooting_stars.ui.MenuPanel;
-import com.kireiiiiiiii.shooting_stars.ui.MenuScreenMode;
-import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
  * Basic language change button widget.
@@ -59,10 +61,10 @@ public class ChangeButton implements Renderable, Interactable {
     // Varibles
     ////////////////
 
-    private MenuPanel owner;
     private int[] position;
     private Image texture;
     private boolean facingLeft;
+    private boolean isVisible;
 
     /////////////////
     // Constructors
@@ -75,9 +77,8 @@ public class ChangeButton implements Renderable, Interactable {
      * @param position   - position of the widget.
      * @param facingLeft - flips the texture.
      */
-    public ChangeButton(MenuPanel owner, int[] position, boolean facingLeft) {
+    public ChangeButton(int[] position, boolean facingLeft) {
         this.facingLeft = facingLeft;
-        this.owner = owner;
         this.position = position;
         if (facingLeft) {
             this.texture = ImageUtil.scaleImage(Textures.ARROW_LEFT, SIZE[0] - ICON_PADDING * 2,
@@ -93,20 +94,45 @@ public class ChangeButton implements Renderable, Interactable {
     ////////////////
 
     @Override
-    public void refresh(Graphics2D g) {
+    public void render(Graphics2D g, Container img) {
+        if (!this.isVisible) {
+            return;
+        }
+
         g.setColor(Color.BLACK);
         g.fillRoundRect(this.position[0] - BORDER_HEIGHT / 2, this.position[1] - BORDER_HEIGHT / 2,
                 SIZE[0] + BORDER_HEIGHT,
                 SIZE[1] + BORDER_HEIGHT, ROUNDED + BORDER_HEIGHT, ROUNDED + BORDER_HEIGHT);
         g.setColor(Colors.MAIN_PINK);
         g.fillRoundRect(this.position[0], this.position[1], SIZE[0], SIZE[1], ROUNDED, ROUNDED);
-        g.drawImage(this.texture, this.position[0] + ICON_PADDING, this.position[1] + ICON_PADDING,
-                this.owner.getFocusCycleRootAncestor());
+        g.drawImage(this.texture, this.position[0] + ICON_PADDING, this.position[1] + ICON_PADDING, img);
     }
 
     @Override
-    public int getZOrder() {
-        return ZOrders.SETTINGS_PANEL_ELEMENTS;
+    public int getZIndex() {
+        return ZIndexes.POPUP_PANEL_BUTTONS;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return this.isVisible;
+    }
+
+    @Override
+    public void hide() {
+        this.isVisible = false;
+    }
+
+    @Override
+    public void show() {
+        this.isVisible = true;
+    }
+
+    @Override
+    public ArrayList<String> getTags() {
+        ArrayList<String> tags = new ArrayList<String>();
+        tags.add(WidgetTags.OPTIONS);
+        return tags;
     }
 
     /////////////////
@@ -114,9 +140,8 @@ public class ChangeButton implements Renderable, Interactable {
     ////////////////
 
     @Override
-    public MenuScreenMode getInteract() {
-        com.kireiiiiiiii.shooting_stars.AppMain.game.onLanguageChange(!facingLeft);
-        return null;
+    public Runnable getInteraction() {
+        return facingLeft ? Interact.PREV_LAN : Interact.NEXT_LAN;
     }
 
     @Override

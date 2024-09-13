@@ -24,20 +24,23 @@
  *
  */
 
-package com.kireiiiiiiii.shooting_stars.ui.elements.menu_panel_elements;
+package com.kireiiiiiiii.shooting_stars.ui.menu;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Container;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import com.kireiiiiiiii.shooting_stars.common.Vec2D;
 import com.kireiiiiiiii.shooting_stars.constants.Colors;
 import com.kireiiiiiiii.shooting_stars.constants.Fonts;
 import com.kireiiiiiiii.shooting_stars.constants.GameDialogue;
-import com.kireiiiiiiii.shooting_stars.constants.ZOrders;
+import com.kireiiiiiiii.shooting_stars.constants.WidgetTags;
+import com.kireiiiiiiii.shooting_stars.constants.ZIndexes;
+import com.kireiiiiiiii.shooting_stars.interfaces.Renderable;
 import com.kireiiiiiiii.shooting_stars.tools.FontUtil;
-import com.kireiiiiiiii.shooting_stars.ui.Renderable;
 
 /**
  * Main menu screen, shown to player with the game launch.
@@ -57,6 +60,7 @@ public class MenuScreen implements Renderable {
     ////////////////
 
     private int[] size;
+    private boolean isVisible;
 
     /////////////////
     // Constructor
@@ -77,7 +81,10 @@ public class MenuScreen implements Renderable {
     ////////////////
 
     @Override
-    public void refresh(Graphics2D g) {
+    public void render(Graphics2D g, Container img) {
+        if (!this.isVisible) {
+            return;
+        }
 
         FontMetrics fm;
         Vec2D origin;
@@ -111,8 +118,30 @@ public class MenuScreen implements Renderable {
     }
 
     @Override
-    public int getZOrder() {
-        return ZOrders.SCREENS;
+    public int getZIndex() {
+        return ZIndexes.SCREENS;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return this.isVisible;
+    }
+
+    @Override
+    public void hide() {
+        this.isVisible = false;
+    }
+
+    @Override
+    public void show() {
+        this.isVisible = true;
+    }
+
+    @Override
+    public ArrayList<String> getTags() {
+        ArrayList<String> tags = new ArrayList<String>();
+        tags.add(WidgetTags.MAIN_MENU);
+        return tags;
     }
 
 }
