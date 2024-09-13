@@ -1,6 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 7/23/2024
+ * Github link:  https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
@@ -221,8 +222,6 @@ public class GPanel extends JPanel implements MouseListener, MouseMotionListener
     // Event override methods
     ////////////////
 
-    // TODO: Implement Event Listeners
-
     @Override
     public void mouseDragged(MouseEvent e) {
         AppMain.game.mouseDragged(e);
@@ -366,7 +365,7 @@ public class GPanel extends JPanel implements MouseListener, MouseMotionListener
     }
 
     /////////////////
-    // Visibility methods
+    // UI visibility methods
     ////////////////
 
     /**
@@ -381,7 +380,7 @@ public class GPanel extends JPanel implements MouseListener, MouseMotionListener
     }
 
     /**
-     * Sets a widget to render.
+     * Sets a widget to be rendered.
      * 
      * @param index - index of the object in the array.
      */
@@ -391,18 +390,31 @@ public class GPanel extends JPanel implements MouseListener, MouseMotionListener
         }
     }
 
+    /**
+     * Prevents all widgets to be rendered.
+     * 
+     */
     public void hideAllWidgets() {
         for (Renderable r : this.widgets) {
             r.hide();
         }
     }
 
+    /**
+     * Sets all widgets to be rendered.
+     * 
+     */
     public void showAllWidgets() {
         for (Renderable r : this.widgets) {
             r.show();
         }
     }
 
+    /**
+     * Prevents all widgets with target tag to be rendered.
+     * 
+     * @param tag - target tag.
+     */
     public void hideTaggedWidgets(String tag) {
         for (Renderable r : this.widgets) {
             for (String currTag : r.getTags()) {
@@ -413,6 +425,11 @@ public class GPanel extends JPanel implements MouseListener, MouseMotionListener
         }
     }
 
+    /**
+     * Sets all widgets with target tag to be rendered.
+     * 
+     * @param tag - target tag.
+     */
     public void showTaggedWidgets(String tag) {
         for (Renderable r : this.widgets) {
             for (String currTag : r.getTags()) {

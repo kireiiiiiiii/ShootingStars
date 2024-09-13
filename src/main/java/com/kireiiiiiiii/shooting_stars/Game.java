@@ -96,7 +96,7 @@ public class Game {
     private int timeRemaining;
     private int targetRadius;
     private int score;
-    private boolean paused;
+    private boolean paused; // is the game in the pause menu?
 
     /////////////////
     // Constructor
@@ -107,7 +107,7 @@ public class Game {
         double[] windowSize = ScreenUtil.getAppWindowSize();
         this.gpanel = new GPanel(FPS, (int) windowSize[0], (int) windowSize[1], false, GameDialogue.appName);
         gpanel.getAppFrame().setBackground(Colors.BACKROUND);
-        onWidgetSetup();
+        onUISetup();
 
         // ---- Load the score and options file ----
         onTopscoreFileLoad();
@@ -122,7 +122,10 @@ public class Game {
     // Events
     ////////////////
 
-    // Called when the current JPanel changes from game to menu
+    /**
+     * Switches the game back to the menu.
+     * 
+     */
     public void onGoToMenu() {
         Keybinds.setEnabledAll(false);
         Keybinds.setEnabled(true, Keybinds.START_KEY);
@@ -148,7 +151,10 @@ public class Game {
         this.gpanel.showTaggedWidgets(WidgetTags.LINKS);
     }
 
-    // Called when switching from the menu panel
+    /**
+     * Starts the game.
+     * 
+     */
     public void onGameStart() {
         // ---- Log & variable setup ----
         Logs.log(Logs.GAME_START);
@@ -173,10 +179,13 @@ public class Game {
         this.gpanel.showTaggedWidgets(WidgetTags.GAME);
         // ---- Start the timer, and reset the target ----
         initializeTimer();
-        onTargetClicked(true);
+        onTargetHit(true);
     }
 
-    // Called on restart
+    /**
+     * Restarts the game.
+     * 
+     */
     public void onGameRestart() {
         // ---- Log & variable setup ----
         Logs.log(Logs.GAME_RESTART);
@@ -197,9 +206,14 @@ public class Game {
         // ---- Start the timer, and reset the target ----
         this.timer.forceStop();
         initializeTimer();
-        onTargetClicked(true);
+        onTargetHit(true);
     }
 
+    /**
+     * Toggles the game pause. If the game is paused, this method will resume it,
+     * and if its not paused, it pauses it.
+     * 
+     */
     public void onTogglePause() {
         if (paused) {
             onGameResumed();
@@ -209,6 +223,10 @@ public class Game {
         this.paused = !this.paused;
     }
 
+    /**
+     * Puts the game into the pause menu.
+     * 
+     */
     public void onGamePause() {
         // ---- Log ----
         Logs.log(Logs.GAME_PAUSE);
@@ -221,6 +239,10 @@ public class Game {
         this.timer.pause();
     }
 
+    /**
+     * Puts the game out of the pause menu.
+     * 
+     */
     public void onGameResumed() {
         // ---- Log ----
         Logs.log(Logs.GAME_RESUMED);
@@ -233,6 +255,10 @@ public class Game {
         this.timer.resume();
     }
 
+    /**
+     * Called on game over.
+     * 
+     */
     public void onGameEnd() {
         // ---- Log ----
         Logs.log(Logs.GAME_OVER);
@@ -257,6 +283,10 @@ public class Game {
         onTopscoreFileLoad();
     }
 
+    /**
+     * Called on every cycle of the game timer.
+     * 
+     */
     public void onTimerIteration() {
         // ---- Log ----
         Logs.log(Logs.TIMER_INTEARION);
@@ -267,7 +297,12 @@ public class Game {
         this.timeRemaining--;
     }
 
-    public void onTargetClicked(boolean init) {
+    /**
+     * Called when the target was succesfuly hit by the player.
+     * 
+     * @param init - initial call?
+     */
+    public void onTargetHit(boolean init) {
         // ---- Calculate next position ----
         int maxX = this.gpanel.getWidth() - this.targetRadius * 2 - WINDOW_PADDING * 2;
         int maxY = this.gpanel.getHeight() - this.targetRadius * 2 - WINDOW_PADDING * 2;
@@ -295,16 +330,20 @@ public class Game {
         }
     }
 
-    public void onTargetMisclicked() {
-        // ---- Log ----
-        Logs.log(Logs.TAGRET_NOT_HIT);
-        // ---- Update ----
-        this.score = Math.max(0, this.score - TARGET_SCORE);
-        for (ScoreWidget w : this.gpanel.getWidgetsByClass(ScoreWidget.class)) {
-            w.setScore(this.score);
-        }
-    }
+    // public void onTargetMisclicked() {
+    // // ---- Log ----
+    // Logs.log(Logs.TAGRET_NOT_HIT);
+    // // ---- Update ----
+    // this.score = Math.max(0, this.score - TARGET_SCORE);
+    // for (ScoreWidget w : this.gpanel.getWidgetsByClass(ScoreWidget.class)) {
+    // w.setScore(this.score);
+    // }
+    // }
 
+    /**
+     * Loads the topscore from the user file.
+     * 
+     */
     public void onTopscoreFileLoad() {
         // ---- Log ----
         Logs.log(Logs.TOPSCORE_FILE_LOAD);
@@ -321,6 +360,10 @@ public class Game {
         }
     }
 
+    /**
+     * Saves the current topscore to the user file.
+     * 
+     */
     public void onTopscoreFileSave() {
         // ---- Log ----
         Logs.log(Logs.TOPSCORE_FILE_SAVED);
@@ -332,6 +375,12 @@ public class Game {
         }
     }
 
+    /**
+     * Changes the language.
+     * 
+     * @param next - determining if the language the porgram is changing to is the
+     *             next or previous on the list.
+     */
     public void onLanguageChange(boolean next) {
         // ---- Change dialogues ----
         if (next) {
@@ -412,7 +461,11 @@ public class Game {
 
     }
 
-    public void onWidgetSetup() {
+    /**
+     * Sets up all the UI elements.
+     * 
+     */
+    public void onUISetup() {
 
         // Screen dimension for clarity
         int width = this.gpanel.getWidth();

@@ -29,6 +29,12 @@ package com.kireiiiiiiii.shooting_stars.constants;
 import com.kireiiiiiiii.shooting_stars.AppMain;
 import com.kireiiiiiiii.shooting_stars.common.Links;
 
+/**
+ * Constants class with all possbile events that can be triggered by user
+ * interaction. These events are then referenced in objects with the
+ * {@code Interactable} interface
+ * 
+ */
 public class Interact {
 
     public static final Runnable HOME = () -> {
@@ -76,6 +82,6 @@ public class Interact {
     };
 
     public static final Runnable TARGET_INTERACTED = () -> {
-        AppMain.game.onTargetClicked(false);
+        AppMain.game.onTargetHit(false);
     };
 }

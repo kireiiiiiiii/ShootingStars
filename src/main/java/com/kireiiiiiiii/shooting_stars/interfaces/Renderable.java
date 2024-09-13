@@ -31,7 +31,7 @@ import java.awt.Container;
 import java.util.ArrayList;
 
 /**
- * Interface for objects that can be rendered onto a {@code JPanel} object.
+ * Interface for UI elements.
  * 
  */
 public interface Renderable {
@@ -59,10 +59,24 @@ public interface Renderable {
      */
     public boolean isVisible();
 
+    /**
+     * Hides the element = prevents it from being rendered.
+     * 
+     */
     public void hide();
 
+    /**
+     * Shows the element = allows rendering of the element
+     * 
+     */
     public void show();
 
+    /**
+     * Accesor for the tags of the element. Tags are used to filrer UI elements into
+     * categories.
+     * 
+     * @return - {@code ArrayList} of tags.
+     */
     public ArrayList<String> getTags();
 
 }

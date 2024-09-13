@@ -29,7 +29,7 @@ package com.kireiiiiiiii.shooting_stars.interfaces;
 import java.awt.event.MouseEvent;
 
 /**
- * Button interface.
+ * Interface for interactable ui elements.
  * 
  */
 public interface Interactable {
