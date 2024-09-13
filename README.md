@@ -1,4 +1,4 @@
-![alt text](https://github.com/kireiiiiiiii/ShootingStars/blob/master/Resources/banner.png?raw=true)
+![project banner](./project.resources/banner.png)
 
 # ⭐️ Shooting Stars ⭐️
 
