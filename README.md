@@ -1,4 +1,4 @@
-![project banner](./project.resources/banner.png)
+![project banner](./public/banner.png)
 
 # ⭐️ Shooting Stars ⭐️
 
