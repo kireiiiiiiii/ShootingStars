@@ -1,7 +1,7 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 7/27/2024
- *
+ * Github link: https://github.com/kireiiiiiiii/ShootingStars
  *
  *
  *
